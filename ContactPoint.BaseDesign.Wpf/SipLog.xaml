@@ -1,0 +1,50 @@
+﻿<Window x:Class="ContactPoint.BaseDesign.Wpf.SipLog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SIP log" 
+        Height="600" Width="596" 
+        ResizeMode="CanResizeWithGrip" Icon="/ContactPoint.BaseDesign.Wpf;component/Resources/ipphone.ico" ShowInTaskbar="False" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <Style TargetType="ListView" x:Key="CustomListView">
+                        <Style.Resources>
+                            <Style TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#88d0d0d0" />
+                                    </Trigger>
+
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#fff0f0f0" />
+                                    </Trigger>
+                                </Style.Triggers>
+
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Margin" Value="0" />
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <TextBox IsReadOnly="True" IsReadOnlyCaretVisible="False" VerticalScrollBarVisibility="Visible" Text="{Binding Raw}"></TextBox>
+
+        <!--<ListView Style="{StaticResource CustomListView}" ItemsSource="{Binding LogItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding DateTime}" Width="100"></Label>
+                        <Label Content="{Binding Source}" Width="150"></Label>
+                        <Label Content="{Binding Message}"></Label>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
+    </Grid>
+</Window>

@@ -1,0 +1,317 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExceptionReporter", "ExceptionReporter", "{F5F1C452-1853-4FD6-8997-FB3A93E611BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PjSIP", "PjSIP", "{1AF08F84-EF6D-4EE8-BF0C-F4929560AB6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3ED6F8B0-3BFA-4E63-AADF-04098E6ADC2B}"
+	ProjectSection(SolutionItems) = preProject
+		..\.editorconfig = ..\.editorconfig
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+		ContactPoint.sln.DotSettings = ContactPoint.sln.DotSettings
+		ContactPoint.vsext = ContactPoint.vsext
+		IpPhoneKey.snk = IpPhoneKey.snk
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint", "ContactPoint\ContactPoint.csproj", "{C551E320-ABEA-4515-92FA-6D6CE2262C6F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2B1C372E-097F-4268-B1EA-2B918BEBD94B} = {2B1C372E-097F-4268-B1EA-2B918BEBD94B}
+		{60A93330-81F1-46CC-87C6-F38C4B5DBC7B} = {60A93330-81F1-46CC-87C6-F38C4B5DBC7B}
+		{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E} = {5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E}
+		{618762DA-52BA-458F-B709-C92F8EF3F4E9} = {618762DA-52BA-458F-B709-C92F8EF3F4E9}
+		{68C897FA-1B69-41C5-AD99-4B7FB0386152} = {68C897FA-1B69-41C5-AD99-4B7FB0386152}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SipekSdk", "SipekSDK\SipekSdk\SipekSdk.csproj", "{2B1C372E-097F-4268-B1EA-2B918BEBD94B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Core", "ContactPoint.Core\ContactPoint.Core.csproj", "{9590E970-9A52-4430-8E09-22AB36F4A746}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Common", "ContactPoint.Common\ContactPoint.Common.csproj", "{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.BaseDesign", "ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj", "{65FE7F1C-522A-481B-B033-E8DAE7269CF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.Core", "ExceptionReporter\ExceptionReporter\ExceptionReporter.Core.csproj", "{B1FEB096-4729-4DBC-B192-C8912CBA86D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32Mapi", "ExceptionReporter\Win32Mapi\Win32Mapi.csproj", "{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.CallsLog", "ContactPoint.Plugins.CallsLog\ContactPoint.Plugins.CallsLog.csproj", "{55E74C39-8525-402A-9949-52E6146BAE80}"
+	ProjectSection(ProjectDependencies) = postProject
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.HotKeys", "ContactPoint.Plugins.HotKeys\ContactPoint.Plugins.HotKeys.csproj", "{00099B5F-8E23-4405-A711-CEF15298FF03}"
+	ProjectSection(ProjectDependencies) = postProject
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
+		{9590E970-9A52-4430-8E09-22AB36F4A746} = {9590E970-9A52-4430-8E09-22AB36F4A746}
+		{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6} = {E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}
+		{B1FEB096-4729-4DBC-B192-C8912CBA86D1} = {B1FEB096-4729-4DBC-B192-C8912CBA86D1}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.CallTools", "ContactPoint.Plugins.CallTools\ContactPoint.Plugins.CallTools.csproj", "{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.WebServiceAddressBook", "ContactPoint.Plugins.WebServiceAddressBook\ContactPoint.Plugins.WebServiceAddressBook.csproj", "{99CBF9FE-A721-4B70-BDC6-15D75605ED20}"
+	ProjectSection(ProjectDependencies) = postProject
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.BaseDesign.Wpf", "ContactPoint.BaseDesign.Wpf\ContactPoint.BaseDesign.Wpf.csproj", "{DF5CB26D-0EEB-4F52-8064-406ABFB88746}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Contacts", "ContactPoint.Contacts\ContactPoint.Contacts.csproj", "{6F150B66-5634-42B9-8C73-3635A46E906C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.LocalAddressBook", "ContactPoint.Plugins.LocalAddressBook\ContactPoint.Plugins.LocalAddressBook.csproj", "{D743AED5-F49B-47D5-8424-9D3AA15619F4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
+		{6F150B66-5634-42B9-8C73-3635A46E906C} = {6F150B66-5634-42B9-8C73-3635A46E906C}
+		{C73F8CD8-6E51-4681-9010-3586672818C9} = {C73F8CD8-6E51-4681-9010-3586672818C9}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.ContactsUi", "ContactPoint.Plugins.ContactsUi\ContactPoint.Plugins.ContactsUi.csproj", "{C73F8CD8-6E51-4681-9010-3586672818C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
+		{6F150B66-5634-42B9-8C73-3635A46E906C} = {6F150B66-5634-42B9-8C73-3635A46E906C}
+		{DF5CB26D-0EEB-4F52-8064-406ABFB88746} = {DF5CB26D-0EEB-4F52-8064-406ABFB88746}
+		{9590E970-9A52-4430-8E09-22AB36F4A746} = {9590E970-9A52-4430-8E09-22AB36F4A746}
+		{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6} = {E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.WebBrowser", "ContactPoint.Plugins.WebBrowser\ContactPoint.Plugins.WebBrowser.csproj", "{9510C4E1-9CD0-4466-88CD-3CBDFA63831A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4E83807B-6A0B-4ACE-A946-A603797D579A}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet.Config = NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioLibrary", "AudioLibrary", "{8E3667CE-EB8E-4B93-89A2-871FF0C208F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioLibrary", "AudioLibrary\AudioLibrary.csproj", "{618762DA-52BA-458F-B709-C92F8EF3F4E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioLibrary.PjSIP", "AudioLibrary.PjSIP\AudioLibrary.PjSIP.csproj", "{68C897FA-1B69-41C5-AD99-4B7FB0386152}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioLibrary.WMME", "AudioLibrary.WMME\AudioLibrary.WMME.csproj", "{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.PauseNotifications", "ContactPoint.Plugins.PauseNotifications\ContactPoint.Plugins.PauseNotifications.csproj", "{FABC01DB-A76D-4BA3-B63E-3024771A64A1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.CallServiceSms", "ContactPoint.Plugins.CallServiceSms\ContactPoint.Plugins.CallServiceSms.csproj", "{15107324-BAA5-4A03-937A-863FBB85DA81}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C551E320-ABEA-4515-92FA-6D6CE2262C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B1C372E-097F-4268-B1EA-2B918BEBD94B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B1C372E-097F-4268-B1EA-2B918BEBD94B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B1C372E-097F-4268-B1EA-2B918BEBD94B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B1C372E-097F-4268-B1EA-2B918BEBD94B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9590E970-9A52-4430-8E09-22AB36F4A746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9590E970-9A52-4430-8E09-22AB36F4A746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9590E970-9A52-4430-8E09-22AB36F4A746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9590E970-9A52-4430-8E09-22AB36F4A746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65FE7F1C-522A-481B-B033-E8DAE7269CF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1FEB096-4729-4DBC-B192-C8912CBA86D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1FEB096-4729-4DBC-B192-C8912CBA86D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1FEB096-4729-4DBC-B192-C8912CBA86D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1FEB096-4729-4DBC-B192-C8912CBA86D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E74C39-8525-402A-9949-52E6146BAE80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E74C39-8525-402A-9949-52E6146BAE80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E74C39-8525-402A-9949-52E6146BAE80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E74C39-8525-402A-9949-52E6146BAE80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00099B5F-8E23-4405-A711-CEF15298FF03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00099B5F-8E23-4405-A711-CEF15298FF03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00099B5F-8E23-4405-A711-CEF15298FF03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00099B5F-8E23-4405-A711-CEF15298FF03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CBF9FE-A721-4B70-BDC6-15D75605ED20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CBF9FE-A721-4B70-BDC6-15D75605ED20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5CB26D-0EEB-4F52-8064-406ABFB88746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5CB26D-0EEB-4F52-8064-406ABFB88746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5CB26D-0EEB-4F52-8064-406ABFB88746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5CB26D-0EEB-4F52-8064-406ABFB88746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F150B66-5634-42B9-8C73-3635A46E906C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F150B66-5634-42B9-8C73-3635A46E906C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F150B66-5634-42B9-8C73-3635A46E906C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F150B66-5634-42B9-8C73-3635A46E906C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D743AED5-F49B-47D5-8424-9D3AA15619F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D743AED5-F49B-47D5-8424-9D3AA15619F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D743AED5-F49B-47D5-8424-9D3AA15619F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D743AED5-F49B-47D5-8424-9D3AA15619F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C73F8CD8-6E51-4681-9010-3586672818C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73F8CD8-6E51-4681-9010-3586672818C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73F8CD8-6E51-4681-9010-3586672818C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73F8CD8-6E51-4681-9010-3586672818C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9510C4E1-9CD0-4466-88CD-3CBDFA63831A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9510C4E1-9CD0-4466-88CD-3CBDFA63831A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9510C4E1-9CD0-4466-88CD-3CBDFA63831A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9510C4E1-9CD0-4466-88CD-3CBDFA63831A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{618762DA-52BA-458F-B709-C92F8EF3F4E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{618762DA-52BA-458F-B709-C92F8EF3F4E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{618762DA-52BA-458F-B709-C92F8EF3F4E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{618762DA-52BA-458F-B709-C92F8EF3F4E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68C897FA-1B69-41C5-AD99-4B7FB0386152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68C897FA-1B69-41C5-AD99-4B7FB0386152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68C897FA-1B69-41C5-AD99-4B7FB0386152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68C897FA-1B69-41C5-AD99-4B7FB0386152}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15107324-BAA5-4A03-937A-863FBB85DA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15107324-BAA5-4A03-937A-863FBB85DA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15107324-BAA5-4A03-937A-863FBB85DA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15107324-BAA5-4A03-937A-863FBB85DA81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B1C372E-097F-4268-B1EA-2B918BEBD94B} = {1AF08F84-EF6D-4EE8-BF0C-F4929560AB6B}
+		{B1FEB096-4729-4DBC-B192-C8912CBA86D1} = {F5F1C452-1853-4FD6-8997-FB3A93E611BC}
+		{60A93330-81F1-46CC-87C6-F38C4B5DBC7B} = {F5F1C452-1853-4FD6-8997-FB3A93E611BC}
+		{55E74C39-8525-402A-9949-52E6146BAE80} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+		{00099B5F-8E23-4405-A711-CEF15298FF03} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+		{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+		{99CBF9FE-A721-4B70-BDC6-15D75605ED20} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+		{D743AED5-F49B-47D5-8424-9D3AA15619F4} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+		{C73F8CD8-6E51-4681-9010-3586672818C9} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+		{9510C4E1-9CD0-4466-88CD-3CBDFA63831A} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+		{618762DA-52BA-458F-B709-C92F8EF3F4E9} = {8E3667CE-EB8E-4B93-89A2-871FF0C208F4}
+		{68C897FA-1B69-41C5-AD99-4B7FB0386152} = {8E3667CE-EB8E-4B93-89A2-871FF0C208F4}
+		{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E} = {8E3667CE-EB8E-4B93-89A2-871FF0C208F4}
+		{FABC01DB-A76D-4BA3-B63E-3024771A64A1} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+		{15107324-BAA5-4A03-937A-863FBB85DA81} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 22
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://qxzone.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AudioLibrary.PjSIP\\AudioLibrary.PjSIP.csproj
+		SccProjectTopLevelParentUniqueName1 = ContactPoint.sln
+		SccProjectName1 = AudioLibrary.PjSIP
+		SccLocalPath1 = AudioLibrary.PjSIP
+		SccProjectUniqueName2 = AudioLibrary.WMME\\AudioLibrary.WMME.csproj
+		SccProjectTopLevelParentUniqueName2 = ContactPoint.sln
+		SccProjectName2 = AudioLibrary.WMME
+		SccLocalPath2 = AudioLibrary.WMME
+		SccProjectUniqueName3 = AudioLibrary\\AudioLibrary.csproj
+		SccProjectTopLevelParentUniqueName3 = ContactPoint.sln
+		SccProjectName3 = AudioLibrary
+		SccLocalPath3 = AudioLibrary
+		SccProjectUniqueName4 = ContactPoint.BaseDesign.Wpf\\ContactPoint.BaseDesign.Wpf.csproj
+		SccProjectName4 = ContactPoint.BaseDesign.Wpf
+		SccLocalPath4 = ContactPoint.BaseDesign.Wpf
+		SccProjectUniqueName5 = ContactPoint.BaseDesign\\ContactPoint.BaseDesign.csproj
+		SccProjectName5 = ContactPoint.BaseDesign
+		SccLocalPath5 = ContactPoint.BaseDesign
+		SccProjectUniqueName6 = ContactPoint.Common\\ContactPoint.Common.csproj
+		SccProjectName6 = ContactPoint.Common
+		SccLocalPath6 = ContactPoint.Common
+		SccProjectUniqueName7 = ContactPoint.Contacts\\ContactPoint.Contacts.csproj
+		SccProjectName7 = ContactPoint.Contacts
+		SccLocalPath7 = ContactPoint.Contacts
+		SccProjectUniqueName8 = ContactPoint.Core\\ContactPoint.Core.csproj
+		SccProjectName8 = ContactPoint.Core
+		SccLocalPath8 = ContactPoint.Core
+		SccProjectUniqueName9 = ContactPoint.Plugins.CallsLog\\ContactPoint.Plugins.CallsLog.csproj
+		SccProjectTopLevelParentUniqueName9 = ContactPoint.sln
+		SccProjectName9 = ContactPoint.Plugins.CallsLog
+		SccLocalPath9 = ContactPoint.Plugins.CallsLog
+		SccProjectUniqueName10 = ContactPoint.Plugins.CallTools\\ContactPoint.Plugins.CallTools.csproj
+		SccProjectTopLevelParentUniqueName10 = ContactPoint.sln
+		SccProjectName10 = ContactPoint.Plugins.CallTools
+		SccLocalPath10 = ContactPoint.Plugins.CallTools
+		SccProjectUniqueName11 = ContactPoint.Plugins.ContactsUi\\ContactPoint.Plugins.ContactsUi.csproj
+		SccProjectTopLevelParentUniqueName11 = ContactPoint.sln
+		SccProjectName11 = ContactPoint.Plugins.ContactsUi
+		SccLocalPath11 = ContactPoint.Plugins.ContactsUi
+		SccProjectUniqueName12 = ContactPoint.Plugins.HotKeys\\ContactPoint.Plugins.HotKeys.csproj
+		SccProjectTopLevelParentUniqueName12 = ContactPoint.sln
+		SccProjectName12 = ContactPoint.Plugins.HotKeys
+		SccLocalPath12 = ContactPoint.Plugins.HotKeys
+		SccProjectUniqueName13 = ContactPoint.Plugins.LocalAddressBook\\ContactPoint.Plugins.LocalAddressBook.csproj
+		SccProjectTopLevelParentUniqueName13 = ContactPoint.sln
+		SccProjectName13 = ContactPoint.Plugins.LocalAddressBook
+		SccLocalPath13 = ContactPoint.Plugins.LocalAddressBook
+		SccProjectUniqueName14 = ContactPoint.Plugins.WebBrowser\\ContactPoint.Plugins.WebBrowser.csproj
+		SccProjectTopLevelParentUniqueName14 = ContactPoint.sln
+		SccProjectName14 = ContactPoint.Plugins.WebBrowser
+		SccLocalPath14 = ContactPoint.Plugins.WebBrowser
+		SccProjectUniqueName15 = ContactPoint.Plugins.WebServiceAddressBook\\ContactPoint.Plugins.WebServiceAddressBook.csproj
+		SccProjectTopLevelParentUniqueName15 = ContactPoint.sln
+		SccProjectName15 = ContactPoint.Plugins.WebServiceAddressBook
+		SccLocalPath15 = ContactPoint.Plugins.WebServiceAddressBook
+		SccProjectUniqueName16 = ContactPoint\\ContactPoint.csproj
+		SccProjectName16 = ContactPoint
+		SccLocalPath16 = ContactPoint
+		SccProjectUniqueName17 = ExceptionReporter\\ExceptionReporter\\ExceptionReporter.Core.csproj
+		SccProjectTopLevelParentUniqueName17 = ContactPoint.sln
+		SccProjectName17 = ExceptionReporter/ExceptionReporter
+		SccLocalPath17 = ExceptionReporter\\ExceptionReporter
+		SccProjectUniqueName18 = ExceptionReporter\\Win32Mapi\\Win32Mapi.csproj
+		SccProjectTopLevelParentUniqueName18 = ContactPoint.sln
+		SccProjectName18 = ExceptionReporter/Win32Mapi
+		SccLocalPath18 = ExceptionReporter\\Win32Mapi
+		SccProjectUniqueName19 = SipekSDK\\SipekSdk\\SipekSdk.csproj
+		SccProjectTopLevelParentUniqueName19 = ContactPoint.sln
+		SccProjectName19 = SipekSDK/SipekSdk
+		SccLocalPath19 = SipekSDK\\SipekSdk
+		SccProjectUniqueName20 = ContactPoint.Plugins.PauseNotifications\\ContactPoint.Plugins.PauseNotifications.csproj
+		SccProjectTopLevelParentUniqueName20 = ContactPoint.sln
+		SccProjectName20 = ContactPoint.Plugins.PauseNotifications
+		SccLocalPath20 = ContactPoint.Plugins.PauseNotifications
+		SccProjectUniqueName21 = ContactPoint.Plugins.CallServiceSms\\ContactPoint.Plugins.CallServiceSms.csproj
+		SccProjectTopLevelParentUniqueName21 = ContactPoint.sln
+		SccProjectName21 = ContactPoint.Plugins.CallServiceSms
+		SccLocalPath21 = ContactPoint.Plugins.CallServiceSms
+	EndGlobalSection
+EndGlobal

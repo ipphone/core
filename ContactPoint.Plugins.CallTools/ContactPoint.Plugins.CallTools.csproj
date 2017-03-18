@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ContactPoint.Plugins.CallTools</RootNamespace>
+    <AssemblyName>ContactPoint.Plugins.CallTools</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Binaries\Plugins\CallTools\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Binaries\Plugins\CallTools\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\IpPhoneKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.1.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\KryptonWinFormControls.4.4.1.0\lib\net40\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ActionExecutor\ActionExecutorPlugin.cs" />
+    <Compile Include="AutoAnswer\AutoAnswerService.cs" />
+    <Compile Include="CallNotifyWindow\CallNotifyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CallNotifyWindow\CallNotifyControl.Designer.cs">
+      <DependentUpon>CallNotifyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CallNotifyWindow\CallNotifyWindowService.cs" />
+    <Compile Include="CallNotifyWindow\TagsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CallNotifyWindow\TagsControl.Designer.cs">
+      <DependentUpon>TagsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CallToolsOptions.cs" />
+    <Compile Include="CallToolsPlugin.cs" />
+    <Compile Include="OneLine\OneLineService.cs" />
+    <Compile Include="OneLine\OneLinePluginUIElement.cs" />
+    <Compile Include="Pause\AccountStateUiElement.cs" />
+    <Compile Include="Pause\PauseButtonUiElement.cs" />
+    <Compile Include="Pause\PauseUiElement.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ui\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\IpPhoneKey.snk">
+      <Link>IpPhoneKey.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj">
+      <Project>{65FE7F1C-522A-481B-B033-E8DAE7269CF5}</Project>
+      <Name>ContactPoint.BaseDesign</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactPoint.Common\ContactPoint.Common.csproj">
+      <Project>{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}</Project>
+      <Name>ContactPoint.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactPoint.Core\ContactPoint.Core.csproj">
+      <Project>{9590E970-9A52-4430-8E09-22AB36F4A746}</Project>
+      <Name>ContactPoint.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CallNotifyWindow\CallNotifyControl.resx">
+      <DependentUpon>CallNotifyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CallNotifyWindow\TagsControl.resx">
+      <DependentUpon>TagsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ui\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\Speaker %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\call_green_big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\call_red_big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\coffee02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\service01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn-offline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn-online.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

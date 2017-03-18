@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ContactPoint.Common</RootNamespace>
+    <AssemblyName>ContactPoint.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\IpPhoneKey.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Binaries\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Audio\IAudio.cs" />
+    <Compile Include="Audio\IAudioPlayer.cs" />
+    <Compile Include="CallManager\CallState.cs" />
+    <Compile Include="CallManager\ICallStateInfo.cs" />
+    <Compile Include="CallManager\IHeader.cs" />
+    <Compile Include="CallManager\IHeaderCollection.cs" />
+    <Compile Include="CommonDelegates.cs" />
+    <Compile Include="CommonExtensions.cs" />
+    <Compile Include="Contacts\IAddressBook.cs" />
+    <Compile Include="Contacts\IEntity.cs" />
+    <Compile Include="Contacts\IVersionable.cs" />
+    <Compile Include="Contacts\IVersionGenerator.cs" />
+    <Compile Include="Contacts\Local\IAddressBookLocal.cs" />
+    <Compile Include="Contacts\IContact.cs" />
+    <Compile Include="Contacts\Local\IContactEmailLocal.cs" />
+    <Compile Include="Contacts\Local\IContactInfoLocal.cs" />
+    <Compile Include="Contacts\IContactsManager.cs" />
+    <Compile Include="Contacts\IContactInfo.cs" />
+    <Compile Include="Contacts\IContactEmail.cs" />
+    <Compile Include="Contacts\IContactPhone.cs" />
+    <Compile Include="Contacts\IContactTag.cs" />
+    <Compile Include="Contacts\Local\IContactPhoneLocal.cs" />
+    <Compile Include="Contacts\Local\IContactTagLocal.cs" />
+    <Compile Include="IUi.cs" />
+    <Compile Include="PluginManager\IPluginInformation.cs" />
+    <Compile Include="PluginManager\IPluginInformationProvider.cs" />
+    <Compile Include="PluginManager\PluginAttribute.cs" />
+    <Compile Include="ResourceCriticalOperation.cs" />
+    <Compile Include="SipHelper.cs" />
+    <Compile Include="SIP\Account\ISipAccount.cs" />
+    <Compile Include="Audio\AudioDeviceType.cs" />
+    <Compile Include="Audio\IAudioDevice.cs" />
+    <Compile Include="SIP\ISip.cs" />
+    <Compile Include="SIP\Account\SipAccountState.cs" />
+    <Compile Include="SIP\ISipCodec.cs" />
+    <Compile Include="SIP\ISipMessenger.cs" />
+    <Compile Include="SIP\SipDTMFMode.cs" />
+    <Compile Include="SIP\SipTransportType.cs" />
+    <Compile Include="CallManager\CallAction.cs" />
+    <Compile Include="CallManager\CallRemoveReason.cs" />
+    <Compile Include="EMultiType.cs" />
+    <Compile Include="CallManager\ICall.cs" />
+    <Compile Include="CallManager\ICallManager.cs" />
+    <Compile Include="ICore.cs" />
+    <Compile Include="ILogger.cs" />
+    <Compile Include="IMultiValue.cs" />
+    <Compile Include="IService.cs" />
+    <Compile Include="ISettingsManagerSection.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="PluginManager\IPlugin.cs" />
+    <Compile Include="PluginManager\IPluginAction.cs" />
+    <Compile Include="PluginManager\IPluginCheckedUIElement.cs" />
+    <Compile Include="PluginManager\IPluginUIElement.cs" />
+    <Compile Include="PluginManager\IPluginManager.cs" />
+    <Compile Include="SIP\Account\PresenceStatus.cs" />
+    <Compile Include="SIP\Account\PresenceStatusCode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\IpPhoneKey.snk">
+      <Link>IpPhoneKey.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

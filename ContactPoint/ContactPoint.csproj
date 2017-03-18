@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C551E320-ABEA-4515-92FA-6D6CE2262C6F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ContactPoint</RootNamespace>
+    <AssemblyName>ContactPoint</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>callservice.ico</ApplicationIcon>
+    <GenerateManifests>false</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\IpPhoneKey.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <PublishUrl>http://localhost/CallService/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <SupportUrl>http://www.callservice.com.ua</SupportUrl>
+    <TargetCulture>ru</TargetCulture>
+    <ProductName>Softphone</ProductName>
+    <PublisherName>CallService</PublisherName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <AutorunEnabled>true</AutorunEnabled>
+    <TrustUrlParameters>true</TrustUrlParameters>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Binaries\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CONTACTS_DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Binaries\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>true</Prefer32Bit>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ContactPoint.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.1.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\KryptonWinFormControls.4.4.1.0\lib\net40\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=0.0.0.0, Culture=neutral, PublicKeyToken=a9efb54031c0cb17, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MahApps.Metro.0.11.0.36-ALPHA\lib\net40\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContactPointApplicationContext.cs" />
+    <Compile Include="MakePhoneCallMessage.cs" />
+    <Compile Include="SharedFileMessageTransportHost.cs" />
+    <Compile Include="NotifyControls\AudioDeviceChangedNotifyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NotifyControls\AudioDeviceChangedNotifyControl.Designer.cs">
+      <DependentUpon>AudioDeviceChangedNotifyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotifyControls\AudioDevicesAddedNotifyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NotifyControls\AudioDevicesNotifyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NotifyControls\AudioDevicesNotifyControl.Designer.cs">
+      <DependentUpon>AudioDevicesNotifyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotifyControls\AudioDevicesRemovedNotifyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NotifyControls\CallNotifyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NotifyControls\CallNotifyControl.Designer.cs">
+      <DependentUpon>CallNotifyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CaptionStrings\CaptionStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CaptionStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CheckedPluginUIElementCommand.cs" />
+    <Compile Include="ContactForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContactForm.Designer.cs">
+      <DependentUpon>ContactForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoaderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoaderForm.Designer.cs">
+      <DependentUpon>LoaderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuItemWrapper.cs" />
+    <Compile Include="PluginUIElementCommand.cs" />
+    <Compile Include="Services\AudioService.cs" />
+    <Compile Include="Services\AutoAnswerService.cs" />
+    <Compile Include="TimeredBaloon.cs" />
+    <Compile Include="LoggerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerForm.Designer.cs">
+      <DependentUpon>LoggerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyTranspControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\SipAccountStatusViewModel.cs" />
+    <Compile Include="UI\StatusLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\StatusLabel.Designer.cs">
+      <DependentUpon>StatusLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinApiMessageTransport.cs" />
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotifyControls\AudioDeviceChangedNotifyControl.resx">
+      <DependentUpon>AudioDeviceChangedNotifyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotifyControls\AudioDevicesNotifyControl.resx">
+      <DependentUpon>AudioDevicesNotifyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotifyControls\CallNotifyControl.resx">
+      <DependentUpon>CallNotifyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CaptionStrings\CaptionStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CaptionStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContactForm.resx">
+      <DependentUpon>ContactForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoaderForm.resx">
+      <DependentUpon>LoaderForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggerForm.resx">
+      <DependentUpon>LoggerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+      <LastGenOutput>LoggerForm1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ColorSlider.resx">
+      <DependentUpon>ColorSlider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomToolStripRenderer.cs" />
+    <Compile Include="ToolStripUIElementButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TranspControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UILineWrapper.cs" />
+    <Compile Include="UI\ColorSlider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\ColorSlider.designer.cs">
+      <DependentUpon>ColorSlider.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\StatusLabel.resx">
+      <DependentUpon>StatusLabel.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\IpPhoneKey.snk">
+      <Link>IpPhoneKey.snk</Link>
+    </None>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Resources\contacts1.png" />
+    <None Include="Resources\btn-offline.png" />
+    <None Include="Resources\btn-online.png" />
+    <Content Include="Resources\error_fuck.png" />
+    <Content Include="Resources\information_gray.png" />
+    <Content Include="Resources\warning.png" />
+    <None Include="Resources\status_disconnected.png" />
+    <None Include="Resources\status-connecting.png" />
+    <None Include="Resources\status_warning.png" />
+    <None Include="Resources\status_connecting.png" />
+    <None Include="Resources\status_connected.png" />
+    <None Include="Resources\speaker_small.png" />
+    <None Include="Resources\MICROPHONE.png" />
+    <None Include="Resources\sound.gif" />
+    <None Include="pjsipDll.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Resources\ic_dialog_alert.png" />
+    <None Include="Resources\bg.jpg" />
+    <None Include="Resources\bg1.jpg" />
+    <None Include="Resources\back_edit.jpg" />
+    <None Include="Resources\ico_down.jpg" />
+    <None Include="Resources\phone_down.png" />
+    <None Include="Resources\ico_up.jpg" />
+    <None Include="Resources\button_up.png" />
+    <None Include="Resources\button_down.png" />
+    <None Include="Resources\ic_volume_small.png" />
+    <None Include="Resources\mic.png" />
+    <None Include="Resources\Speaker-Icon-png.png" />
+    <None Include="Resources\sym_call_incoming.png" />
+    <None Include="Resources\call_48x48_alpha.png" />
+    <None Include="Resources\call2.png" />
+    <None Include="Resources\call.png" />
+    <None Include="Resources\call1.png" />
+    <None Include="Resources\man.png" />
+    <None Include="Resources\man1.png" />
+    <None Include="Resources\ico_up1.jpg" />
+    <None Include="Resources\call_green_big.png" />
+    <None Include="Resources\call_red_big.png" />
+    <None Include="Resources\green.png" />
+    <None Include="Resources\red_button.png" />
+    <None Include="Resources\settings.png" />
+    <None Include="Resources\renew.png" />
+    <None Include="Resources\contacts.png" />
+    <None Include="Resources\close.png" />
+    <None Include="Resources\close1.png" />
+    <Content Include="callservice.ico" />
+    <None Include="Resources\callservice.jpg" />
+    <None Include="sounds\congestion.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="sounds\dial.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="sounds\ring.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="sounds\ringback.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\our_logo_full21.png" />
+    <None Include="Resources\btn_transfer.png" />
+    <None Include="Resources\icon-play.gif" />
+    <None Include="Resources\shade_bg.png" />
+    <None Include="Resources\logo_small4.png" />
+    <None Include="Resources\logo_small3.png" />
+    <None Include="Resources\logo_small2.png" />
+    <None Include="Resources\logo_small1.png" />
+    <None Include="Resources\logo_small.png" />
+    <None Include="Resources\callservice_dnd.png" />
+    <None Include="Resources\callservice_dnd1.png" />
+    <None Include="Resources\minimize.png" />
+    <None Include="Resources\btn_mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactPoint.BaseDesign.Wpf\ContactPoint.BaseDesign.Wpf.csproj">
+      <Project>{DF5CB26D-0EEB-4F52-8064-406ABFB88746}</Project>
+      <Name>ContactPoint.BaseDesign.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj">
+      <Project>{65FE7F1C-522A-481B-B033-E8DAE7269CF5}</Project>
+      <Name>ContactPoint.BaseDesign</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactPoint.Contacts\ContactPoint.Contacts.csproj">
+      <Project>{6F150B66-5634-42B9-8C73-3635A46E906C}</Project>
+      <Name>ContactPoint.Contacts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactPoint.Core\ContactPoint.Core.csproj">
+      <Project>{9590E970-9A52-4430-8E09-22AB36F4A746}</Project>
+      <Name>ContactPoint.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactPoint.Common\ContactPoint.Common.csproj">
+      <Project>{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}</Project>
+      <Name>ContactPoint.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExceptionReporter\ExceptionReporter\ExceptionReporter.Core.csproj">
+      <Project>{B1FEB096-4729-4DBC-B192-C8912CBA86D1}</Project>
+      <Name>ExceptionReporter.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>if not exist "$(TargetDir)plugins" md "$(TargetDir)plugins"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

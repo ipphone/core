@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://bug.artpoint.com.ua/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://bug.artpoint.com.ua/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://bug.artpoint.com.ua/">
+      <s:element name="CallServiceReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CallServiceReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CallServiceReportResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CallServiceReportSoapIn">
+    <wsdl:part name="parameters" element="tns:CallServiceReport" />
+  </wsdl:message>
+  <wsdl:message name="CallServiceReportSoapOut">
+    <wsdl:part name="parameters" element="tns:CallServiceReportResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ReportSoap">
+    <wsdl:operation name="CallServiceReport">
+      <wsdl:input message="tns:CallServiceReportSoapIn" />
+      <wsdl:output message="tns:CallServiceReportSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReportSoap" type="tns:ReportSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CallServiceReport">
+      <soap:operation soapAction="http://bug.artpoint.com.ua/CallServiceReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ReportSoap12" type="tns:ReportSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CallServiceReport">
+      <soap12:operation soapAction="http://bug.artpoint.com.ua/CallServiceReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Report">
+    <wsdl:port name="ReportSoap" binding="tns:ReportSoap">
+      <soap:address location="http://bug.artpoint.com.ua/Report.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ReportSoap12" binding="tns:ReportSoap12">
+      <soap12:address location="http://bug.artpoint.com.ua/Report.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
