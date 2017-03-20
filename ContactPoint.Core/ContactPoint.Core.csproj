@@ -67,7 +67,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -130,10 +129,6 @@
     <Compile Include="Ui.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AudioLibrary.PjSIP\AudioLibrary.PjSIP.csproj">
-      <Project>{68c897fa-1b69-41c5-ad99-4b7fb0386152}</Project>
-      <Name>AudioLibrary.PjSIP</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AudioLibrary\AudioLibrary.csproj">
       <Project>{618762da-52ba-458f-b709-c92f8ef3f4e9}</Project>
       <Name>AudioLibrary</Name>

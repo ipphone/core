@@ -14,7 +14,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Security;
 using ContactPoint.Common;
-using ContactPoint.Contacts;
 using ContactPoint.Core;
 using ContactPoint.Properties;
 using ContactPoint.Services;
