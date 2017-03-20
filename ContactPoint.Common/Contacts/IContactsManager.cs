@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ContactPoint.Common.Contacts.Local;
 
 namespace ContactPoint.Common.Contacts
@@ -12,7 +10,7 @@ namespace ContactPoint.Common.Contacts
     public interface IContactsManager : IDisposable
     {
         /// <summary>
-        /// 
+        /// Fired when Address book reloaded.
         /// </summary>
         event Action<IAddressBookLocal> AddressBookReloaded;
 

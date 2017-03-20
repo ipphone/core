@@ -16,6 +16,6 @@ using System.Reflection;
 [assembly: AssemblyCopyright("Copyright © ContactPoint")]
 [assembly: AssemblyTrademark("ContactPoint")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.99.9999.9999")]
+[assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.99.9999.9999")]
 

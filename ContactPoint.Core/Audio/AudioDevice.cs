@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 using ContactPoint.Common;
 using ContactPoint.Common.Audio;
 
@@ -9,8 +6,8 @@ namespace ContactPoint.Core.Audio
 {
     internal class AudioDevice : IAudioDevice
     {
-        private AudioLibrary.Interfaces.IAudioDevice _internalAudioDevice;
-        private AsyncCallback _valueChangedCallback;
+        private readonly AudioLibrary.Interfaces.IAudioDevice _internalAudioDevice;
+        private readonly AsyncCallback _valueChangedCallback;
 
         public event Action<IAudioDevice> VolumeChanged;
         public event Action<IAudioDevice> MuteChanged;
@@ -47,11 +44,11 @@ namespace ContactPoint.Core.Audio
         public AudioDevice(IAudio audio, AudioLibrary.Interfaces.IAudioDevice audioDevice)
         {
             _internalAudioDevice = audioDevice;
-            _valueChangedCallback = new AsyncCallback(RaiseEventCallback<IAudioDevice>);
+            _valueChangedCallback = RaiseEventCallback<IAudioDevice>;
             Audio = audio;
 
-            _internalAudioDevice.VolumeChanged += new Action<AudioLibrary.Interfaces.IAudioDevice>(DefaultLineVolumeChanged);
-            _internalAudioDevice.MuteChanged += new Action<AudioLibrary.Interfaces.IAudioDevice>(DefaultLineMuteChanged);
+            _internalAudioDevice.VolumeChanged += DefaultLineVolumeChanged;
+            _internalAudioDevice.MuteChanged += DefaultLineMuteChanged;
         }
 
         public IAudioPlayer CreateAudioPlayer()
@@ -74,12 +71,12 @@ namespace ContactPoint.Core.Audio
 
         void RaiseVolumeChanged()
         {
-            SafeRaiseEvent<IAudioDevice>(VolumeChanged, this, _valueChangedCallback);
+            SafeRaiseEvent(VolumeChanged, this, _valueChangedCallback);
         }
 
         void RaiseMuteChanged()
         {
-            SafeRaiseEvent<IAudioDevice>(MuteChanged, this, _valueChangedCallback);
+            SafeRaiseEvent(MuteChanged, this, _valueChangedCallback);
         }
 
         static void SafeRaiseEvent<T>(Action<T> del, T obj, AsyncCallback asyncCallback)

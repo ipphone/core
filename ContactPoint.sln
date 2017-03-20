@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExceptionReporter", "ExceptionReporter", "{F5F1C452-1853-4FD6-8997-FB3A93E611BC}"
 EndProject
@@ -59,12 +59,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.CallTo
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.WebServiceAddressBook", "ContactPoint.Plugins.WebServiceAddressBook\ContactPoint.Plugins.WebServiceAddressBook.csproj", "{99CBF9FE-A721-4B70-BDC6-15D75605ED20}"
-	ProjectSection(ProjectDependencies) = postProject
-		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
-		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.BaseDesign.Wpf", "ContactPoint.BaseDesign.Wpf\ContactPoint.BaseDesign.Wpf.csproj", "{DF5CB26D-0EEB-4F52-8064-406ABFB88746}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Contacts", "ContactPoint.Contacts\ContactPoint.Contacts.csproj", "{6F150B66-5634-42B9-8C73-3635A46E906C}"
@@ -92,13 +86,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.WebBro
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4E83807B-6A0B-4ACE-A946-A603797D579A}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet.Config = NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioLibrary", "AudioLibrary", "{8E3667CE-EB8E-4B93-89A2-871FF0C208F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioLibrary", "AudioLibrary\AudioLibrary.csproj", "{618762DA-52BA-458F-B709-C92F8EF3F4E9}"
@@ -110,11 +97,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.PauseNotifications", "ContactPoint.Plugins.PauseNotifications\ContactPoint.Plugins.PauseNotifications.csproj", "{FABC01DB-A76D-4BA3-B63E-3024771A64A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
-		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.CallServiceSms", "ContactPoint.Plugins.CallServiceSms\ContactPoint.Plugins.CallServiceSms.csproj", "{15107324-BAA5-4A03-937A-863FBB85DA81}"
-	ProjectSection(ProjectDependencies) = postProject
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
 	EndProjectSection
 EndProject
@@ -164,8 +146,6 @@ Global
 		{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99CBF9FE-A721-4B70-BDC6-15D75605ED20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99CBF9FE-A721-4B70-BDC6-15D75605ED20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF5CB26D-0EEB-4F52-8064-406ABFB88746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF5CB26D-0EEB-4F52-8064-406ABFB88746}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF5CB26D-0EEB-4F52-8064-406ABFB88746}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -202,10 +182,6 @@ Global
 		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15107324-BAA5-4A03-937A-863FBB85DA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15107324-BAA5-4A03-937A-863FBB85DA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15107324-BAA5-4A03-937A-863FBB85DA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15107324-BAA5-4A03-937A-863FBB85DA81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -217,7 +193,6 @@ Global
 		{55E74C39-8525-402A-9949-52E6146BAE80} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
 		{00099B5F-8E23-4405-A711-CEF15298FF03} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
 		{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
-		{99CBF9FE-A721-4B70-BDC6-15D75605ED20} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
 		{D743AED5-F49B-47D5-8424-9D3AA15619F4} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
 		{C73F8CD8-6E51-4681-9010-3586672818C9} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
 		{9510C4E1-9CD0-4466-88CD-3CBDFA63831A} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
@@ -225,93 +200,8 @@ Global
 		{68C897FA-1B69-41C5-AD99-4B7FB0386152} = {8E3667CE-EB8E-4B93-89A2-871FF0C208F4}
 		{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E} = {8E3667CE-EB8E-4B93-89A2-871FF0C208F4}
 		{FABC01DB-A76D-4BA3-B63E-3024771A64A1} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
-		{15107324-BAA5-4A03-937A-863FBB85DA81} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 22
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://qxzone.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = AudioLibrary.PjSIP\\AudioLibrary.PjSIP.csproj
-		SccProjectTopLevelParentUniqueName1 = ContactPoint.sln
-		SccProjectName1 = AudioLibrary.PjSIP
-		SccLocalPath1 = AudioLibrary.PjSIP
-		SccProjectUniqueName2 = AudioLibrary.WMME\\AudioLibrary.WMME.csproj
-		SccProjectTopLevelParentUniqueName2 = ContactPoint.sln
-		SccProjectName2 = AudioLibrary.WMME
-		SccLocalPath2 = AudioLibrary.WMME
-		SccProjectUniqueName3 = AudioLibrary\\AudioLibrary.csproj
-		SccProjectTopLevelParentUniqueName3 = ContactPoint.sln
-		SccProjectName3 = AudioLibrary
-		SccLocalPath3 = AudioLibrary
-		SccProjectUniqueName4 = ContactPoint.BaseDesign.Wpf\\ContactPoint.BaseDesign.Wpf.csproj
-		SccProjectName4 = ContactPoint.BaseDesign.Wpf
-		SccLocalPath4 = ContactPoint.BaseDesign.Wpf
-		SccProjectUniqueName5 = ContactPoint.BaseDesign\\ContactPoint.BaseDesign.csproj
-		SccProjectName5 = ContactPoint.BaseDesign
-		SccLocalPath5 = ContactPoint.BaseDesign
-		SccProjectUniqueName6 = ContactPoint.Common\\ContactPoint.Common.csproj
-		SccProjectName6 = ContactPoint.Common
-		SccLocalPath6 = ContactPoint.Common
-		SccProjectUniqueName7 = ContactPoint.Contacts\\ContactPoint.Contacts.csproj
-		SccProjectName7 = ContactPoint.Contacts
-		SccLocalPath7 = ContactPoint.Contacts
-		SccProjectUniqueName8 = ContactPoint.Core\\ContactPoint.Core.csproj
-		SccProjectName8 = ContactPoint.Core
-		SccLocalPath8 = ContactPoint.Core
-		SccProjectUniqueName9 = ContactPoint.Plugins.CallsLog\\ContactPoint.Plugins.CallsLog.csproj
-		SccProjectTopLevelParentUniqueName9 = ContactPoint.sln
-		SccProjectName9 = ContactPoint.Plugins.CallsLog
-		SccLocalPath9 = ContactPoint.Plugins.CallsLog
-		SccProjectUniqueName10 = ContactPoint.Plugins.CallTools\\ContactPoint.Plugins.CallTools.csproj
-		SccProjectTopLevelParentUniqueName10 = ContactPoint.sln
-		SccProjectName10 = ContactPoint.Plugins.CallTools
-		SccLocalPath10 = ContactPoint.Plugins.CallTools
-		SccProjectUniqueName11 = ContactPoint.Plugins.ContactsUi\\ContactPoint.Plugins.ContactsUi.csproj
-		SccProjectTopLevelParentUniqueName11 = ContactPoint.sln
-		SccProjectName11 = ContactPoint.Plugins.ContactsUi
-		SccLocalPath11 = ContactPoint.Plugins.ContactsUi
-		SccProjectUniqueName12 = ContactPoint.Plugins.HotKeys\\ContactPoint.Plugins.HotKeys.csproj
-		SccProjectTopLevelParentUniqueName12 = ContactPoint.sln
-		SccProjectName12 = ContactPoint.Plugins.HotKeys
-		SccLocalPath12 = ContactPoint.Plugins.HotKeys
-		SccProjectUniqueName13 = ContactPoint.Plugins.LocalAddressBook\\ContactPoint.Plugins.LocalAddressBook.csproj
-		SccProjectTopLevelParentUniqueName13 = ContactPoint.sln
-		SccProjectName13 = ContactPoint.Plugins.LocalAddressBook
-		SccLocalPath13 = ContactPoint.Plugins.LocalAddressBook
-		SccProjectUniqueName14 = ContactPoint.Plugins.WebBrowser\\ContactPoint.Plugins.WebBrowser.csproj
-		SccProjectTopLevelParentUniqueName14 = ContactPoint.sln
-		SccProjectName14 = ContactPoint.Plugins.WebBrowser
-		SccLocalPath14 = ContactPoint.Plugins.WebBrowser
-		SccProjectUniqueName15 = ContactPoint.Plugins.WebServiceAddressBook\\ContactPoint.Plugins.WebServiceAddressBook.csproj
-		SccProjectTopLevelParentUniqueName15 = ContactPoint.sln
-		SccProjectName15 = ContactPoint.Plugins.WebServiceAddressBook
-		SccLocalPath15 = ContactPoint.Plugins.WebServiceAddressBook
-		SccProjectUniqueName16 = ContactPoint\\ContactPoint.csproj
-		SccProjectName16 = ContactPoint
-		SccLocalPath16 = ContactPoint
-		SccProjectUniqueName17 = ExceptionReporter\\ExceptionReporter\\ExceptionReporter.Core.csproj
-		SccProjectTopLevelParentUniqueName17 = ContactPoint.sln
-		SccProjectName17 = ExceptionReporter/ExceptionReporter
-		SccLocalPath17 = ExceptionReporter\\ExceptionReporter
-		SccProjectUniqueName18 = ExceptionReporter\\Win32Mapi\\Win32Mapi.csproj
-		SccProjectTopLevelParentUniqueName18 = ContactPoint.sln
-		SccProjectName18 = ExceptionReporter/Win32Mapi
-		SccLocalPath18 = ExceptionReporter\\Win32Mapi
-		SccProjectUniqueName19 = SipekSDK\\SipekSdk\\SipekSdk.csproj
-		SccProjectTopLevelParentUniqueName19 = ContactPoint.sln
-		SccProjectName19 = SipekSDK/SipekSdk
-		SccLocalPath19 = SipekSDK\\SipekSdk
-		SccProjectUniqueName20 = ContactPoint.Plugins.PauseNotifications\\ContactPoint.Plugins.PauseNotifications.csproj
-		SccProjectTopLevelParentUniqueName20 = ContactPoint.sln
-		SccProjectName20 = ContactPoint.Plugins.PauseNotifications
-		SccLocalPath20 = ContactPoint.Plugins.PauseNotifications
-		SccProjectUniqueName21 = ContactPoint.Plugins.CallServiceSms\\ContactPoint.Plugins.CallServiceSms.csproj
-		SccProjectTopLevelParentUniqueName21 = ContactPoint.sln
-		SccProjectName21 = ContactPoint.Plugins.CallServiceSms
-		SccLocalPath21 = ContactPoint.Plugins.CallServiceSms
 	EndGlobalSection
 EndGlobal

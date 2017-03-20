@@ -12,7 +12,7 @@
     <AssemblyName>ContactPoint</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>callservice.ico</ApplicationIcon>
+    <ApplicationIcon>ipphone.ico</ApplicationIcon>
     <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -85,9 +85,8 @@
       <HintPath>..\packages\KryptonWinFormControls.4.4.1.0\lib\net40\ComponentFactory.Krypton.Toolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=0.0.0.0, Culture=neutral, PublicKeyToken=a9efb54031c0cb17, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MahApps.Metro.0.11.0.36-ALPHA\lib\net40\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.4.3.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -104,6 +103,9 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
@@ -274,7 +276,6 @@
     <None Include="..\IpPhoneKey.snk">
       <Link>IpPhoneKey.snk</Link>
     </None>
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -324,7 +325,7 @@
     <None Include="Resources\contacts.png" />
     <None Include="Resources\close.png" />
     <None Include="Resources\close1.png" />
-    <Content Include="callservice.ico" />
+    <Content Include="ipphone.ico" />
     <None Include="Resources\callservice.jpg" />
     <None Include="sounds\congestion.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -354,7 +355,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContactPoint.BaseDesign.Wpf\ContactPoint.BaseDesign.Wpf.csproj">
-      <Project>{DF5CB26D-0EEB-4F52-8064-406ABFB88746}</Project>
+      <Project>{df5cb26d-0eeb-4f52-8064-406abfb88746}</Project>
       <Name>ContactPoint.BaseDesign.Wpf</Name>
     </ProjectReference>
     <ProjectReference Include="..\ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj">

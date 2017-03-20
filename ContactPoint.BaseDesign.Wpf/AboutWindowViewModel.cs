@@ -1,13 +1,12 @@
-﻿using System;
+﻿// ReSharper disable InconsistentNaming
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Windows;
 using ContactPoint.Common;
 using ContactPoint.Common.PluginManager;
-using ContactPoint.Security;
-using Microsoft.Win32;
+using ContactPoint.Core.Security;
 
 namespace ContactPoint.BaseDesign.Wpf
 {
@@ -15,32 +14,34 @@ namespace ContactPoint.BaseDesign.Wpf
     {
         public string Version { get; private set; }
         public IEnumerable<PluginInformationViewModel> Plugins { get; private set; }
-        public SecurityLicenseContent License { get; private set; }
+        public SecurityLicenseContent License { get; }
         public string MachineId { get; private set; }
         public string ImageUri { get; private set; }
 
-        public AboutWindowViewModel(ICore core)
+        public AboutWindowViewModel(ICore core, SecurityLicenseContent license = null)
         {
-            try
-            {
-                using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\ContactPoint\IpPhone"))
-                {
-                    if (key != null)
-                    {
-                        var licensePack = (byte[]) key.GetValue("LicenseObject");
-                        License = SecurityLicenseProvider.GetLicense(licensePack);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.LogWarn(e, "Can't get license.");
-            }
+            License = license;
+            //try
+            //{
+            //    using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\ContactPoint\IpPhone"))
+            //    {
+            //        if (key != null)
+            //        {
+            //            var licensePack = (byte[]) key.GetValue("LicenseObject");
+
+            //            //var licenseProvider = core.GetService<LicenseProvider>().GetLicense(licensePack);
+            //        }
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.LogWarn(e, "Can't get license.");
+            //}
 
             ImageUri = Path.GetFullPath("partner_logo.png");
             Version = core.GetType().Assembly.GetName().Version.ToString(4);
             Plugins = core.PluginManager.Plugins.Select(x => new PluginInformationViewModel(x, License));
-            MachineId = string.Join(":", SecurityLicenseProvider.GetMachineId());
+            MachineId = "NOT SUPPORTED"; //string.Join(":", SecurityLicenseProvider.GetMachineId());
         }
     }
 
@@ -71,15 +72,19 @@ namespace ContactPoint.BaseDesign.Wpf
                     var token =
                         license.Tokens.FirstOrDefault(
                             x =>
-                            x.AssemblyKey.SequenceEqual(plugin.GetInstance().GetType().Assembly.GetName().GetPublicKey()));
+                                x.AssemblyKey.SequenceEqual(
+                                    plugin.GetInstance().GetType().Assembly.GetName().GetPublicKey()));
 
                     if (token != null)
                     {
                         IsLicensed = true;
-                        LicenseExpires = token.ExpireDate.HasValue ? token.ExpireDate.Value.ToString() : "never";
+                        LicenseExpires = token.ExpireDate?.ToString() ?? "never";
                     }
                 }
-                catch { }
+                catch (Exception e)
+                {
+                    Logger.LogWarn(e);
+                }
             }
         }
     }
