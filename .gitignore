@@ -11,6 +11,7 @@
 *.userprefs
 
 # Build results
+[Bb]inaries/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -250,3 +251,4 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/*.DotSettings

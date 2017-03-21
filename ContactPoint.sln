@@ -10,10 +10,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3ED6F8B0-3BFA-4E63-AADF-04098E6ADC2B}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
+		.gitignore = .gitignore
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		ContactPoint.sln.DotSettings = ContactPoint.sln.DotSettings
 		ContactPoint.vsext = ContactPoint.vsext
 		IpPhoneKey.snk = IpPhoneKey.snk
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint", "ContactPoint\ContactPoint.csproj", "{C551E320-ABEA-4515-92FA-6D6CE2262C6F}"
