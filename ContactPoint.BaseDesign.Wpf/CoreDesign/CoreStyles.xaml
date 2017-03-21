@@ -1,0 +1,62 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTemplate TargetType="Button" x:Key="t_flatButton">
+        <ControlTemplate.Resources>
+            <Storyboard x:Key="MouseOverAnimation">
+                <ColorAnimation Storyboard.TargetName="ButtonBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2">
+                    <ColorAnimation.To>
+                        <Color A="80" />
+                    </ColorAnimation.To>
+                </ColorAnimation>
+            </Storyboard>
+            
+            <Storyboard x:Key="MouseOutAnimation" FillBehavior="Stop">
+                <ColorAnimation Storyboard.TargetName="ButtonBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2" To="{TemplateBinding Foreground}" />
+            </Storyboard>
+
+            <!--<Storyboard x:Key="MouseDownAnimation">
+                <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop1" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor2}" Duration="0:0:0.05" />
+                <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop2" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor2}" Duration="0:0:0.05" />
+            </Storyboard>
+            <Storyboard x:Key="MouseUpAnimation" FillBehavior="Stop">
+                <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop1" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor1}" Duration="0:0:0.05" />
+                <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop2" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor2}" Duration="0:0:0.05" />
+            </Storyboard>-->
+        </ControlTemplate.Resources>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource MouseOverAnimation}" />
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource MouseOutAnimation}" />
+                </Trigger.ExitActions>
+            </Trigger>
+
+            <!--<Trigger Property="IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource MouseDownAnimation}" />
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource MouseUpAnimation}" />
+                </Trigger.ExitActions>
+            </Trigger>-->
+        </ControlTemplate.Triggers>
+
+        <Border Padding="{TemplateBinding Padding}" BorderThickness="0">
+            <Border.Background>
+                <SolidColorBrush x:Name="ButtonBrush" Color="{TemplateBinding Foreground}" />
+            </Border.Background>
+
+            <ContentPresenter />
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate TargetType="Button" x:Key="t_bottomButton">
+        <Border Padding="{TemplateBinding Padding}" BorderThickness="0" Background="#c0c0c0">
+            <ContentPresenter VerticalAlignment="Center" />
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>

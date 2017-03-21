@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DF5CB26D-0EEB-4F52-8064-406ABFB88746}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ContactPoint.BaseDesign.Wpf</RootNamespace>
+    <AssemblyName>ContactPoint.BaseDesign.Wpf</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Binaries\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AboutWindowViewModel.cs" />
+    <Compile Include="AttachedCommands\BehaviorBinding.cs" />
+    <Compile Include="AttachedCommands\CommandBehavior.cs" />
+    <Compile Include="AttachedCommands\CommandBehaviorBinding.cs" />
+    <Compile Include="AttachedCommands\CommandBehaviorCollection.cs" />
+    <Compile Include="AttachedCommands\EventHandlerGenerator.cs" />
+    <Compile Include="AttachedCommands\ExecutionStrategy.cs" />
+    <Compile Include="AttachedCommands\SimpleCommand.cs" />
+    <Compile Include="Controls\CallButton.xaml.cs">
+      <DependentUpon>CallButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CircleButton.xaml.cs">
+      <DependentUpon>CircleButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoreDesign\PhoneView.xaml.cs">
+      <DependentUpon>PhoneView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoreDesign\PhoneViewModel.cs" />
+    <Compile Include="CoreDesign\PhoneWindow.xaml.cs">
+      <DependentUpon>PhoneWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="SipLog.xaml.cs">
+      <DependentUpon>SipLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SipLogViewModel.cs" />
+    <Compile Include="ViewModel.cs" />
+    <AppDesigner Include="Properties\" />
+    <Compile Include="WindowHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CallButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\CircleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoreDesign\CoreStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoreDesign\PhoneView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoreDesign\PhoneWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\IconsNonShared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SipLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\button_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ipphone.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactPoint.Common\ContactPoint.Common.csproj">
+      <Project>{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}</Project>
+      <Name>ContactPoint.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactPoint.Core\ContactPoint.Core.csproj">
+      <Project>{9590E970-9A52-4430-8E09-22AB36F4A746}</Project>
+      <Name>ContactPoint.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\IpPhoneKey.snk">
+      <Link>IpPhoneKey.snk</Link>
+    </None>
+    <None Include="packages.config" />
+    <Resource Include="Resources\Entypo.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon-lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\logo_small4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\contacts.png" />
+    <Resource Include="Resources\contacts1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CoreDesign\Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\close1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\logo_small_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\hangup16_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\incoming20_20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\incoming2x20_20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\expander.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\corner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,11 @@
+﻿{
+    "extensions": {
+        "mandatory": [
+            {
+                "name": "EditorConfig",
+                "link": "http://editorconfig.org/",
+                "productId": "EditorConfig..5cd8e6a2-be43-4fcc-a345-40f6cc1e9c9f"
+            }
+        ]
+    }
+}

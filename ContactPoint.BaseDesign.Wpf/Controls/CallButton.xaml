@@ -1,0 +1,71 @@
+﻿<Button x:Class="ContactPoint.BaseDesign.Wpf.Controls.CallButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="32" d:DesignWidth="32">
+    <Button.Template>
+        <ControlTemplate TargetType="Button">
+            <ControlTemplate.Resources>
+                <Color x:Key="ActiveGradientColor1">#7763c412</Color>
+                <Color x:Key="ActiveGradientColor2">#ff3fbb05</Color>
+                <Color x:Key="FillColor1">#cc63c412</Color>
+                <Color x:Key="FillColor2">#ff3fbb05</Color>
+
+                <Storyboard x:Key="MouseOverAnimation">
+                    <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop1" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor1}" Duration="0:0:0.2" />
+                    <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop2" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor2}" Duration="0:0:0.2" />
+                </Storyboard>
+                <Storyboard x:Key="MouseOutAnimation" FillBehavior="Stop">
+                    <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop1" Storyboard.TargetProperty="Color" To="{StaticResource FillColor1}" Duration="0:0:0.2" />
+                    <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop2" Storyboard.TargetProperty="Color" To="{StaticResource FillColor2}" Duration="0:0:0.2" />
+                </Storyboard>
+
+                <Storyboard x:Key="MouseDownAnimation">
+                    <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop1" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor2}" Duration="0:0:0.05" />
+                    <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop2" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor2}" Duration="0:0:0.05" />
+                </Storyboard>
+                <Storyboard x:Key="MouseUpAnimation" FillBehavior="Stop">
+                    <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop1" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor1}" Duration="0:0:0.05" />
+                    <ColorAnimation Storyboard.TargetName="ButtonBorderGradientStop2" Storyboard.TargetProperty="Color" To="{StaticResource ActiveGradientColor2}" Duration="0:0:0.05" />
+                </Storyboard>
+            </ControlTemplate.Resources>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource MouseOverAnimation}" />
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource MouseOutAnimation}" />
+                    </Trigger.ExitActions>
+                </Trigger>
+                
+                <Trigger Property="IsPressed" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource MouseDownAnimation}" />
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource MouseUpAnimation}" />
+                    </Trigger.ExitActions>
+                </Trigger>
+            </ControlTemplate.Triggers>
+
+            <Border CornerRadius="6" Padding="5">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop x:Name="ButtonBorderGradientStop1" Offset="0" Color="{StaticResource FillColor1}" />
+                        <GradientStop x:Name="ButtonBorderGradientStop2" Offset="0.5" Color="{StaticResource FillColor2}" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Border.BorderBrush>
+                    <SolidColorBrush x:Name="ButtonBorderBrush" Color="{StaticResource FillColor2}" />
+                </Border.BorderBrush>
+
+                <Image Source="/ContactPoint.BaseDesign.Wpf;component/Resources/button_up.png" />
+            </Border>
+        </ControlTemplate>
+    </Button.Template>
+</Button>
