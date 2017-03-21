@@ -16,8 +16,8 @@
     <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\IpPhoneKey.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>false</SignAssembly>
+    
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>

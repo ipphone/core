@@ -15,8 +15,8 @@
     <StartupObject>
     </StartupObject>
     <ApplicationIcon>warning.ico</ApplicationIcon>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\IpPhoneKey.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>false</SignAssembly>
+    
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
