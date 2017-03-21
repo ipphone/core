@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using ContactPoint.Common;
 using ContactPoint.Common.PluginManager;
+using ContactPoint.Core.Helpers;
+using ContactPoint.Core.Settings;
 
 namespace ContactPoint.Core.PluginManager
 {

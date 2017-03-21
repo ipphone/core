@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using ContactPoint.Common;
+﻿using System.Data.SQLite;
 
 namespace ContactPoint.Contacts.Schemas
 {

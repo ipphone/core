@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ContactPoint.Common.Contacts;
 using ContactPoint.Common.Contacts.Local;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Locals
 {
-    internal class Contact : IContact, IEntity
+    internal class Contact : IContact
     {
         private readonly List<ContactInfoLocal> _contactInfos = new List<ContactInfoLocal>();
         private string _firstName = String.Empty;

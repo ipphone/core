@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ContactPoint.Common.Contacts;
-using ContactPoint.Common.Contacts.Local;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Fakes
 {
     internal class AddressBookFake : IAddressBook
     {

@@ -67,33 +67,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddressBookFake.cs" />
-    <Compile Include="AddressBookLocal.cs" />
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Fakes\AddressBookFake.cs" />
+    <Compile Include="Locals\AddressBookLocal.cs" />
     <Compile Include="AddressBookUpdatingNotifyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="AddressBookUpdatingNotifyControl.Designer.cs">
       <DependentUpon>AddressBookUpdatingNotifyControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ContactEmailLocal.cs" />
-    <Compile Include="ContactInfoLocal.cs" />
-    <Compile Include="ContactPhoneLocal.cs" />
+    <Compile Include="Locals\ContactEmailLocal.cs" />
+    <Compile Include="Locals\ContactInfoLocal.cs" />
+    <Compile Include="Locals\ContactPhoneLocal.cs" />
     <Compile Include="ContactsManager.cs" />
-    <Compile Include="Contact.cs" />
+    <Compile Include="Locals\Contact.cs" />
+    <Compile Include="EnsuredResourceCriticalOperation.cs" />
     <Compile Include="ObservableCollectionMapperConverter.cs" />
     <Compile Include="ObservableDictionary.cs" />
     <Compile Include="ObservableDictionaryValuesMapperConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceCriticalOperation.cs" />
     <Compile Include="Schemas\DatabaseSchema.cs" />
     <Compile Include="Schemas\InitialSchema.cs" />
     <Compile Include="Schemas\SchemaV1.cs" />
     <Compile Include="Schemas\SchemaV2.cs" />
     <Compile Include="SqliteExtensions.cs" />
-    <Compile Include="TagLocal.cs" />
-    <Compile Include="UpdateTask.cs" />
-    <Compile Include="UpdateWatcher.cs" />
-    <Compile Include="Versionable.cs" />
-    <Compile Include="VersionGeneratorFake.cs" />
+    <Compile Include="Locals\TagLocal.cs" />
+    <Compile Include="Updater\UpdateTask.cs" />
+    <Compile Include="Updater\UpdateWatcher.cs" />
+    <Compile Include="Locals\VersionableLocal.cs" />
+    <Compile Include="Fakes\VersionGeneratorFake.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\IpPhoneKey.snk">

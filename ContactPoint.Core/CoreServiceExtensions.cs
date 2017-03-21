@@ -5,7 +5,7 @@ using ContactPoint.Common;
 
 namespace ContactPoint.Core
 {
-    public static class CoreDynamicServiceExtensions
+    public static class CoreServiceExtensions
     {
         private static readonly ConcurrentDictionary<Type, Func<ICore, object>> ServiceFactories = new ConcurrentDictionary<Type, Func<ICore, object>>();
 

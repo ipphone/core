@@ -6,6 +6,7 @@ using System.Xml.XPath;
 using ContactPoint.Common;
 using System.IO;
 using System.Xml.Serialization;
+using ContactPoint.Core.Settings.DataStructures;
 
 namespace ContactPoint.Core.Settings.Loaders
 {

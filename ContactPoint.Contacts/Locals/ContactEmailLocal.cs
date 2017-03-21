@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 using ContactPoint.Common.Contacts;
 using ContactPoint.Common.Contacts.Local;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Locals
 {
-    internal class ContactEmailLocal : Versionable, IContactEmailLocal
+    internal class ContactEmailLocal : VersionableLocal, IContactEmailLocal
     {
         private string _comment = String.Empty;
         private string _email = String.Empty;

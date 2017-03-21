@@ -92,7 +92,7 @@
     <Compile Include="CallManager\Header.cs" />
     <Compile Include="CallManager\HeaderCollection.cs" />
     <Compile Include="Core.cs" />
-    <Compile Include="CoreDynamicServiceExtensions.cs" />
+    <Compile Include="CoreServiceExtensions.cs" />
     <Compile Include="CoreLoader.cs" />
     <Compile Include="Helpers\ReflectionPropertyCloner.cs" />
     <Compile Include="PluginManager\ExternallyConfigurablePluginInformationProvider.cs" />
@@ -106,22 +106,22 @@
     <Compile Include="PluginManager\PluginUIElementBase.cs" />
     <Compile Include="PluginManager\ReflectionPluginInformationProvider.cs" />
     <Compile Include="PluginManager\TypeBasedPluginInformationProvider.cs" />
-    <Compile Include="CoreSettings.cs" />
-    <Compile Include="CoreWrapperExtensions.cs" />
+    <Compile Include="Settings\CoreSettings.cs" />
+    <Compile Include="Helpers\CoreWrapperExtensions.cs" />
     <Compile Include="PluginManager\PluginManagerWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CallManager\Call.cs" />
     <Compile Include="CallManager\CallManager.cs" />
     <Compile Include="Security\SecurityLicenseContent.cs" />
     <Compile Include="Security\SecurityTokenContent.cs" />
-    <Compile Include="Settings\ISettingsLoader.cs" />
-    <Compile Include="Settings\LegacySettingsManagerSection.cs" />
+    <Compile Include="Settings\Loaders\ISettingsLoader.cs" />
+    <Compile Include="Settings\DataStructures\LegacySettingsManagerSection.cs" />
     <Compile Include="Settings\Loaders\SettingsLoaderV1.cs" />
     <Compile Include="Settings\Loaders\SettingsLoaderV2.cs" />
     <Compile Include="Settings\Loaders\SettingsLoaderV3.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
-    <Compile Include="Settings\SettingsManagerSection.cs" />
-    <Compile Include="Settings\SettingsRawItem.cs" />
+    <Compile Include="Settings\DataStructures\SettingsManagerSection.cs" />
+    <Compile Include="Settings\DataStructures\SettingsRawItem.cs" />
     <Compile Include="SIP\Account\SipAccount.cs" />
     <Compile Include="SIP\SIP.cs" />
     <Compile Include="SIP\SipCodec.cs" />
@@ -150,7 +150,6 @@
     <None Include="..\IpPhoneKey.snk">
       <Link>IpPhoneKey.snk</Link>
     </None>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

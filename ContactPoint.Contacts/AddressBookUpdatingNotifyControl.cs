@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ContactPoint.BaseDesign.BaseNotifyControls;
+using ContactPoint.Contacts.Updater;
 using Action = System.Action;
 
 namespace ContactPoint.Contacts

@@ -99,7 +99,6 @@
     <Compile Include="PluginManager\IPluginInformation.cs" />
     <Compile Include="PluginManager\IPluginInformationProvider.cs" />
     <Compile Include="PluginManager\PluginAttribute.cs" />
-    <Compile Include="ResourceCriticalOperation.cs" />
     <Compile Include="SipHelper.cs" />
     <Compile Include="SIP\Account\ISipAccount.cs" />
     <Compile Include="Audio\AudioDeviceType.cs" />
@@ -112,12 +111,9 @@
     <Compile Include="SIP\SipTransportType.cs" />
     <Compile Include="CallManager\CallAction.cs" />
     <Compile Include="CallManager\CallRemoveReason.cs" />
-    <Compile Include="EMultiType.cs" />
     <Compile Include="CallManager\ICall.cs" />
     <Compile Include="CallManager\ICallManager.cs" />
     <Compile Include="ICore.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="IMultiValue.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="ISettingsManagerSection.cs" />
     <Compile Include="Logger.cs" />

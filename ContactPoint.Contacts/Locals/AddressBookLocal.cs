@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ContactPoint.Common;
 using ContactPoint.Common.Contacts;
 using ContactPoint.Common.Contacts.Local;
+using ContactPoint.Contacts.Fakes;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Locals
 {
     internal class AddressBookLocal : IAddressBookLocal
     {
         private readonly ContactsManager _contactsManager;
-        private IAddressBook _instance = null;
+        private IAddressBook _instance;
 
         public long Id { get; set; }
         public int OrderNumber { get; set; }

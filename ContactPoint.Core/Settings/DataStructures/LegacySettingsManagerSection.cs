@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using ContactPoint.Core.Settings.Loaders;
 
-namespace ContactPoint.Core.Settings
+namespace ContactPoint.Core.Settings.DataStructures
 {
     internal class LegacySettingsManagerSection : SettingsManagerSection
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
 using ContactPoint.Common;
 using ContactPoint.Common.Contacts;
+using ContactPoint.Contacts.Locals;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Updater
 {
     internal class UpdateTask
     {
@@ -24,7 +24,7 @@ namespace ContactPoint.Contacts
             private set 
             { 
                 _currentStateString = value;
-                if (StateChanged != null) StateChanged();
+                StateChanged?.Invoke();
             }
         }
 

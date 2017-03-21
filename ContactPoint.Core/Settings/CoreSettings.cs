@@ -4,7 +4,7 @@ using ContactPoint.Common.Contacts;
 using ContactPoint.Common.PluginManager;
 using ContactPoint.Common.SIP;
 
-namespace ContactPoint.Core
+namespace ContactPoint.Core.Settings
 {
     class CoreSettings
     {

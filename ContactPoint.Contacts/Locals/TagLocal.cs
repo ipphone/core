@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ContactPoint.Common.Contacts;
 using ContactPoint.Common.Contacts.Local;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Locals
 {
-    internal class TagLocal : Versionable, IContactTagLocal, IEntity
+    internal class TagLocal : VersionableLocal, IContactTagLocal, IEntity
     {
         private readonly ContactsManager _contactsManager;
         private string _name = String.Empty;

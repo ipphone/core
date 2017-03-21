@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.XPath;
 using System.Collections;
 using ContactPoint.Common;
+using ContactPoint.Core.Settings.DataStructures;
 
 namespace ContactPoint.Core.Settings.Loaders
 {

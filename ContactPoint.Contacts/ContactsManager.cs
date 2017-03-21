@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using ContactPoint.Common;
 using ContactPoint.Common.Contacts;
 using ContactPoint.Common.Contacts.Local;
+using ContactPoint.Contacts.Locals;
 using ContactPoint.Contacts.Schemas;
+using ContactPoint.Contacts.Updater;
 
 namespace ContactPoint.Contacts
 {

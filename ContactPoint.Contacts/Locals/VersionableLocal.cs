@@ -1,9 +1,9 @@
 ﻿using ContactPoint.Common.Contacts;
 using ContactPoint.Common.Contacts.Local;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Locals
 {
-    internal class Versionable : IVersionable
+    internal class VersionableLocal : IVersionable
     {
         private readonly IAddressBookLocal _addressBookLocal;
         private bool _isChanged;
@@ -21,7 +21,7 @@ namespace ContactPoint.Contacts
             get { return _addressBookLocal.VersionGenerator; }
         }
 
-        public Versionable(IAddressBookLocal addressBookLocal)
+        public VersionableLocal(IAddressBookLocal addressBookLocal)
         {
             _addressBookLocal = addressBookLocal;
         }

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ContactPoint.Common.Contacts;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Fakes
 {
     internal class VersionGeneratorFake : IVersionGenerator
     {

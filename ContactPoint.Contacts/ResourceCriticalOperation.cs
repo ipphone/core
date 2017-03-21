@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
+using ContactPoint.Common;
 
-namespace ContactPoint.Common
+namespace ContactPoint.Contacts
 {
     public class ResourceCriticalOperation : IDisposable
     {
@@ -54,20 +55,6 @@ namespace ContactPoint.Common
         protected virtual bool Lock(object resource)
         {
             return Monitor.TryEnter(resource, _timeout);
-        }
-    }
-
-    public class EnsuredResourceCriticalOperation : ResourceCriticalOperation
-    {
-        public EnsuredResourceCriticalOperation(params object[] resources)
-            : base(resources)
-        { }
-
-        protected override bool Lock(object resource)
-        {
-            Monitor.Enter(resource);
-
-            return true;
         }
     }
 }

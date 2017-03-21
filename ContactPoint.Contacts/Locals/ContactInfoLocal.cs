@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using ContactPoint.Common.Contacts;
 using ContactPoint.Common.Contacts.Local;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Locals
 {
-    internal class ContactInfoLocal : Versionable, IContactInfoLocal
+    internal class ContactInfoLocal : VersionableLocal, IContactInfoLocal
     {
         private readonly ContactsManager _contactsManager;
         private string _firstName;

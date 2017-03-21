@@ -6,6 +6,7 @@ using System.IO;
 using System.Xml;
 using System.Linq;
 using System.Xml.XPath;
+using ContactPoint.Core.Settings.DataStructures;
 using ContactPoint.Core.Settings.Loaders;
 
 namespace ContactPoint.Core.Settings

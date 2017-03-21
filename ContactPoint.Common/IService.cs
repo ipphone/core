@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ContactPoint.Common
+﻿namespace ContactPoint.Common
 {
     public delegate void ServiceStartedDelegate(object sender);
     public delegate void ServiceStoppedDelegate(object sender, string message);

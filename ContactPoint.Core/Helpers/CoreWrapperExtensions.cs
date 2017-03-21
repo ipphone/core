@@ -3,8 +3,9 @@ using ContactPoint.Common.Audio;
 using ContactPoint.Common.Contacts;
 using ContactPoint.Common.PluginManager;
 using ContactPoint.Common.SIP;
+using ContactPoint.Core.Settings;
 
-namespace ContactPoint.Core
+namespace ContactPoint.Core.Helpers
 {
     static class CoreWrapperExtensions
     {

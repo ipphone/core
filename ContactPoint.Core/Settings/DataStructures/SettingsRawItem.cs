@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace ContactPoint.Core.Settings
+namespace ContactPoint.Core.Settings.DataStructures
 {
     internal class SettingsRawItem
     {

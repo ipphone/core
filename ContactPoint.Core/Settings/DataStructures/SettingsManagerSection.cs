@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using System.Xml.XPath;
-using System.Xml;
-using System.Xml.Serialization;
-using System.Windows.Forms;
-using ContactPoint.Common;
 using System.Collections;
-using System.Collections.Specialized;
+using System.Collections.Generic;
+using ContactPoint.Common;
+using ContactPoint.Core.Settings.Loaders;
 
-namespace ContactPoint.Core.Settings
+namespace ContactPoint.Core.Settings.DataStructures
 {
     internal class SettingsManagerSection : ISettingsManagerSection
     {

@@ -1,11 +1,8 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.XPath;
+using ContactPoint.Core.Settings.DataStructures;
 
-namespace ContactPoint.Core.Settings
+namespace ContactPoint.Core.Settings.Loaders
 {
     internal interface ISettingsLoader
     {

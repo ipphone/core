@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using ContactPoint.BaseDesign;
-using ContactPoint.BaseDesign.BaseNotifyControls;
 using ContactPoint.Common;
+using ContactPoint.Contacts.Locals;
 using Timer = System.Timers.Timer;
 
-namespace ContactPoint.Contacts
+namespace ContactPoint.Contacts.Updater
 {
     internal class UpdateWatcher : IDisposable
     {

@@ -22,7 +22,7 @@ namespace ContactPoint.Common
             public string Message { get; protected set; }
             public DateTime DateTime { get; protected set; }
 
-            public LogObject(MessageType type, DateTime dateTime, string message)
+            internal LogObject(MessageType type, DateTime dateTime, string message)
             {
                 Type = type;
                 DateTime = dateTime;
@@ -30,24 +30,29 @@ namespace ContactPoint.Common
 
                 if (LogLevel < 2) return;
 
-                StackTrace stackTrace = new StackTrace();
-                StackFrame targetFrame = stackTrace.GetFrame(3);
-
+                var stackTrace = new StackTrace();
+                var targetFrame = stackTrace.GetFrame(3);
                 if (targetFrame != null)
-                    Message += String.Format("; method: {1} in class {0}", new object[] 
-                { 
-                    targetFrame.GetMethod().DeclaringType.Name,
-                    targetFrame.GetMethod().Name
-                });
+                {
+                    var declaringType = targetFrame.GetMethod().DeclaringType;
+                    if (declaringType != null)
+                    {
+                        Message += string.Format("; method: {1} in class {0}", new object[] 
+                        { 
+                            declaringType.Name,
+                            targetFrame.GetMethod().Name
+                        });
+                    }
+                }
             }
 
-            public LogObject(MessageType type, string message)
+            internal LogObject(MessageType type, string message)
                 : this(type, DateTime.Now, message)
             { }
 
             public override string ToString()
             {
-                return String.Format("[{0}] {1}: {2}", Type, DateTime, Message);
+                return $"[{Type}] {DateTime}: {Message}";
             }
         }
 
