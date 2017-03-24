@@ -2,10 +2,7 @@
 {
     internal class SchemaV2 : SchemaV1
     {
-        public override int Version
-        {
-            get { return 2; }
-        }
+        public override int Version => 2;
 
         public override void Upgrade(System.Data.SQLite.SQLiteConnection connection, DatabaseSchema currentSchema)
         {

@@ -74,8 +74,14 @@ namespace ContactPoint.Contacts
             if (File.Exists(dbPath)) File.Delete(dbPath);
 #endif
 
-            if (!File.Exists(dbPath)) CreateDatabase(dbPath);
-            else InitializeConnection(dbPath);
+            if (!File.Exists(dbPath))
+            {
+                CreateDatabase(dbPath);
+            }
+            else
+            {
+                InitializeConnection(dbPath);
+            }
 
             var contacts = new Dictionary<long, Contact>();
             using (new EnsuredResourceCriticalOperation(_sqlConnection))
@@ -84,6 +90,7 @@ namespace ContactPoint.Contacts
 
                 #region Load address books
 
+                Logger.LogNotice("Loading Address Books");
                 using (var command = _sqlConnection.CreateCommand())
                 {
                     command.CommandText = @"select id, name, lastupdate, key from addressbooks";
@@ -113,6 +120,7 @@ namespace ContactPoint.Contacts
 
                 #region Load tags
 
+                Logger.LogNotice("Loading Tags");
                 using (var command = _sqlConnection.CreateCommand())
                 {
                     command.CommandText =
@@ -146,6 +154,7 @@ namespace ContactPoint.Contacts
 
                 #region Load contacts
 
+                Logger.LogNotice("Loading Contacts");
                 using (var command = _sqlConnection.CreateCommand())
                 {
                     command.CommandText = @"select id, first_name, last_name, middle_name, company from contacts";
@@ -172,6 +181,7 @@ namespace ContactPoint.Contacts
 
                 #region Load contact infos links for contacts
 
+                Logger.LogNotice("Loading Contact Links");
                 var contactInfoIdsContacts = new Dictionary<long, Contact>();
                 using (var command = _sqlConnection.CreateCommand())
                 {
@@ -197,6 +207,7 @@ namespace ContactPoint.Contacts
 
                 #region Load contact infos
 
+                Logger.LogNotice("Loading Contact details");
                 var contactInfos = new Dictionary<long, ContactInfoLocal>();
                 using (var command = _sqlConnection.CreateCommand())
                 {
@@ -240,6 +251,7 @@ namespace ContactPoint.Contacts
 
                 #region Load phone numbers
 
+                Logger.LogNotice("Loading Phone Numbers");
                 using (var command = _sqlConnection.CreateCommand())
                 {
                     command.CommandText =
@@ -273,6 +285,7 @@ namespace ContactPoint.Contacts
 
                 #region Load emails
 
+                Logger.LogNotice("Loading Emails");
                 using (var command = _sqlConnection.CreateCommand())
                 {
                     command.CommandText =
@@ -306,6 +319,7 @@ namespace ContactPoint.Contacts
 
                 #region Fill tags links on contacts infos
 
+                Logger.LogNotice("Loading Tag links");
                 using (var command = _sqlConnection.CreateCommand())
                 {
                     command.CommandText = @"select tag_id, contact_info_id from tags_links";
@@ -332,10 +346,14 @@ namespace ContactPoint.Contacts
 
                 #endregion
             }
+            
             // Fill contacts into main collection
             foreach (var item in contacts)
+            {
                 _contacts.Add(item.Key, item.Value);
+            }
 
+            Logger.LogNotice("Starting update watcher");
             _updateWatcher = new UpdateWatcher(this, syncInvoke);
         }
 
@@ -396,17 +414,21 @@ namespace ContactPoint.Contacts
 
         private void CreateDatabase(string path)
         {
+            Logger.LogNotice($"Creating Database at '{path}'");
             SQLiteConnection.CreateFile(path);
 
             InitializeConnection(path);
 
             using (new EnsuredResourceCriticalOperation(_sqlConnection))
+            {
                 InitialSchema.Create(_sqlConnection);
+            }
         }
 
         private void InitializeConnection(string path)
         {
-            _sqlConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3;", path));
+            Logger.LogNotice($"Initializing SQLiteConnection to '{path}'");
+            _sqlConnection = new SQLiteConnection($"Data Source={path};Version=3;");
             _sqlConnection.Open();
         }
 

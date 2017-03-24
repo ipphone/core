@@ -1,33 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
-using System.Timers;
 using System.Windows;
 using System.Windows.Forms;
 using System.Threading;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Security;
 using ContactPoint.Common;
 using ContactPoint.Core;
-using ContactPoint.Properties;
 using ContactPoint.Services;
 using System.Linq;
 using ContactPoint.BaseDesign.Wpf.CoreDesign;
 using ExceptionReporting.Core;
 using System.IO;
-using System.IO.Pipes;
-using System.Text;
+using System.Runtime.ExceptionServices;
 using System.Windows.Forms.VisualStyles;
-using ComponentFactory.Krypton.Toolkit;
-using ContactPoint.BaseDesign;
 using Application = System.Windows.Forms.Application;
-using ExceptionReporter = ExceptionReporting.Core.ExceptionReporter;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ContactPoint
@@ -91,6 +82,10 @@ namespace ContactPoint
             Application.ThreadException += Application_ThreadException;
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
             // Permit unmanaged code permissions
             var perm = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
@@ -126,9 +121,12 @@ namespace ContactPoint
                     }
                     catch (Exception e)
                     {
-                        Logger.LogWarn(e, "Unable to open log file");
+                        Logger.LogWarn(e, "Unable to open log file at '{0}'", logFile);
                     }
                 }
+
+                Logger.LogNotice($"Main Thread Culture is '{Thread.CurrentThread.CurrentCulture}'");
+                Logger.LogNotice($"UI Thread Culture is '{Thread.CurrentThread.CurrentUICulture}'");
 
 #if DEBUG
                 if (args.Contains("/debugger", StringComparer.InvariantCultureIgnoreCase))
@@ -336,19 +334,19 @@ namespace ContactPoint
 
         static void LoadingFailed(Exception e)
         {
-            CatchUnhandledException(null, e);
+            CatchUnhandledException(null, e, "Loading failed!");
 
             Environment.Exit(0);
         }
 
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            CatchUnhandledException(sender, e.Exception);
+            CatchUnhandledException(sender, e.Exception, "Application Thread exception from '{0}'");
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            CatchUnhandledException(sender, e.ExceptionObject as Exception);
+            CatchUnhandledException(sender, e.ExceptionObject as Exception, "Unhandled exception from '{0}'");
 
             if (e.IsTerminating && !Debugger.IsAttached && MessageBox.Show(@"Try to restart application?", @"Critical error", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
             {
@@ -356,7 +354,14 @@ namespace ContactPoint
             }
         }
 
-        static void CatchUnhandledException(object sender, Exception e)
+        static void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+        {
+#if !DEBUG
+            CatchUnhandledException(sender, e.Exception, "First chance exception from '{0}'");
+#endif
+        }
+
+        static void CatchUnhandledException(object sender, Exception e, string message)
         {
             try
             {
@@ -364,7 +369,7 @@ namespace ContactPoint
             }
             catch (Exception ex)
             {
-                Logger.LogWarn(ex);
+                Logger.LogWarn(ex, message, sender);
             }
 
             if (e is LicenseException)

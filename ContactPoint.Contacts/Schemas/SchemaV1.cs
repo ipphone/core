@@ -4,10 +4,7 @@ namespace ContactPoint.Contacts.Schemas
 {
     internal class SchemaV1 : InitialSchema
     {
-        public override int Version
-        {
-            get { return 1; }
-        }
+        public override int Version => 1;
 
         public override void Upgrade(SQLiteConnection connection, DatabaseSchema currentSchema)
         {
@@ -41,7 +38,7 @@ insert into info(name, value_int) values ('db_version', 1);
 
                 try
                 {
-                    return (int)((long)command.ExecuteScalar());
+                    return (int)(long)command.ExecuteScalar();
                 }
                 catch
                 {

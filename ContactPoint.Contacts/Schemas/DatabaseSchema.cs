@@ -1,4 +1,6 @@
-﻿using System.Data.SQLite;
+﻿using System;
+using System.Data.SQLite;
+using ContactPoint.Common;
 
 namespace ContactPoint.Contacts.Schemas
 {
@@ -9,8 +11,22 @@ namespace ContactPoint.Contacts.Schemas
 
         public static void Upgrade(SQLiteConnection connection)
         {
+            Logger.LogNotice("Trying to upgrade DB schema");
+
+            int version = 0;
+            try
+            {
+                Logger.LogNotice("Trying to get DB schema version");
+                version = LatestSchema.GetVersion(connection);
+            }
+            catch (Exception e)
+            {
+                Logger.LogWarn(e, "Exception while getting DB schema version");
+            }
+
+            Logger.LogNotice($"Current DB schema version is '{version}'");
             DatabaseSchema schema;
-            switch (LatestSchema.GetVersion(connection))
+            switch (version)
             {
                 case 1:
                     schema = new SchemaV1();
@@ -23,7 +39,15 @@ namespace ContactPoint.Contacts.Schemas
                     break;
             }
 
-            LatestSchema.Upgrade(connection, schema);
+            if (schema.Version < LatestSchema.Version)
+            {
+                Logger.LogNotice($"Trying to upgrade DB schema of version '{version}' to '{LatestSchema.Version}'");
+                LatestSchema.Upgrade(connection, schema);
+            }
+            else
+            {
+                Logger.LogNotice($"DB schema of version '{version}' is up to date - nothing to upgrade");
+            }
         }
 
         public abstract void Upgrade(SQLiteConnection connection, DatabaseSchema currentSchema);

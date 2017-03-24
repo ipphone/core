@@ -1,14 +1,15 @@
 using System.Threading;
+using ContactPoint.Common;
 
 namespace ContactPoint.Contacts
 {
     public class EnsuredResourceCriticalOperation : ResourceCriticalOperation
     {
         public EnsuredResourceCriticalOperation(params object[] resources)
-            : base(resources)
+            : base(Lock, resources)
         { }
 
-        protected override bool Lock(object resource)
+        private static bool Lock(object resource)
         {
             Monitor.Enter(resource);
 

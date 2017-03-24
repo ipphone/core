@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
+﻿using System.Data.SQLite;
+using ContactPoint.Common;
 
 namespace ContactPoint.Contacts.Schemas
 {
     internal class InitialSchema : DatabaseSchema
     {
-        public override int Version
-        {
-            get { return 0; }
-        }
+        public override int Version => 0;
 
         public static void Create(SQLiteConnection connection)
         {
+            Logger.LogNotice("Creating initial DB schema");
+
             using (var command = connection.CreateCommand())
             {
                 command.CommandText = @"CREATE TABLE [addressbooks] (
