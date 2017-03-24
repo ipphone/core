@@ -133,7 +133,7 @@ namespace ContactPoint.Core.PluginManager
 
         private void LoadAssembliesFromDirectory(string path, bool recurse = true)
         {
-            Logger.LogNotice("Loading plugins from '{path}'");
+            Logger.LogNotice($"Loading plugins from '{path}'");
             if (!Directory.Exists(path))
             {
                 Logger.LogWarn($"Path doesn't exists '{path}'");

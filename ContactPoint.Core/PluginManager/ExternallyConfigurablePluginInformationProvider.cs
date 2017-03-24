@@ -20,25 +20,33 @@ namespace ContactPoint.Core.PluginManager
             _config = new NameValueCollection(StringComparer.InvariantCultureIgnoreCase);
 
             var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "ContactPoint", "plugins.json");
-            Logger.LogNotice($"Load plugins external configuration from '{path}'");
 
-            var jRoot = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(path));
-            foreach (var item in jRoot.Properties())
+            try
             {
-                if (item.Value.Type == JTokenType.Object)
+                Logger.LogNotice($"Load plugins external configuration from '{path}'");
+
+                var jRoot = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(path));
+                foreach (var item in jRoot.Properties())
                 {
-                    _config.Add(item.Name, item.Value.ToString(Formatting.Indented));
-                }
-                else if (item.Value.Type == JTokenType.Array)
-                {
-                    foreach (var subItem in item.Value.Children<JObject>())
+                    if (item.Value.Type == JTokenType.Object)
                     {
-                        _config.Add(item.Name, subItem.ToString(Formatting.Indented));
+                        _config.Add(item.Name, item.Value.ToString(Formatting.Indented));
+                    }
+                    else if (item.Value.Type == JTokenType.Array)
+                    {
+                        foreach (var subItem in item.Value.Children<JObject>())
+                        {
+                            _config.Add(item.Name, subItem.ToString(Formatting.Indented));
+                        }
                     }
                 }
-            }
 
-            Logger.LogNotice("Successfully loaded plugins external configurations");
+                Logger.LogNotice("Successfully loaded plugins external configurations");
+            }
+            catch (Exception e)
+            {
+                Logger.LogWarn(e, "Plugins external configuration file couldn't be loaded from '{0}'", path);
+            }
         }
 
         protected override IEnumerable<IPluginInformation> LoadPluginInformations(Type pluginType)

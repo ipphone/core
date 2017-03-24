@@ -6,32 +6,37 @@ namespace ContactPoint.Contacts
 {
     public class ResourceCriticalOperation : IDisposable
     {
-        private readonly int _timeout;
         public const int DEFAULT_DELAY_TIME_MS = 200;
         public const int INFINITE_TIMEOUT = 1000000;
 
-        private int _lockedResourcesCount = 0;
-        private object[] _lockedResources = null;
+        private int _lockedResourcesCount;
+        private object[] _lockedResources;
+
+        public Guid OperationId { get; } = Guid.NewGuid();
 
         public ResourceCriticalOperation(params object[] resources)
             : this(DEFAULT_DELAY_TIME_MS, resources)
         { }
 
         public ResourceCriticalOperation(int timeout, params object[] resources)
+            : this (o => Monitor.TryEnter(o, timeout), resources)
+        { }
+
+        protected ResourceCriticalOperation(Func<object, bool> lockFunc, object[] resources)
         {
-            _timeout = timeout;
+            Logger.LogNotice($"Starting Resource Critical Operation '{OperationId}'");
+
             _lockedResources = new object[resources.Length];
 
             foreach (var resource in resources)
             {
-                if (Lock(resource))
+                if (lockFunc(resource))
+                {
                     _lockedResources[_lockedResourcesCount++] = resource;
+                }
                 else
                 {
-                    var exception =
-                        new TimeoutException(
-                            string.Format("Cannot get access to locked resource of type {0} - request timed out.",
-                                          resource.GetType()));
+                    var exception = new TimeoutException($"Cannot get access to locked resource of type {resource.GetType()} - request timed out.");
                     Logger.LogWarn(exception);
 
                     throw exception;
@@ -41,7 +46,9 @@ namespace ContactPoint.Contacts
 
         public void Dispose()
         {
-            for (int i = 0; i < _lockedResourcesCount; i++)
+            Logger.LogNotice($"Finalizing Resource Critical Operation '{OperationId}'");
+
+            for (var i = 0; i < _lockedResourcesCount; i++)
             {
                 Monitor.Exit(_lockedResources[i]);
 
@@ -50,11 +57,6 @@ namespace ContactPoint.Contacts
 
             _lockedResourcesCount = 0;
             _lockedResources = null;
-        }
-
-        protected virtual bool Lock(object resource)
-        {
-            return Monitor.TryEnter(resource, _timeout);
         }
     }
 }
