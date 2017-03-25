@@ -137,11 +137,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\IpPhoneKey.snk">
-      <Link>IpPhoneKey.snk</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\ContactPoint.Common\ContactPoint.Common.csproj">
       <Project>{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}</Project>
       <Name>ContactPoint.Common</Name>

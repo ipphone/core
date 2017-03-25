@@ -48,7 +48,6 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.1.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
@@ -91,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
+      <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ContactsUiService.cs" />
     <Compile Include="Controls\AddPhoneEmailControl.cs">
@@ -192,10 +191,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\IpPhoneKey.snk">
-      <Link>IpPhoneKey.snk</Link>
-    </None>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

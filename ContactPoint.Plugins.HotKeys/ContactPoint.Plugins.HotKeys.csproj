@@ -85,7 +85,6 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ContactPoint.BaseDesign">
@@ -107,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
+      <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="HotKeysListener.cs" />
     <Compile Include="HotKeysPlugin.cs" />
@@ -150,11 +149,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\IpPhoneKey.snk">
-      <Link>IpPhoneKey.snk</Link>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

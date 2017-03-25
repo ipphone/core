@@ -13,7 +13,6 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
-    
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -147,9 +146,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\IpPhoneKey.snk">
-      <Link>IpPhoneKey.snk</Link>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -45,7 +45,6 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ContactPoint.Common">
@@ -101,9 +100,6 @@
     <Compile Include="Fakes\VersionGeneratorFake.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\IpPhoneKey.snk">
-      <Link>IpPhoneKey.snk</Link>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

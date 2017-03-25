@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ReSharper disable InconsistentNaming
+
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -18,6 +20,8 @@ using ExceptionReporting.Core;
 using System.IO;
 using System.Runtime.ExceptionServices;
 using System.Windows.Forms.VisualStyles;
+using ContactPoint.Commands;
+using ContactPoint.Forms;
 using Application = System.Windows.Forms.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -31,7 +35,7 @@ namespace ContactPoint
 	public class COPYDATASTRUCT
 	{
 		public IntPtr dwData = new IntPtr(3);//32 bit int to passed. Not used.
-		public int cbData = 0;//length of string. Will be one greater because of null termination.
+		public int cbData;//length of string. Will be one greater because of null termination.
 		[MarshalAs(UnmanagedType.LPStr)]
 		public string lpData;//string to be passed.
 
@@ -66,7 +70,7 @@ namespace ContactPoint
 
         private static LoaderForm _loaderForm;
 
-        public static ContactPointApplicationContext AppContext { get; private set; }
+        public static MainFormApplicationContext AppContext { get; private set; }
         public static ExceptionReporting.Core.ExceptionReporter ExceptionReporter { get; private set; }
 
         /// <summary> 
@@ -148,7 +152,7 @@ namespace ContactPoint
                 ThreadPool.QueueUserWorkItem(WatcherThreadFunc);
 #endif
 
-                var makeCallMessage = MakePhoneCallMessage.CreateFromCommandLine(GetCommandLineParameter("/call", args));
+                var makeCallMessage = StartPhoneCallCommand.CreateFromCommandLine(GetCommandLineParameter("/call", args));
                 try
                 {
                     try
@@ -169,7 +173,7 @@ namespace ContactPoint
                         Environment.Exit(0);
                     }
 
-                    using (AppContext = new ContactPointApplicationContext())
+                    using (AppContext = new MainFormApplicationContext())
                     {
                         PartLoading("Initialize Splash Screen UI");
                         _loaderForm = new LoaderForm();
@@ -212,7 +216,7 @@ namespace ContactPoint
                             using (var core = CoreLoader.CreateCore(AppContext.MainForm))
                             {
                                 PartLoading("Audio services");
-                                using (new AudioService(core))
+                                using (new AudioDeviceService(core))
                                 {
 #if DEBUG
                                     if (args.Contains("/newui"))

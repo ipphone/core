@@ -65,7 +65,6 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -115,11 +114,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\IpPhoneKey.snk">
-      <Link>IpPhoneKey.snk</Link>
-    </None>
     <EmbeddedResource Include="Resources\delete.png" />
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ic_call_log_list_incoming_call.png" />

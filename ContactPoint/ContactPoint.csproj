@@ -17,7 +17,6 @@
     <SignManifests>false</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>false</SignAssembly>
-    
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -93,30 +92,25 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Design" />
-    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AboutForm.cs">
+    <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutForm.Designer.cs">
+    <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ContactPointApplicationContext.cs" />
-    <Compile Include="MakePhoneCallMessage.cs" />
-    <Compile Include="SharedFileMessageTransportHost.cs" />
+    <Compile Include="Services\MainFormApplicationContext.cs" />
+    <Compile Include="Commands\StartPhoneCallCommand.cs" />
+    <Compile Include="Services\SharedFileMessageTransportHost.cs" />
     <Compile Include="NotifyControls\AudioDeviceChangedNotifyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -146,50 +140,50 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CaptionStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="CheckedPluginUIElementCommand.cs" />
-    <Compile Include="ContactForm.cs">
+    <Compile Include="Commands\CheckedPluginUIElementCommand.cs" />
+    <Compile Include="Forms\ContactForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ContactForm.Designer.cs">
+    <Compile Include="Forms\ContactForm.Designer.cs">
       <DependentUpon>ContactForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoaderForm.cs">
+    <Compile Include="Forms\LoaderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoaderForm.Designer.cs">
+    <Compile Include="Forms\LoaderForm.Designer.cs">
       <DependentUpon>LoaderForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuItemWrapper.cs" />
-    <Compile Include="PluginUIElementCommand.cs" />
-    <Compile Include="Services\AudioService.cs" />
+    <Compile Include="Controls\MainFormMenuItemControl.cs" />
+    <Compile Include="Commands\PluginUIElementCommand.cs" />
+    <Compile Include="Services\AudioDeviceService.cs" />
     <Compile Include="Services\AutoAnswerService.cs" />
-    <Compile Include="TimeredBaloon.cs" />
-    <Compile Include="LoggerForm.cs">
+    <Compile Include="Controls\TimeredBaloon.cs" />
+    <Compile Include="Forms\LoggerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoggerForm.Designer.cs">
+    <Compile Include="Forms\LoggerForm.Designer.cs">
       <DependentUpon>LoggerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyTranspControl.cs">
+    <Compile Include="Controls\MainFormShadeControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\SipAccountStatusViewModel.cs" />
-    <Compile Include="UI\StatusLabel.cs">
+    <Compile Include="Commands\SipAccountStatusViewModel.cs" />
+    <Compile Include="Controls\MainFormPhoneStatusControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\StatusLabel.Designer.cs">
-      <DependentUpon>StatusLabel.cs</DependentUpon>
+    <Compile Include="Controls\MainFormPhoneStatusControl.Designer.cs">
+      <DependentUpon>MainFormPhoneStatusControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinApiMessageTransport.cs" />
-    <EmbeddedResource Include="AboutForm.resx">
+    <Compile Include="Services\WinApiMessageTransport.cs" />
+    <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NotifyControls\AudioDeviceChangedNotifyControl.resx">
@@ -205,20 +199,20 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CaptionStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ContactForm.resx">
+    <EmbeddedResource Include="Forms\ContactForm.resx">
       <DependentUpon>ContactForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoaderForm.resx">
+    <EmbeddedResource Include="Forms\LoaderForm.resx">
       <DependentUpon>LoaderForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoggerForm.resx">
+    <EmbeddedResource Include="Forms\LoggerForm.resx">
       <DependentUpon>LoggerForm.cs</DependentUpon>
       <SubType>Designer</SubType>
       <LastGenOutput>LoggerForm1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -227,11 +221,11 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.resx">
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ColorSlider.resx">
+    <EmbeddedResource Include="Controls\ColorSlider.resx">
       <DependentUpon>ColorSlider.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -240,35 +234,28 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="SettingsForm.cs">
+    <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.designer.cs">
+    <Compile Include="Forms\SettingsForm.designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomToolStripRenderer.cs" />
-    <Compile Include="ToolStripUIElementButton.cs">
+    <Compile Include="Controls\ToolStripUIElementButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TranspControl.cs">
+    <Compile Include="Controls\TransparentPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UILineWrapper.cs" />
-    <Compile Include="UI\ColorSlider.cs">
+    <Compile Include="Controls\MainFormPhoneLineControl.cs" />
+    <Compile Include="Controls\ColorSlider.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\ColorSlider.designer.cs">
+    <Compile Include="Controls\ColorSlider.designer.cs">
       <DependentUpon>ColorSlider.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\StatusLabel.resx">
-      <DependentUpon>StatusLabel.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\MainFormPhoneStatusControl.resx">
+      <DependentUpon>MainFormPhoneStatusControl.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\IpPhoneKey.snk">
-      <Link>IpPhoneKey.snk</Link>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -320,16 +307,16 @@
     <None Include="Resources\close1.png" />
     <Content Include="ipphone.ico" />
     <None Include="Resources\callservice.jpg" />
-    <None Include="sounds\congestion.wav">
+    <None Include="Sounds\congestion.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="sounds\dial.wav">
+    <None Include="Sounds\dial.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="sounds\ring.wav">
+    <None Include="Sounds\ring.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="sounds\ringback.wav">
+    <None Include="Sounds\ringback.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\our_logo_full21.png" />

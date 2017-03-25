@@ -1,7 +1,0 @@
-namespace ContactPoint
-{
-    class WinApiMessageTransport
-    {
-        
-    }
-}

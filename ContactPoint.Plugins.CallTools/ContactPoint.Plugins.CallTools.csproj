@@ -44,7 +44,6 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.1.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
@@ -58,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
+      <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ActionExecutor\ActionExecutorPlugin.cs" />
     <Compile Include="AutoAnswer\AutoAnswerService.cs" />
@@ -96,11 +95,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\IpPhoneKey.snk">
-      <Link>IpPhoneKey.snk</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj">
       <Project>{65FE7F1C-522A-481B-B033-E8DAE7269CF5}</Project>
       <Name>ContactPoint.BaseDesign</Name>
@@ -133,7 +127,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\Speaker %281%29.png" />
   </ItemGroup>

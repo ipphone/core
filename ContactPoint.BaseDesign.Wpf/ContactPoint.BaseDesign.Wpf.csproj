@@ -9,7 +9,7 @@
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ContactPoint.BaseDesign.Wpf</RootNamespace>
-    <AssemblyName>ContactPoint.BaseDesign.Wpf</AssemblyName>
+    <AssemblyName>ContactPoint.BaseDesign.WPF</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -50,11 +50,10 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
+      <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
@@ -155,9 +154,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\IpPhoneKey.snk">
-      <Link>IpPhoneKey.snk</Link>
-    </None>
     <None Include="packages.config" />
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>

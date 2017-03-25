@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ContactPoint.Common;
+﻿using ContactPoint.Common;
 using System.Timers;
 
 namespace ContactPoint.Services
@@ -10,11 +7,11 @@ namespace ContactPoint.Services
     internal class AutoAnswerService
     {
         private static AutoAnswerService _instance;
-        private bool _active = false;
-        private Timer _timer = new Timer();
-        private ICall _callToPickup = null;
+        private readonly Timer _timer = new Timer();
+        private bool _active;
+        private ICall _callToPickup;
 
-        public ICore Core { get; private set; }
+        public ICore Core { get; }
 
         public int Interval
         {
@@ -22,7 +19,7 @@ namespace ContactPoint.Services
             set
             {
                 _timer.Interval = value;
-                
+
                 Core.SettingsManager.Set("AutoAnswerInterval", value);
 
                 if (value == 0) Stop();
@@ -46,10 +43,7 @@ namespace ContactPoint.Services
             }
         }
 
-        public static AutoAnswerService Instance
-        {
-            get { return _instance; }
-        }
+        public static AutoAnswerService Instance => _instance;
 
         public AutoAnswerService(ICore core)
         {

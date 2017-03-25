@@ -166,10 +166,10 @@ namespace ContactPoint.Core.PluginManager
         private Assembly OnReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
         {
             Logger.LogNotice($"PluginManager '{args.RequestingAssembly.FullName}': attempting to load assembly '{args.Name}' only for reflection");
-            if (args.Name.StartsWith("System") && args.Name.Contains("Version=2.0.0.0"))
+            if (args.Name.StartsWith("System") && args.Name.Contains("Version=4.0.0.0"))
             {
                 Logger.LogNotice($"PluginManager '{args.RequestingAssembly.FullName}': apply version overwrite for '{args.Name}' to '4.0.0.0'");
-                return Assembly.ReflectionOnlyLoad(args.Name.Replace("Version=2.0.0.0", "Version=4.0.0.0"));
+                return Assembly.ReflectionOnlyLoad(args.Name.Replace("Version=4.0.0.0", "Version=4.0.0.0"));
             }
 
             return Assembly.ReflectionOnlyLoad(args.Name);

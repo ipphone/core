@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("CallService.Plugins.HotKeys")]
+[assembly: AssemblyTitle("ContactPoint.Plugins.HotKeys.dll")]
+[assembly: AssemblyDescription("ContactPoint IP Phone Hot Keys Plugin")]
 [assembly: ComVisible(false)]
-[assembly: Guid("eb09a78c-1cc8-491f-90e6-dce33974c1b9")]
