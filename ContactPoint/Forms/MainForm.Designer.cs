@@ -224,7 +224,7 @@ namespace ContactPoint.Forms
             this.btnApplication.StateTracking.Border.Rounding = 18;
             this.btnApplication.TabIndex = 37;
             this.btnApplication.Values.Text = string.Empty;
-            this.btnApplication.Values.Image = global::ContactPoint.Properties.Resources.logo_small4;
+            this.btnApplication.Values.Image = global::ContactPoint.Properties.Resources.logo;
             this.btnApplication.Click += new System.EventHandler(this.btnApplication_Click);
             // 
             // btnMute
@@ -611,7 +611,7 @@ namespace ContactPoint.Forms
             this.btnClose.TabIndex = 33;
             this.btnClose.TabStop = false;
             this.btnClose.Values.Text = string.Empty;
-            this.btnClose.Values.Image = global::ContactPoint.Properties.Resources.close1;
+            this.btnClose.Values.Image = global::ContactPoint.Properties.Resources.close;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnReconnect
@@ -734,7 +734,7 @@ namespace ContactPoint.Forms
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::ContactPoint.Properties.Resources.Speaker_Icon_png;
+            this.pictureBox2.Image = global::ContactPoint.Properties.Resources.speaker;
             this.pictureBox2.Location = new System.Drawing.Point(112, 349);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(18, 18);

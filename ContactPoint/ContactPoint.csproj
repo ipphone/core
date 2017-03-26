@@ -15,45 +15,19 @@
     <ApplicationIcon>ipphone.ico</ApplicationIcon>
     <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>false</SignAssembly>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <TargetFrameworkProfile />
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <PublishUrl>http://localhost/CallService/</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>false</MapFileExtensions>
-    <SupportUrl>http://www.callservice.com.ua</SupportUrl>
-    <TargetCulture>ru</TargetCulture>
-    <ProductName>Softphone</ProductName>
-    <PublisherName>CallService</PublisherName>
-    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <AutorunEnabled>true</AutorunEnabled>
-    <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\Binaries\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CONTACTS_DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -141,12 +115,6 @@
       <DependentUpon>CaptionStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Commands\CheckedPluginUIElementCommand.cs" />
-    <Compile Include="Forms\ContactForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ContactForm.Designer.cs">
-      <DependentUpon>ContactForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\LoaderForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,10 +166,6 @@
     <EmbeddedResource Include="CaptionStrings\CaptionStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CaptionStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ContactForm.resx">
-      <DependentUpon>ContactForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoaderForm.resx">
       <DependentUpon>LoaderForm.cs</DependentUpon>
@@ -259,54 +223,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\contacts1.png" />
-    <None Include="Resources\btn-offline.png" />
-    <None Include="Resources\btn-online.png" />
-    <Content Include="Resources\error_fuck.png" />
-    <Content Include="Resources\information_gray.png" />
-    <Content Include="Resources\warning.png" />
-    <None Include="Resources\status_disconnected.png" />
-    <None Include="Resources\status-connecting.png" />
-    <None Include="Resources\status_warning.png" />
-    <None Include="Resources\status_connecting.png" />
-    <None Include="Resources\status_connected.png" />
-    <None Include="Resources\speaker_small.png" />
-    <None Include="Resources\MICROPHONE.png" />
-    <None Include="Resources\sound.gif" />
     <None Include="pjsipDll.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Resources\ic_dialog_alert.png" />
-    <None Include="Resources\bg.jpg" />
-    <None Include="Resources\bg1.jpg" />
-    <None Include="Resources\back_edit.jpg" />
-    <None Include="Resources\ico_down.jpg" />
-    <None Include="Resources\phone_down.png" />
-    <None Include="Resources\ico_up.jpg" />
-    <None Include="Resources\button_up.png" />
-    <None Include="Resources\button_down.png" />
-    <None Include="Resources\ic_volume_small.png" />
-    <None Include="Resources\mic.png" />
-    <None Include="Resources\Speaker-Icon-png.png" />
-    <None Include="Resources\sym_call_incoming.png" />
-    <None Include="Resources\call_48x48_alpha.png" />
-    <None Include="Resources\call2.png" />
-    <None Include="Resources\call.png" />
-    <None Include="Resources\call1.png" />
-    <None Include="Resources\man.png" />
-    <None Include="Resources\man1.png" />
-    <None Include="Resources\ico_up1.jpg" />
-    <None Include="Resources\call_green_big.png" />
-    <None Include="Resources\call_red_big.png" />
-    <None Include="Resources\green.png" />
-    <None Include="Resources\red_button.png" />
-    <None Include="Resources\settings.png" />
-    <None Include="Resources\renew.png" />
-    <None Include="Resources\contacts.png" />
-    <None Include="Resources\close.png" />
-    <None Include="Resources\close1.png" />
     <Content Include="ipphone.ico" />
-    <None Include="Resources\callservice.jpg" />
     <None Include="Sounds\congestion.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -319,19 +239,6 @@
     <None Include="Sounds\ringback.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\our_logo_full21.png" />
-    <None Include="Resources\btn_transfer.png" />
-    <None Include="Resources\icon-play.gif" />
-    <None Include="Resources\shade_bg.png" />
-    <None Include="Resources\logo_small4.png" />
-    <None Include="Resources\logo_small3.png" />
-    <None Include="Resources\logo_small2.png" />
-    <None Include="Resources\logo_small1.png" />
-    <None Include="Resources\logo_small.png" />
-    <None Include="Resources\callservice_dnd.png" />
-    <None Include="Resources\callservice_dnd1.png" />
-    <None Include="Resources\minimize.png" />
-    <None Include="Resources\btn_mute.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContactPoint.BaseDesign.Wpf\ContactPoint.BaseDesign.Wpf.csproj">
@@ -394,6 +301,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>if not exist "$(TargetDir)plugins" md "$(TargetDir)plugins"</PostBuildEvent>
+    <PostBuildEvent>if not exist "$(TargetDir)Plugins" md "$(TargetDir)Plugins"</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -15,9 +15,9 @@ namespace ContactPoint.Forms
             buttonSipLog.Visible = Logger.LogLevel >= 2;
 
 			var imageList = new ImageList();
-			imageList.Images.Add(ContactPoint.Properties.Resources.information_gray);
+			imageList.Images.Add(ContactPoint.Properties.Resources.info);
 			imageList.Images.Add(ContactPoint.Properties.Resources.warning);
-			imageList.Images.Add(ContactPoint.Properties.Resources.error_fuck);
+			imageList.Images.Add(ContactPoint.Properties.Resources.error);
 
 			listViewMessages.SmallImageList = listViewMessages.LargeImageList = imageList;
 

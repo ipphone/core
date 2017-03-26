@@ -121,27 +121,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Icons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\IconsNonShared.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="SipLog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\button_up.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ipphone.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\cancel.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContactPoint.Common\ContactPoint.Common.csproj">
@@ -155,56 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Resource Include="Resources\Entypo.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\icon-lock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\logo_small4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\contacts.png" />
-    <Resource Include="Resources\contacts1.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CoreDesign\Controls\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\close1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\minimize.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\logo_small_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\hangup16_16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\incoming20_20.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\incoming2x20_20.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\expander.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\corner.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\WindowsIcons-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro">

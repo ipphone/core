@@ -119,7 +119,7 @@ namespace ContactPoint.Controls
             button.TabIndex = 24;
             button.TabStop = false;
             button.Values.ExtraText = "";
-            button.Values.Image = Properties.Resources.icon_play;
+            button.Values.Image = Properties.Resources.play;
             button.Values.ImageStates.ImageCheckedNormal = null;
             button.Values.ImageStates.ImageCheckedPressed = null;
             button.Values.ImageStates.ImageCheckedTracking = null;

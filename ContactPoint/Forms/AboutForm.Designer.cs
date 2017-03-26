@@ -54,7 +54,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = global::ContactPoint.Properties.Resources.bg1;
+            pictureBox1.Image = global::ContactPoint.Properties.Resources.background_gradient;
             pictureBox1.Location = new System.Drawing.Point(0, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new System.Drawing.Size(580, 317);
@@ -65,7 +65,7 @@
             // pictureBox2
             // 
             pictureBox2.BackColor = System.Drawing.Color.White;
-            pictureBox2.Image = global::ContactPoint.Properties.Resources.logo_small4;
+            pictureBox2.Image = global::ContactPoint.Properties.Resources.logo;
             pictureBox2.Location = new System.Drawing.Point(12, 10);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new System.Drawing.Size(39, 35);
