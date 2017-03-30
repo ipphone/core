@@ -64,6 +64,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Audio.cs" />
     <Compile Include="AudioDevice.cs" />
     <Compile Include="ManagedWatcher\AudioDevicesWatcher.cs" />
