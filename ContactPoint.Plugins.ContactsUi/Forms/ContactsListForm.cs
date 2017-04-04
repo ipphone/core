@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using ContactPoint.BaseDesign.Components;
+using ContactPoint.BaseDesign.Properties;
 using ContactPoint.Common.Contacts;
 using ContactPoint.Common.Contacts.Local;
 using ContactPoint.Plugins.ContactsUi.ViewModels;
@@ -14,7 +15,7 @@ namespace ContactPoint.Plugins.ContactsUi.Forms
   public partial class ContactsListForm : KryptonForm
     {
         private readonly IContactsManager _contactsManager;
-        private AdvancedBindingSource<ContactViewModel> _bindingSource;
+        private readonly AdvancedBindingSource<ContactViewModel> _bindingSource;
         private readonly Dictionary<long, ContactViewModel> _contactViewModels = new Dictionary<long, ContactViewModel>();
 
         public ContactsListForm(IContactsManager contactsManager)
@@ -31,11 +32,11 @@ namespace ContactPoint.Plugins.ContactsUi.Forms
 
             dataGridView.Columns.Clear();
             dataGridView.Columns.AddRange(
-                new DataGridViewTextBoxColumn() { HeaderText = "Name", Name = "ShowedName", SortMode = DataGridViewColumnSortMode.NotSortable, Width = 250, DataPropertyName = "ShowedName" },
-                new DataGridViewTextBoxColumn() { HeaderText = "Company", Name = "Company", SortMode = DataGridViewColumnSortMode.NotSortable, Width = 100, DataPropertyName = "Company" },
-                new DataGridViewTextBoxColumn() { HeaderText = "Phone numbers", Name = "PhoneNumbersString", SortMode = DataGridViewColumnSortMode.NotSortable, Width = 250, DataPropertyName = "PhoneNumbersString" },
-                //new DataGridViewTagsColumns() { HeaderText = "Tags", Name = "Tags", SortMode = DataGridViewColumnSortMode.NotSortable, Width = 300, DataPropertyName = "TagLocals" },
-                new DataGridViewTextBoxColumn() { HeaderText = "Note", Name = "Note", SortMode = DataGridViewColumnSortMode.NotSortable, DataPropertyName = "Note", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill }
+                new DataGridViewTextBoxColumn { HeaderText = Resources.ContactsListForm_Name, Name = "ShowedName", SortMode = DataGridViewColumnSortMode.NotSortable, Width = 250, DataPropertyName = "ShowedName" },
+                new DataGridViewTextBoxColumn { HeaderText = Resources.ContactsListForm_Company, Name = Resources.ContactsListForm_Company, SortMode = DataGridViewColumnSortMode.NotSortable, Width = 100, DataPropertyName = Resources.ContactsListForm_Company },
+                new DataGridViewTextBoxColumn { HeaderText = Resources.ContactsListForm_Phone_numbers, Name = "PhoneNumbersString", SortMode = DataGridViewColumnSortMode.NotSortable, Width = 250, DataPropertyName = "PhoneNumbersString" },
+                //new DataGridViewTagsColumns { HeaderText = "Tags", Name = "Tags", SortMode = DataGridViewColumnSortMode.NotSortable, Width = 300, DataPropertyName = "TagLocals" },
+                new DataGridViewTextBoxColumn { HeaderText = Resources.ContactsListForm_Note, Name = Resources.ContactsListForm_Note, SortMode = DataGridViewColumnSortMode.NotSortable, DataPropertyName = Resources.ContactsListForm_Note, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill }
                 );
 
             dataGridView.DataSource = _bindingSource;
@@ -176,14 +177,18 @@ namespace ContactPoint.Plugins.ContactsUi.Forms
         {
             if (textBoxSearch.Text.Length > 0)
             {
-                var filterParts = textBoxSearch.Text.Split(new[] { ' ' });
+                var filterParts = textBoxSearch.Text.Split(' ');
 
                 dataGridView.DataSource = new ObservableCollection<ContactViewModel>(
-                    _contactsManager.Contacts.Where(x => filterParts.All(f => MatchTag(f, x) || MatchPhone(f, x) || MatchAll(f, x))).Select(GetContactViewModel)
+                    _contactsManager.Contacts
+                        .Where(x => filterParts.All(f => MatchTag(f, x) || MatchPhone(f, x) || MatchAll(f, x)))
+                        .Select(GetContactViewModel)
                 );
             }
             else
+            {
                 dataGridView.DataSource = new ObservableCollection<ContactViewModel>(_contactsManager.Contacts.Select(GetContactViewModel));
+            }
         }
 
         private bool MatchAll(string pattern, IContact contact)
