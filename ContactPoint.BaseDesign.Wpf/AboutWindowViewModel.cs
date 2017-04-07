@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using ContactPoint.Common;
 using ContactPoint.Common.PluginManager;
 using ContactPoint.Core.Security;
@@ -39,9 +40,9 @@ namespace ContactPoint.BaseDesign.Wpf
             //}
 
             ImageUri = Path.GetFullPath("partner_logo.png");
-            Version = core.GetType().Assembly.GetName().Version.ToString(4);
+            Version = core.GetType().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
             Plugins = core.PluginManager.Plugins.Select(x => new PluginInformationViewModel(x, License));
-            MachineId = "NOT SUPPORTED"; //string.Join(":", SecurityLicenseProvider.GetMachineId());
+            MachineId = "-"; //string.Join(":", SecurityLicenseProvider.GetMachineId());
         }
     }
 

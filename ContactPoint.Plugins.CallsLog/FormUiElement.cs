@@ -5,7 +5,7 @@ using ContactPoint.Plugins.CallsLog.Properties;
 
 namespace ContactPoint.Plugins.CallsLog
 {
-    internal class FormUiElement : PluginCheckedUIElement
+    internal class FormUiElement : PluginCheckedUIElementBase
     {
         readonly PluginService _plugin;
         CallLogForm _form;
@@ -54,15 +54,15 @@ namespace ContactPoint.Plugins.CallsLog
             _form.FormClosed += Form_FormClosed;
         }
 
-        protected override void InternalExecute(object sender)
+        protected override void ExecuteCheckedCommand(object sender, bool checkedValue, object data)
         {
-            if (_plugin.IsStarted && Checked && !_formShown)
+            if (_plugin.IsStarted && checkedValue && !_formShown)
             {
                 _form.Show();
                 _formShown = true;
             }
 
-            if (_plugin.IsStarted && !Checked && _formShown)
+            if (_plugin.IsStarted && !checkedValue && _formShown)
             {
                 _form.Close();
             }

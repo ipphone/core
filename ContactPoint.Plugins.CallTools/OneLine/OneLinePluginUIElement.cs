@@ -6,7 +6,7 @@ using ContactPoint.Plugins.CallTools.Properties;
 
 namespace ContactPoint.Plugins.CallTools.OneLine
 {
-    public sealed class OneLinePluginUIElement : PluginCheckedUIElement
+    public sealed class OneLinePluginUIElement : PluginCheckedUIElementBase
     {
         private readonly OneLineService _service;
 
@@ -27,10 +27,10 @@ namespace ContactPoint.Plugins.CallTools.OneLine
             _service.IsOneLine = Checked = Plugin.PluginManager.Core.SettingsManager.GetValueOrSetDefault("OneLinePluginEnabled", true);
         }
 
-        protected override void InternalExecute(object sender)
+        protected override void ExecuteCheckedCommand(object sender, bool checkedValue, object data)
         {
-            _service.IsOneLine = Checked;
-            Plugin.PluginManager.Core.SettingsManager["OneLinePluginEnabled"] = Checked;
+            _service.IsOneLine = checkedValue;
+            Plugin.PluginManager.Core.SettingsManager["OneLinePluginEnabled"] = checkedValue;
         }
     }
 }

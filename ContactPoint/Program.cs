@@ -18,6 +18,7 @@ using System.Linq;
 using ContactPoint.BaseDesign.Wpf.CoreDesign;
 using ExceptionReporting.Core;
 using System.IO;
+using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Windows.Forms.VisualStyles;
 using ContactPoint.Commands;
@@ -129,6 +130,7 @@ namespace ContactPoint
                     }
                 }
 
+                Logger.LogNotice($"ContactPoint IP Phone version: {typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}");
                 Logger.LogNotice($"Main Thread Culture is '{Thread.CurrentThread.CurrentCulture}'");
                 Logger.LogNotice($"UI Thread Culture is '{Thread.CurrentThread.CurrentUICulture}'");
 
