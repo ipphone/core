@@ -121,6 +121,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\IconsNonShared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Include="SipLog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CoreDesign\Controls\" />
@@ -152,6 +161,27 @@
     <Reference Include="System" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\button_up.png" />
+    <Resource Include="Resources\cancel.png" />
+    <Resource Include="Resources\close.png" />
+    <Resource Include="Resources\close1.png" />
+    <Resource Include="Resources\contacts.png" />
+    <Resource Include="Resources\contacts1.png" />
+    <Resource Include="Resources\corner.png" />
+    <Resource Include="Resources\edit.png" />
+    <Resource Include="Resources\Entypo-license.txt" />
+    <Resource Include="Resources\expander.png" />
+    <Resource Include="Resources\hangup16_16.png" />
+    <Resource Include="Resources\icon-lock.png" />
+    <Resource Include="Resources\incoming20_20.png" />
+    <Resource Include="Resources\incoming2x20_20.png" />
+    <Resource Include="Resources\ipphone.ico" />
+    <Resource Include="Resources\logo_small4.png" />
+    <Resource Include="Resources\logo_small_white.png" />
+    <Resource Include="Resources\minimize.png" />
+    <Resource Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

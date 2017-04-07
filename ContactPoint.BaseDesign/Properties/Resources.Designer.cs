@@ -71,6 +71,42 @@ namespace ContactPoint.BaseDesign.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        public static string ContactsListForm_Company {
+            get {
+                return ResourceManager.GetString("ContactsListForm_Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string ContactsListForm_Name {
+            get {
+                return ResourceManager.GetString("ContactsListForm_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string ContactsListForm_Note {
+            get {
+                return ResourceManager.GetString("ContactsListForm_Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone numbers.
+        /// </summary>
+        public static string ContactsListForm_Phone_numbers {
+            get {
+                return ResourceManager.GetString("ContactsListForm_Phone_numbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ic_dialog_alert {
