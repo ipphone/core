@@ -6,6 +6,7 @@ using System.Xml.XPath;
 using System.Collections;
 using ContactPoint.Common;
 using ContactPoint.Core.Settings.DataStructures;
+using System.ComponentModel;
 
 namespace ContactPoint.Core.Settings.Loaders
 {
@@ -31,7 +32,11 @@ namespace ContactPoint.Core.Settings.Loaders
         {
             if (rawItem.IsCollection) return DeserializeRawCollectionItem(rawItem);
 
-            var type = GetTypeByName(rawItem.Type);
+            var type = GetTypeByName(rawItem.Type, true);
+            if (type == null)
+            {
+                return null;
+            }
 
             if (type == typeof(int)) return int.Parse(rawItem.Value);
             if (type == typeof(double)) return double.Parse(rawItem.Value);
@@ -40,7 +45,27 @@ namespace ContactPoint.Core.Settings.Loaders
             if (type == typeof(bool)) return bool.Parse(rawItem.Value);
             if (type == typeof(string)) return rawItem.Value;
             if (type == typeof(char)) return rawItem.Value[0];
-            if (type == typeof(System.Drawing.Point)) return new System.Drawing.PointConverter().ConvertFromString(rawItem.Value);
+
+            var typeConverters = type.GetCustomAttributes(typeof(TypeConverterAttribute), true)?
+                .Select(x => x as TypeConverterAttribute)
+                .Where(x => x != null && x != TypeConverterAttribute.Default && !string.IsNullOrEmpty(x.ConverterTypeName))
+                .Select(x => GetTypeByName(x.ConverterTypeName, false))
+                .Where(x => x != null)
+                .Select(x => (TypeConverter)Activator.CreateInstance(x))
+                .Where(x => x != null);
+
+            if (typeConverters == null)
+            {
+                return null;
+            }
+
+            foreach (var converter in typeConverters)
+            {
+                if (converter != null && converter.CanConvertFrom(typeof(string)) && converter.CanConvertTo(type))
+                {
+                    return converter.ConvertFromString(rawItem.Value);
+                }
+            }
 
             return null;
         }
@@ -106,10 +131,17 @@ namespace ContactPoint.Core.Settings.Loaders
         {
             try
             {
-                return Type.GetType(typeName, throwOnError, true);
+                return AppDomain.CurrentDomain.GetAssemblies().Select(x => x.GetType(typeName, false)).FirstOrDefault();
             }
             catch
             {
+                Logger.LogWarn($"Failed to get type '{typeName}', throwOnError={throwOnError}");
+
+                if (throwOnError)
+                {
+                    throw;
+                }
+
                 // Try to remove assembly version from type name
                 var typeNameParts = typeName.Split(',').Select(x => x.Trim()).ToArray();
                 if (typeNameParts.Length > 2)
