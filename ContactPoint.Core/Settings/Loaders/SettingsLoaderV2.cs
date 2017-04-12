@@ -19,11 +19,13 @@ namespace ContactPoint.Core.Settings.Loaders
             _settingsManager = settingsManager;
         }
 
-        public virtual IEnumerable<SettingsManagerSection> Load(System.Xml.XPath.XPathNavigator nav)
+        public virtual IEnumerable<SettingsManagerSection> Load(XPathNavigator nav)
         {
             XPathNodeIterator iter = nav.Select("/data/item");
             if (iter != null)
+            {
                 return new SettingsManagerSection[] { LoadSection("temporary", iter) };
+            }
 
             return new SettingsManagerSection[] { };
         }
@@ -46,11 +48,20 @@ namespace ContactPoint.Core.Settings.Loaders
             if (type == typeof(string)) return rawItem.Value;
             if (type == typeof(char)) return rawItem.Value[0];
 
-            var typeConverters = type.GetCustomAttributes(typeof(TypeConverterAttribute), true)?
+            var typeAttributes = type.GetCustomAttributes(typeof(TypeConverterAttribute), true)?
                 .Select(x => x as TypeConverterAttribute)
                 .Where(x => x != null && x != TypeConverterAttribute.Default && !string.IsNullOrEmpty(x.ConverterTypeName))
-                .Select(x => GetTypeByName(x.ConverterTypeName, false))
-                .Where(x => x != null)
+                .Join(type.GetCustomAttributesData(), x => x.GetType(), x => x.AttributeType, (x, y) => new { Attribute = x, Data = y });
+
+            var typeConverterAttributes = typeAttributes
+                .Select(x => (TypeConverterAttribute)x.Data.Constructor.Invoke(x.Data.ConstructorArguments.Select(p => p.Value).ToArray()))
+                .Where(x => x != null);
+
+            var typeConverterTypes = typeConverterAttributes
+                .Select(x => GetTypeByName(x.ConverterTypeName))
+                .Where(x => x != null);
+
+            var typeConverters = typeConverterTypes
                 .Select(x => (TypeConverter)Activator.CreateInstance(x))
                 .Where(x => x != null);
 
@@ -61,9 +72,13 @@ namespace ContactPoint.Core.Settings.Loaders
 
             foreach (var converter in typeConverters)
             {
-                if (converter != null && converter.CanConvertFrom(typeof(string)) && converter.CanConvertTo(type))
+                try
                 {
                     return converter.ConvertFromString(rawItem.Value);
+                }
+                catch (Exception e)
+                {
+                    Logger.LogWarn(e, $"Converter of type '{converter.GetType().FullName}' was failed to convert '{rawItem.Value ?? "<NULL>"}' of type string");
                 }
             }
 
@@ -100,20 +115,26 @@ namespace ContactPoint.Core.Settings.Loaders
             {
                 try
                 {
-                    var rawItem = new SettingsRawItem();
+                    var rawItem = new SettingsRawItem()
+                    {
+                        Name = iter.Current.GetAttribute("name", ""),
+                        Type = iter.Current.GetAttribute("type", ""),
+                        IsCollection = bool.Parse(iter.Current.GetAttribute("isCollection", ""))
+                    };
 
-                    rawItem.Name = iter.Current.GetAttribute("name", "");
-                    rawItem.Type = iter.Current.GetAttribute("type", "");
-                    rawItem.IsCollection = bool.Parse(iter.Current.GetAttribute("isCollection", ""));
-
-                    if (!rawItem.IsCollection) rawItem.Value = iter.Current.Value;
+                    if (!rawItem.IsCollection)
+                    {
+                        rawItem.Value = iter.Current.Value;
+                    }
                     else
                     {
                         rawItem.ItemType = iter.Current.GetAttribute("itemType", "");
 
                         var collectionIter = iter.Current.Select("collectionItem");
                         while (collectionIter.MoveNext())
+                        {
                             rawItem.ValuesCollection.Add(collectionIter.Current.Value);
+                        }
                     }
 
                     rawData.Add(rawItem);
@@ -126,17 +147,21 @@ namespace ContactPoint.Core.Settings.Loaders
 
             return new SettingsManagerSection(name, _settingsManager, this, rawData);
         }
-    
+
         private Type GetTypeByName(string typeName, bool throwOnError = true)
+        {
+            return Type.GetType(typeName, false) ?? GetTypeByNameFromAllAssemblies(typeName, throwOnError);
+        }
+
+        private Type GetTypeByNameFromAllAssemblies(string typeName, bool throwOnError = true)
         {
             try
             {
-                return AppDomain.CurrentDomain.GetAssemblies().Select(x => x.GetType(typeName, false)).FirstOrDefault();
+                return AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).FirstOrDefault(x => x.FullName.Equals(typeName, StringComparison.InvariantCulture));
             }
             catch
             {
                 Logger.LogWarn($"Failed to get type '{typeName}', throwOnError={throwOnError}");
-
                 if (throwOnError)
                 {
                     throw;

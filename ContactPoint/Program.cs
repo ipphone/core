@@ -183,6 +183,12 @@ namespace ContactPoint
                         CoreLoader.LoadingFailed += LoadingFailed;
                         CoreLoader.PartLoading += PartLoading;
 
+                        foreach (var assembly in typeof(Program).Assembly.GetReferencedAssemblies())
+                        {
+                            PartLoading($"Load dependency: {assembly.Name} v{assembly.Version}");
+                            AppDomain.CurrentDomain.Load(assembly);
+                        }
+
                         PartLoading("Initialize Exception Reporter");
                         ExceptionReporter = new ExceptionReporting.Core.ExceptionReporter();
                         ExceptionReporter.Config.ShowFlatButtons = false;

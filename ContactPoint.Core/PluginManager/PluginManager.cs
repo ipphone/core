@@ -96,11 +96,23 @@ namespace ContactPoint.Core.PluginManager
                         {
                             try
                             {
-                                Assembly.ReflectionOnlyLoad(assembly.FullName);
+                                Assembly.Load(assembly.FullName);
+                                continue;
                             }
-                            catch
+                            catch (Exception e)
                             {
-                                Assembly.ReflectionOnlyLoadFrom(Path.Combine(path, assembly.Name + ".dll"));
+                                Logger.LogWarn(e, $"Unable to load assembly {assembly.FullName}");
+                            }
+
+                            var assemblyPath = Path.Combine(path, assembly.Name + ".dll");
+                            try
+                            {
+                                Assembly.LoadFrom(assemblyPath);
+                                continue;
+                            }
+                            catch (Exception e)
+                            {
+                                Logger.LogWarn(e, $"Unable to load assembly '{assembly.FullName}' from '{assemblyPath}'");
                             }
                         }
 
@@ -158,8 +170,6 @@ namespace ContactPoint.Core.PluginManager
                 var assemblyName = Path.GetFileNameWithoutExtension(file);
 
                 _pluginFiles[assemblyName] = file;
-                //_pluginFiles[$"{assemblyName}.dll"] = file;
-                //_pluginFiles[$"{assemblyName}.resources"] = file;
             }
         }
 
