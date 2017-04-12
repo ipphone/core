@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace ContactPoint.Forms
@@ -12,9 +13,10 @@ namespace ContactPoint.Forms
         {
             InitializeComponent();
 
-            this.labelVersion.Text = "version: " + this.GetType().Assembly.GetName().Version.ToString(4);
+            var assembly = GetType().Assembly;
+            labelVersion.Text = "version: " + (assembly.ReflectionOnly ? null : assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version) ?? assembly.GetName().Version.ToString(4);
 
-            this.labelTrademarks.Text =
+            labelTrademarks.Text =
                 "© Copyright ContactPoint company 2008, " + DateTime.Now.Year.ToString() + ". All rights reserved.\r\n" +
                 "ContactPoint and all ContactPoint-based trademarks and logos are\r\n" +
                 "trademarks or registered trademarks of ContactPoint";
@@ -27,21 +29,21 @@ namespace ContactPoint.Forms
 
         internal void SetLoadingText(string text)
         {
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.BeginInvoke(new Action<string>(SetLoadingText), new object[] { text });
+                BeginInvoke(new Action<string>(SetLoadingText), new object[] { text });
                 return;
             }
 
-            this.labelLoadingText.Text = text;
+            labelLoadingText.Text = text;
         }
 
         internal void TryClose()
         {
-            if (this.InvokeRequired)
-                this.BeginInvoke(new MethodInvoker(Close));
+            if (InvokeRequired)
+                BeginInvoke(new MethodInvoker(Close));
             else
-                this.Close();
+                Close();
         }
 
         private void TryLoadPartnerImage()

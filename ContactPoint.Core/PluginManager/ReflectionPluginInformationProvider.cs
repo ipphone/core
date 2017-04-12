@@ -36,7 +36,7 @@ namespace ContactPoint.Core.PluginManager
                             pluginType,
                             Guid.Parse(attr.ConstructorArguments[0].Value.ToString()),
                             attr.ConstructorArguments[1].Value.ToString(),
-                            pluginType.Assembly.GetName().Version.ToString(4),
+                            (pluginType.Assembly.ReflectionOnly ? null : pluginType.Assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version) ?? pluginType.Assembly.GetName().Version.ToString(4),
                             GetNamedArgumentValue(attr, "Info"),
                             settingsForm);
 
