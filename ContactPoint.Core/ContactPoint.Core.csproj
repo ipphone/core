@@ -97,11 +97,9 @@
     <Compile Include="PluginManager\ExternallyConfigurablePluginInformationProvider.cs" />
     <Compile Include="PluginManager\JObjectReadOnlySettingsManagerSection.cs" />
     <Compile Include="PluginManager\Plugin.cs" />
-    <Compile Include="PluginManager\PluginCheckedUIElement.cs" />
     <Compile Include="PluginManager\PluginCheckedUIElementBase.cs" />
     <Compile Include="PluginManager\PluginInformation.cs" />
     <Compile Include="PluginManager\PluginManager.cs" />
-    <Compile Include="PluginManager\PluginUIElement.cs" />
     <Compile Include="PluginManager\PluginUIElementBase.cs" />
     <Compile Include="PluginManager\ReflectionPluginInformationProvider.cs" />
     <Compile Include="PluginManager\TypeBasedPluginInformationProvider.cs" />
