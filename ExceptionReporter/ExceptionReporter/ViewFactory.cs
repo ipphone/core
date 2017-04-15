@@ -1,8 +1,8 @@
 using System;
-using ExceptionReporting.Core;
 using ContactPoint.BaseDesign;
+using ExceptionReporter.Core;
 
-namespace ExceptionReporting
+namespace ExceptionReporter
 {
 	/// <summary>
 	/// ViewFactory inspects the assembly and retrieves the appropriate class

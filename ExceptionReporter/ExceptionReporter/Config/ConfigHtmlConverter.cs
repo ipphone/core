@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Xsl;
 
-namespace ExceptionReporting.Config
+namespace ExceptionReporter.Config
 {
     internal class ConfigHtmlConverter
     {

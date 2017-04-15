@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using ContactPoint.BaseDesign.Wpf;
 using ContactPoint.Common;
-using ExceptionReporting.WinForms.Views;
+using ExceptionReporter.Views;
 
 namespace ContactPoint.Forms
 {

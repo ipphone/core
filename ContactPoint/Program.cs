@@ -16,13 +16,13 @@ using ContactPoint.Core;
 using ContactPoint.Services;
 using System.Linq;
 using ContactPoint.BaseDesign.Wpf.CoreDesign;
-using ExceptionReporting.Core;
 using System.IO;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Windows.Forms.VisualStyles;
 using ContactPoint.Commands;
 using ContactPoint.Forms;
+using ExceptionReporter.Core;
 using Application = System.Windows.Forms.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -52,6 +52,11 @@ namespace ContactPoint
 
     static class Program
     {
+        private const string mutex_id = "Global\\{9D643C78-280A-4455-8E3B-55E2043739ED}";
+
+        private static LoaderForm _loaderForm;
+        private static bool _disableExceptionReporter;
+
     	public const uint MAKECALL_MESSAGE_ID = 4890271;
 		public const uint WM_COPYDATA = 0x4A;
 
@@ -67,12 +72,8 @@ namespace ContactPoint
 		[return: MarshalAs(UnmanagedType.Bool)]
 		private static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        private const string mutex_id = "Global\\{9D643C78-280A-4455-8E3B-55E2043739ED}";
-
-        private static LoaderForm _loaderForm;
-
         public static MainFormApplicationContext AppContext { get; private set; }
-        public static ExceptionReporting.Core.ExceptionReporter ExceptionReporter { get; private set; }
+        public static ExceptionReporter.ExceptionReporter ExceptionReporter { get; private set; }
 
         /// <summary> 
         /// The main entry point for the application.
@@ -101,7 +102,7 @@ namespace ContactPoint
             perm.Assert();
 
             ThreadPool.SetMaxThreads(50, 200);
-            System.Windows.Forms.Timer watcherTimer = null;
+            System.Windows.Forms.Timer watcherTimer;
             bool mutexAquired = false;
             using (var mutex = new Mutex(false, mutex_id))
             {
@@ -128,6 +129,11 @@ namespace ContactPoint
                     {
                         Logger.LogWarn(e, "Unable to open log file at '{0}'", logFile);
                     }
+                }
+
+                if (GetCommandLineSwitch("/DisableExceptionReporter", args))
+                {
+                    _disableExceptionReporter = true;
                 }
 
                 Logger.LogNotice($"ContactPoint IP Phone version: {typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}");
@@ -190,7 +196,7 @@ namespace ContactPoint
                         }
 
                         PartLoading("Initialize Exception Reporter");
-                        ExceptionReporter = new ExceptionReporting.Core.ExceptionReporter();
+                        ExceptionReporter = new ExceptionReporter.ExceptionReporter();
                         ExceptionReporter.Config.ShowFlatButtons = false;
                         ExceptionReporter.Config.ShowLessMoreDetailButton = true;
                         ExceptionReporter.Config.CompanyName = "ContactPoint";
@@ -289,6 +295,11 @@ namespace ContactPoint
                 Logger.LogError(e);
                 throw;
             }
+        }
+
+        static bool GetCommandLineSwitch(string parameterName, string[] parameters)
+        {
+            return parameters.Any(p => parameterName.Equals(p, StringComparison.InvariantCultureIgnoreCase));
         }
 
         static string GetCommandLineParameter(string parameterName, string[] parameters)
@@ -399,7 +410,7 @@ namespace ContactPoint
             }
 #endif
 
-            if (ExceptionReporter == null || !Application.MessageLoop)
+            if (_disableExceptionReporter || ExceptionReporter == null || !Application.MessageLoop)
             {
                 return;
             }
@@ -427,6 +438,7 @@ namespace ContactPoint
                 using (var reportGenerator = new ExceptionReportGenerator(reportInfo))
                 {
                     var report = reportGenerator.CreateExceptionReport();
+                    Logger.LogError(report.ToString());
                     File.WriteAllText(path, report.ToString());
                 }
 
@@ -441,7 +453,7 @@ namespace ContactPoint
             return false;
         }
 
-        static void TakeScreenshot(ExceptionReporting.Core.ExceptionReporter reporter)
+        static void TakeScreenshot(ExceptionReporter.ExceptionReporter reporter)
         {
             try
             {

@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Text;
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporter.Core
 {
 	/// <summary>
 	/// Used to find and do things with referenced assemblies

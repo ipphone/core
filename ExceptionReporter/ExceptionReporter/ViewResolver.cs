@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 
-namespace ExceptionReporting
+namespace ExceptionReporter
 {
 	/// <summary>
 	/// Resolve a view from an assembly (limited to ExceptionReportView and InternalExceptionView)

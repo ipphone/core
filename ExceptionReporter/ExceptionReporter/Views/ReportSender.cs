@@ -5,12 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using ExceptionReporting.Core;
 using System.IO;
 using System.Drawing.Imaging;
-using ExceptionReporting;
 using System.Threading;
-using ExceptionReporter.ua.com.artpoint.bug;
 using ContactPoint.Common;
 
 namespace ExceptionReporter.Views

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 #pragma warning disable 1591
 
-namespace ExceptionReporting.SystemInfo
+namespace ExceptionReporter.SystemInfo
 {
 	/// <summary>
 	/// SysInfoResult holds results from a (ultimately WMI) query into system information

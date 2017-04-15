@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporter.Mail
 {
     /// <summary>
     /// textual content for email

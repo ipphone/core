@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;		// TODO can't be used by WPF
+using System.Windows.Forms;
 
-namespace ExceptionReporting.SystemInfo
+// TODO can't be used by WPF
+
+namespace ExceptionReporter.SystemInfo
 {
     ///<summary>
     /// Map SysInfoResults to human-readable formats

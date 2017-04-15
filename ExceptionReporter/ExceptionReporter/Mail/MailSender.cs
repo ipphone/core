@@ -1,10 +1,9 @@
 using System;
 using System.Net.Mail;
-using ExceptionReporting.Core;
-using ExceptionReporting.Extensions;
+using ExceptionReporter.Core;
 using Win32Mapi;
 
-namespace ExceptionReporting.Mail
+namespace ExceptionReporter.Mail
 {
     internal class MailSender
     {

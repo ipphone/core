@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
-using ExceptionReporting.SystemInfo;
+using ExceptionReporter.SystemInfo;
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporter.Core
 {
 	/// <summary>
 	/// ExceptionReportGenerator does everything that needs to happen to generate an ExceptionReport
@@ -23,10 +23,7 @@ namespace ExceptionReporting.Core
 		/// however 'base' properties such as MachineName</param>
 		public ExceptionReportGenerator(ExceptionReportInfo reportInfo)
 		{
-			if (reportInfo == null)
-				throw new ExceptionReportGeneratorException("reportInfo cannot be null");
-
-			_reportInfo = reportInfo;
+		    _reportInfo = reportInfo ?? throw new ExceptionReportGeneratorException("reportInfo cannot be null");
 
 			_reportInfo.ExceptionDate = DateTime.UtcNow;
 			_reportInfo.UserName = Environment.UserName;

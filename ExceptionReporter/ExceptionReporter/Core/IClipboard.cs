@@ -1,4 +1,4 @@
-namespace ExceptionReporting.Core
+namespace ExceptionReporter.Core
 {
     ///<summary>
     /// interface to abstract the concept of a clipboard - required because of the different implementations 

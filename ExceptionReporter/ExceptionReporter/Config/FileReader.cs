@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace ExceptionReporting.Config
+namespace ExceptionReporter.Config
 {
 	/// <summary>generic interface to reading a file</summary>
 	public interface IFileReader

@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using ExceptionReporting.Core;
+using ExceptionReporter.Core;
 
-namespace ExceptionReporting.WinForms.Views
+namespace ExceptionReporter.Views
 {
 	/// <summary>
 	/// For exceptions within the ExceptionReporter - considering removing altogether

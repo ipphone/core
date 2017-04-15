@@ -4,8 +4,8 @@ using System.Text;
 using System.Net;
 using System.Collections.Specialized;
 using System.IO;
-using ExceptionReporting.Core;
 using System.Windows.Forms;
+using ExceptionReporter.Core;
 
 namespace ExceptionReporter
 {

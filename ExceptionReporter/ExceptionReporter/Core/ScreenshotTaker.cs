@@ -3,7 +3,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporter.Core
 {
 	/// <summary>
 	/// Utility to take a screenshot and return as a graphic file 

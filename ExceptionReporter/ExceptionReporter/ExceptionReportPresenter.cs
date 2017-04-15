@@ -4,12 +4,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using ExceptionReporting.Config;
-using ExceptionReporting.Core;
-using ExceptionReporting.Mail;
-using ExceptionReporting.SystemInfo;
+using ExceptionReporter.Config;
+using ExceptionReporter.Core;
+using ExceptionReporter.Mail;
+using ExceptionReporter.SystemInfo;
 
-namespace ExceptionReporting
+namespace ExceptionReporter
 {
 	/// <summary>
 	/// The Presenter in this MVP (Model-View-Presenter) implementation 

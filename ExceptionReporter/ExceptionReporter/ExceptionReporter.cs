@@ -1,11 +1,12 @@
 using System;
 using System.Reflection;
 using ContactPoint.Common;
-using ExceptionReporting.Config;
+using ExceptionReporter.Config;
+using ExceptionReporter.Core;
 
 // ReSharper disable UnusedMember.Global
 
-namespace ExceptionReporting.Core
+namespace ExceptionReporter
 {
 	/// <summary>
 	/// The entry-point (class) to invoking an ExceptionReporter dialog

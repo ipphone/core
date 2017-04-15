@@ -4,13 +4,12 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using ExceptionReporting.Core;
-using ExceptionReporting.SystemInfo;
-using ExceptionReporter.Views;
+using ExceptionReporter.Core;
+using ExceptionReporter.SystemInfo;
 
 #pragma warning disable 1591
 
-namespace ExceptionReporting.WinForms.Views
+namespace ExceptionReporter.Views
 {
 	/// <summary>
 	/// The main ExceptionReporter dialog

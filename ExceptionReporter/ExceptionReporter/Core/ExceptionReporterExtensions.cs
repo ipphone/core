@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace ExceptionReporting.Extensions
+namespace ExceptionReporter.Core
 {
 	/// <summary>
 	/// All extension methods for ExceptionReporter
