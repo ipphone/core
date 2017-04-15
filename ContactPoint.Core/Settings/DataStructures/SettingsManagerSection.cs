@@ -6,31 +6,23 @@ using ContactPoint.Core.Settings.Loaders;
 
 namespace ContactPoint.Core.Settings.DataStructures
 {
-    internal class SettingsManagerSection : ISettingsManagerSection
+    class SettingsManagerSection : ISettingsManagerSection
     {
-        private SettingsManager _settingsManager;
-        private IEnumerable<SettingsRawItem> _rawData;
-        private ISettingsLoader _loader;
+        private readonly SettingsManager _settingsManager;
+        private readonly IEnumerable<SettingsRawItem> _rawData;
+        private readonly ISettingsLoader _loader;
         protected IDictionary<string, object> Settings = new Dictionary<string, object>();
 
-        internal bool IsEmpty
-        {
-            get
-            {
-                if (!IsLoaded) return true;
+        public bool IsEmpty => !IsLoaded || Settings.Count == 0;
 
-                return Settings.Count == 0;
-            }
-        }
+        public string Name { get; }
+        public bool IsLoaded { get; private set; }
 
-        internal string Name { get; private set; }
-        internal bool IsLoaded { get; private set; }
-
-        internal SettingsManagerSection(string name, SettingsManager settingsManager, ISettingsLoader loader)
+        public SettingsManagerSection(string name, SettingsManager settingsManager, ISettingsLoader loader)
             : this(name, settingsManager, loader, new List<SettingsRawItem>())
         { }
 
-        internal SettingsManagerSection(string name, SettingsManager settingsManager, ISettingsLoader loader, IEnumerable<SettingsRawItem> rawData)
+        public SettingsManagerSection(string name, SettingsManager settingsManager, ISettingsLoader loader, IEnumerable<SettingsRawItem> rawData)
         { 
             Name = name;
             _settingsManager = settingsManager;
@@ -38,7 +30,7 @@ namespace ContactPoint.Core.Settings.DataStructures
             _rawData = rawData;
         }
 
-        internal virtual IEnumerable<SettingsRawItem> GetRawData()
+        public virtual IEnumerable<SettingsRawItem> GetRawData()
         {
             if (!IsLoaded) return _rawData;
 
@@ -59,9 +51,9 @@ namespace ContactPoint.Core.Settings.DataStructures
             var rawItem = new SettingsRawItem();
 
             rawItem.Name = name;
-            rawItem.Type = value.GetType().FullName;
+            rawItem.Type = value.GetType().AssemblyQualifiedName;
 
-            if (value is IEnumerable && !(value is String))
+            if (value is IEnumerable && !(value is string))
             {
                 rawItem.IsCollection = true;
 
@@ -69,7 +61,7 @@ namespace ContactPoint.Core.Settings.DataStructures
                 if (!value.GetType().IsGenericType) itemType = typeof(object);
                 else itemType = value.GetType().GetGenericArguments()[0];
 
-                rawItem.ItemType = itemType.FullName;
+                rawItem.ItemType = itemType.AssemblyQualifiedName;
 
                 foreach (var collectionItem in value as IEnumerable)
                     rawItem.ValuesCollection.Add(SerializeObject(collectionItem, itemType));
@@ -84,6 +76,11 @@ namespace ContactPoint.Core.Settings.DataStructures
         {
             if (type == typeof(DateTime)) return ((DateTime)obj).ToString("s");
             if (type == typeof(System.Drawing.Point)) return new System.Drawing.PointConverter().ConvertToString(obj);
+
+            if (type.TryGetTypeConverter(out var typeConverter))
+            {
+                return typeConverter.ConvertToString(obj);
+            }
 
             return obj.ToString();
         }

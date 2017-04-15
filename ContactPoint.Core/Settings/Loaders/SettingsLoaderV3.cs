@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.XPath;
 using ContactPoint.Common;
 using ContactPoint.Core.Settings.DataStructures;
@@ -14,7 +12,7 @@ namespace ContactPoint.Core.Settings.Loaders
             : base(settingsManager)
         { }
 
-        public override IEnumerable<SettingsManagerSection> Load(System.Xml.XPath.XPathNavigator nav)
+        public override IEnumerable<SettingsManagerSection> Load(XPathNavigator nav)
         {
             var sections = new List<SettingsManagerSection>();
 

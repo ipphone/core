@@ -6,13 +6,13 @@ namespace ContactPoint.Core.Settings.DataStructures
 {
     internal class LegacySettingsManagerSection : SettingsManagerSection
     {
-        private StringCollection _ownKeys = new StringCollection();
+        private readonly StringCollection _ownKeys = new StringCollection();
 
         public LegacySettingsManagerSection(string name, SettingsManager settingsManager, ISettingsLoader loader, SettingsManagerSection parentSection)
             : base(name, settingsManager, loader, parentSection.GetRawData())
         { }
 
-        internal override IEnumerable<SettingsRawItem> GetRawData()
+        public override IEnumerable<SettingsRawItem> GetRawData()
         {
             if (!IsLoaded) return new SettingsRawItem[] { };
 
@@ -41,7 +41,7 @@ namespace ContactPoint.Core.Settings.DataStructures
             if (!_ownKeys.Contains(name))
                 _ownKeys.Add(name);
 
-            return base.GetValueOrSetDefault<T>(name, defaultValue);
+            return base.GetValueOrSetDefault(name, defaultValue);
         }
 
         public override void Set(string name, object value)

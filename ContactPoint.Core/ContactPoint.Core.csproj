@@ -111,6 +111,8 @@
     <Compile Include="CallManager\CallManager.cs" />
     <Compile Include="Security\SecurityLicenseContent.cs" />
     <Compile Include="Security\SecurityTokenContent.cs" />
+    <Compile Include="Settings\DataStructures\TypeConvertersCache.cs" />
+    <Compile Include="Settings\DataStructures\TypeHelpers.cs" />
     <Compile Include="Settings\Loaders\ISettingsLoader.cs" />
     <Compile Include="Settings\DataStructures\LegacySettingsManagerSection.cs" />
     <Compile Include="Settings\Loaders\SettingsLoaderV1.cs" />

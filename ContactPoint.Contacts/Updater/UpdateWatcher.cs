@@ -31,12 +31,17 @@ namespace ContactPoint.Contacts.Updater
         internal void QueueCheck(AddressBookLocal addressBook)
         {
             if (CheckCriteria(addressBook))
+            {
                 TryUpdateAddressBook(addressBook);
+            }
         }
 
         void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            Check();
+            if (_contactsManager.AddressBooks.Any())
+            {
+                Check();
+            }
         }
 
         public void Dispose()

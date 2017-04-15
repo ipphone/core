@@ -28,8 +28,11 @@ namespace ContactPoint.Commands
 
         protected override void Dispose(bool disposing)
         {
-            _uiElement.CommandExecuted -= CommandExecuted;
-            _uiElement.UIChanged -= UIChanged;
+            if (disposing)
+            {
+                _uiElement.CommandExecuted -= CommandExecuted;
+                _uiElement.UIChanged -= UIChanged;
+            }
 
             base.Dispose(disposing);
         }
