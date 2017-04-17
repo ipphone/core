@@ -379,12 +379,13 @@ namespace ContactPoint
 
         static void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
         {
-#if !DEBUG
-            CatchUnhandledException(sender, e.Exception, "First chance exception from '{0}'");
-#endif
+            if (e.Exception != null)
+            {
+                CatchUnhandledException(sender, e.Exception, "First chance exception from '{0}'", false);
+            }
         }
 
-        static void CatchUnhandledException(object sender, Exception e, string message)
+        static void CatchUnhandledException(object sender, Exception e, string message, bool showExceptionReporter = true)
         {
             try
             {
@@ -403,17 +404,17 @@ namespace ContactPoint
 
             Logger.LogError(e);
 
+            if (!showExceptionReporter || _disableExceptionReporter || ExceptionReporter == null || !Application.MessageLoop)
+            {
+                return;
+            }
+
 #if DEBUG
             if (Debugger.IsAttached)
             {
                 Debugger.Break();
             }
 #endif
-
-            if (_disableExceptionReporter || ExceptionReporter == null || !Application.MessageLoop)
-            {
-                return;
-            }
 
             try
             {
