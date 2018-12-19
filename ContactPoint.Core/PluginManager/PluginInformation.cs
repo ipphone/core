@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using ContactPoint.Common.PluginManager;
 using ContactPoint.Common;
@@ -7,6 +7,8 @@ namespace ContactPoint.Core.PluginManager
 {
     internal class PluginInformation : IPluginInformation
     {
+        private readonly object _lockObj = new object();
+
         public event ServiceStartedDelegate Started;
         public event ServiceStoppedDelegate Stopped;
 
@@ -48,7 +50,7 @@ namespace ContactPoint.Core.PluginManager
 
         public void Start()
         {
-            lock (this)
+            lock (_lockObj)
             {
                 if (_instance == null && CreateInstance() == null) return;
                 if (_instance == null) return;
@@ -60,7 +62,7 @@ namespace ContactPoint.Core.PluginManager
 
         public void Stop()
         {
-            lock (this)
+            lock (_lockObj)
             {
                 if (_instance == null) return;
                 if (!_instance.IsStarted) return;
@@ -73,7 +75,7 @@ namespace ContactPoint.Core.PluginManager
         {
             if (_instance == null && create)
             {
-                lock (this)
+                lock (_lockObj)
                 {
                     if (_instance == null)
                     {

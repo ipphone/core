@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Sipek.Common;
-using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace Sipek.Sip
 {
     internal class pjsipMediaPlayerProxy : IMediaProxyInterface
     {
+        private readonly object _lockObj = new object();
 
 #if LINUX
 		internal const string PJSIP_DLL = "libpjsipDll.so"; 
@@ -35,7 +32,7 @@ namespace Sipek.Sip
             get { return _sessionId; }
             set 
             {
-                lock (this)
+                lock (_lockObj)
                 {
                     if (_isPlaying) Task.Factory.StartNew(() => stopTone(), TaskCreationOptions.PreferFairness);
 
@@ -46,7 +43,7 @@ namespace Sipek.Sip
 
         public int playTone(ETones toneId)
         {
-            lock (this)
+            lock (_lockObj)
             {
                 if (_isPlaying)
                 {
@@ -70,7 +67,7 @@ namespace Sipek.Sip
 
         public int stopTone()
         {
-            lock (this)
+            lock (_lockObj)
             {
                 if (!_isPlaying) return 0;
 

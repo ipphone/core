@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using ContactPoint.Common.PluginManager;
@@ -10,6 +10,8 @@ namespace ContactPoint.Plugins.ContactsUi
     internal class ContactsCommand : PluginUIElementBase
     {
         private static ContactsListForm _formInstance;
+
+        private readonly object _lockObj = new object();
 
         public ContactsCommand(IPlugin plugin) : base(plugin)
         { }
@@ -25,7 +27,7 @@ namespace ContactPoint.Plugins.ContactsUi
 
         protected override void ExecuteCommand(object sender, object data)
         {
-            lock (this)
+            lock (_lockObj)
             {
                 if (_formInstance == null)
                 {
@@ -39,8 +41,9 @@ namespace ContactPoint.Plugins.ContactsUi
 
         private void FormInstanceClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            lock (this)
+            lock (_lockObj)
             {
+                _formInstance.Closing -= FormInstanceClosing;
                 _formInstance = null;
             }
         }

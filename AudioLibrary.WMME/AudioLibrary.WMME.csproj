@@ -72,6 +72,9 @@
     <Compile Include="Native\Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VolumeAudioLineControl.cs" />
+    <Compile Include="WaveOut.cs" />
+    <Compile Include="WaveOutBuffer.cs" />
+    <Compile Include="WaveStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AudioLibrary\AudioLibrary.csproj">

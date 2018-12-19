@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -34,25 +34,17 @@ namespace ContactPoint.Controls
                     _call.OnRemoved -= _callOnRemoved;
                     _call.OnInfoChanged -= _callOnInfoChanged;
                     _call.OnDurationChanged -= _callOnDurationChanged;
+                    _call = null;
                 }
 
-                if (value != null)
+                if (value != null && !value.IsDisposed)
                 {
-                    lock (value)
-                    {
-                        if (!value.IsDisposed)
-                        {
-                            _call = value;
-                            _call.OnStateChanged += _callOnStateChanged;
-                            _call.OnRemoved += _callOnRemoved;
-                            _call.OnInfoChanged += _callOnInfoChanged;
-                            _call.OnDurationChanged += _callOnDurationChanged;
-                        }
-                        else
-                            _call = null;
-                    }
+                    _call = value;
+                    _call.OnStateChanged += _callOnStateChanged;
+                    _call.OnRemoved += _callOnRemoved;
+                    _call.OnInfoChanged += _callOnInfoChanged;
+                    _call.OnDurationChanged += _callOnDurationChanged;
                 }
-                else _call = null;
 
                 if (_active)
                 {

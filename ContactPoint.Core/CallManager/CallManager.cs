@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Threading;
@@ -7,6 +7,7 @@ using ContactPoint.Common.SIP.Account;
 using Sipek.Common;
 using System.Threading;
 using Sipek.Sip;
+using System.Collections.Concurrent;
 
 namespace ContactPoint.Core.CallManager
 {
@@ -28,7 +29,7 @@ namespace ContactPoint.Core.CallManager
         private readonly System.Windows.Forms.Timer _internalTimer;
         private readonly List<Call> _calls = new List<Call>();
         private readonly Call[] _lines = new Call[LINES_MAXCOUNT + 1];
-        private readonly List<CallOperation> _defferedOperations = new List<CallOperation>();
+        private readonly ConcurrentQueue<CallOperation> _defferedOperations = new ConcurrentQueue<CallOperation>();
         private readonly Dispatcher _dispatcher;
 
         private bool _isConferenceActive;
@@ -473,15 +474,19 @@ namespace ContactPoint.Core.CallManager
 
         private void DoMakeConferenceInternal()
         {
+            Call[] calls;
             lock (_calls)
             {
-                var calls = _calls.Where(x => x.State == CallState.ACTIVE).ToArray();
+                calls = _calls.Where(x => x.State == CallState.ACTIVE).ToArray();
+            }
 
-                // Interconnect all calls between themselves
-                int i, j, n = calls.Length;
-                for (i = 0; i < n; i++)
-                    for (j = i + 1; j < n; j++)
-                        AddDeferredOperation(new Action<ICall, ICall>(DoMakeConference), calls[i], calls[j]);
+            // Interconnect all calls between themselves
+            for (var i = 0; i < calls.Length; i++)
+            {
+                for (var j = i + 1; j < calls.Length; j++)
+                {
+                    AddDeferredOperation(new Action<ICall, ICall>(DoMakeConference), calls[i], calls[j]);
+                }
             }
         }
 
@@ -650,51 +655,38 @@ namespace ContactPoint.Core.CallManager
 
         private void RemoveNullCallsAndIncrementDuration()
         {
-            var killList = new List<Call>();
+            IEnumerable<Call> calls;
             lock (_calls)
             {
-                foreach (var call in _calls)
+                calls = _calls.ToArray();
+            }
+
+            foreach (var call in calls)
+            {
+                try
                 {
-                    try
+                    if (call != null && call.State != CallState.NULL)
                     {
-                        if (call != null && call.State != CallState.NULL)
-                        {
-                            call.Duration += TimeSpan.FromSeconds(1);
-                        }
-                        else
-                        {
-                            killList.Add(call);
-                        }
+                        call.Duration += TimeSpan.FromSeconds(1);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Logger.LogWarn(ex);
+                        RemoveCallInternal(call, CallRemoveReason.NULL);
                     }
                 }
+                catch (Exception ex)
+                {
+                    Logger.LogWarn(ex);
+                }
             }
-
-            foreach (var call in killList)
-            {
-                RemoveCallInternal(call, CallRemoveReason.NULL);
-            }
-
-            killList.Clear();
         }
 
         private Call FindCallBySessionId(int sessionId)
         {
             lock (_calls)
             {
-                foreach (Call call in _calls)
-                {
-                    if (call.SessionId == sessionId)
-                    {
-                        return call;
-                    }
-                }
+                return _calls.FirstOrDefault(call => call.SessionId == sessionId);
             }
-
-            return null;
         }
 
         private CallRemoveReason GetCallRemoveReason(Call call)
@@ -713,11 +705,7 @@ namespace ContactPoint.Core.CallManager
             lock (_calls)
             {
                 _isConferenceActive = _calls.Count(x => x.IsInConference) > 1;
-
-                if (_calls.Contains(call))
-                {
-                    _calls.Remove(call);
-                }
+                _calls.Remove(call);
             }
 
             call.IsDisposed = true;
@@ -729,7 +717,6 @@ namespace ContactPoint.Core.CallManager
         private bool AssignLineForCall(Call call)
         {
             lock (_lines)
-            lock (_calls)
             {
                 int targetLine = -1;
                 int maxAllowedCalls = LINES_MAXCOUNT;
@@ -747,13 +734,11 @@ namespace ContactPoint.Core.CallManager
                         break;
                     }
 
-                    lock (_lines[i])
+                    var line = _lines[i];
+                    if (line.IsDisposed || line.State == CallState.NULL)
                     {
-                        if (_lines[i].IsDisposed || _lines[i].State == CallState.NULL)
-                        {
-                            targetLine = i;
-                            break;
-                        }
+                        targetLine = i;
+                        break;
                     }
                 }
 
@@ -869,25 +854,17 @@ namespace ContactPoint.Core.CallManager
 
         private void AddDeferredOperation(Delegate del, params object[] p)
         {
-            lock (_defferedOperations)
-            {
-                _defferedOperations.Add(new CallOperation(del, p));
-            }
+            _defferedOperations.Enqueue(new CallOperation(del, p));
         }
 
         private void ProcessDeferredOperations()
         {
-            lock (_defferedOperations)
+            CallOperation operation = null;
+            while (_defferedOperations.TryDequeue(out operation))
             {
-                foreach (var operation in _defferedOperations)
-                {
-                    CallOperation localOperation = operation;
-
-                    var del = new Action(localOperation.Execute);
-                    del.BeginInvoke(_deferredOperationCallback, del);
-                }
-
-                _defferedOperations.Clear();
+                var localOperation = operation;
+                var del = new Action(localOperation.Execute);
+                del.BeginInvoke(_deferredOperationCallback, del);
             }
         }
 
@@ -896,7 +873,6 @@ namespace ContactPoint.Core.CallManager
             try
             {
                 var del = result.AsyncState as Action;
-
                 if (del != null)
                     del.EndInvoke(result);
             }
@@ -909,7 +885,7 @@ namespace ContactPoint.Core.CallManager
         private class CallOperation
         {
             Delegate OperationDelegate;
-            object[] Parameters;
+            readonly object[] Parameters;
 
             public CallOperation(Delegate operationDelegate, params object[] parameters)
             {
@@ -929,12 +905,10 @@ namespace ContactPoint.Core.CallManager
 
         public IEnumerator<ICall> GetEnumerator()
         {
-            List<ICall> calls = new List<ICall>();
-
+            IEnumerable<Call> calls;
             lock (_calls)
             {
-                foreach (var call in _calls)
-                    calls.Add(call);
+                calls = _calls.ToArray();
             }
 
             return calls.GetEnumerator();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using ContactPoint.Common;
@@ -14,6 +14,7 @@ namespace ContactPoint.Core.SIP
 {
     internal class SIP : ISip
     {
+        private readonly object _lockObj = new object();
         private readonly Core _core;
         private readonly List<ISipCodec> _codecsList;
         private readonly ISipAccount _account;
@@ -90,7 +91,7 @@ namespace ContactPoint.Core.SIP
 
         void _deferredSetAudioDevicesTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            lock (this)
+            lock (_lockObj)
             {
                 _deferredSetAudioDevicesTimer.Stop();
 
@@ -104,7 +105,7 @@ namespace ContactPoint.Core.SIP
         /// </summary>
         private void SetAudioDevicesDeferred()
         {
-            lock (this)
+            lock (_lockObj)
             {
                 _deferredSetAudioDevicesTimer.Start();
             }

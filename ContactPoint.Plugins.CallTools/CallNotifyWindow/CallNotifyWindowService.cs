@@ -1,80 +1,77 @@
-﻿using System;
+using System;
 using ContactPoint.BaseDesign;
 using ContactPoint.Common;
 using ContactPoint.Common.PluginManager;
 
-namespace ContactPoint.Plugins.CallTools.CallNotifyWindow {
-    internal class CallNotifyWindowService : IService {
+namespace ContactPoint.Plugins.CallTools.CallNotifyWindow
+{
+    internal class CallNotifyWindowService : IService
+    {
         private readonly IPlugin _plugin;
         private readonly CallDelegate _callStatChanged;
-        private bool _isStarted = false;
-        private int _showingWindowTimeout = 0;
 
         public event ServiceStartedDelegate Started;
         public event ServiceStoppedDelegate Stopped;
+        
+        public bool NeedShowingNotification => _plugin.PluginManager.Core.SettingsManager.Get<bool>(CallToolsOptions.ShowIncomingCallWindowName);
+        public bool IsNotificationWindowPersistent => _plugin.PluginManager.Core.SettingsManager.Get<bool>(CallToolsOptions.NotHideCallWindowName);
 
-        public bool IsStarted {
-            get { return _isStarted; }
-        }
+        public bool IsStarted { get; private set; } = false;
 
-        public CallNotifyWindowService(IPlugin plugin) {
+        public CallNotifyWindowService(IPlugin plugin)
+        {
             _plugin = plugin;
 
             _callStatChanged = CallManager_OnCallStateChanged;
         }
 
-        public void Start() {
+        public void Start()
+        {
             if (IsStarted) { return; }
+
             _plugin.PluginManager.Core.CallManager.OnCallStateChanged += _callStatChanged;
             _plugin.PluginManager.Core.CallManager.OnIncomingCall += CallManager_OnIncomingCall;
 
-            _isStarted = true;
+            IsStarted = true;
         }
 
-        public void Stop() {
+        public void Stop()
+        {
             if (!IsStarted) { return; }
+
             _plugin.PluginManager.Core.CallManager.OnCallStateChanged -= _callStatChanged;
             _plugin.PluginManager.Core.CallManager.OnIncomingCall -= CallManager_OnIncomingCall;
 
-            _isStarted = false;
+            IsStarted = false;
         }
 
-        void CallManager_OnIncomingCall(ICall call) {
+        void CallManager_OnIncomingCall(ICall call)
+        {
             if (IsStarted && call.Headers.Contains("x-color") && !call.Tags.ContainsKey("color"))
                 call.Tags.Add("color", call.Headers["x-color"].Value);
         }
 
-        void CallManager_OnCallStateChanged(ICall call) {
-            bool notifyUser = false;
-
-            if (call == null)
+        void CallManager_OnCallStateChanged(ICall call)
+        {
+            if (call == null || call.IsDisposed)
+            {
                 return;
-
-            lock (call) {
-                if (call.IsDisposed)
-                    return;
-
-                if (call.State == CallState.INCOMING && call.LastState == CallState.NULL && call.IsIncoming)
-                    notifyUser = true;
             }
 
-            if (notifyUser && NeedShowingNotification()) {
-                bool isWindowPersistent = IsNotificationWindowPersistent();
+            if (NeedShowingNotification&& call.State == CallState.INCOMING && call.LastState == CallState.NULL && call.IsIncoming)
+            {
+                bool isWindowPersistent = IsNotificationWindowPersistent;
                 int closeWindowTimeout = isWindowPersistent ? int.MaxValue : 0;
-                if (SyncUi.InvokeRequired) {
+
+                if (SyncUi.InvokeRequired)
+                {
                     SyncUi.Invoke(new Action(() => NotifyManager.NotifyUser(new CallNotifyControl(call, isWindowPersistent), closeWindowTimeout)));
-                } else {
+                }
+                else
+                {
                     NotifyManager.NotifyUser(new CallNotifyControl(call, isWindowPersistent), closeWindowTimeout);
                 }
             }
-        }
-
-        private bool NeedShowingNotification() {
-            return _plugin.PluginManager.Core.SettingsManager.Get<bool>(CallToolsOptions.ShowIncomingCallWindowName);
-        }
-
-        private bool IsNotificationWindowPersistent() {
-            return _plugin.PluginManager.Core.SettingsManager.Get<bool>(CallToolsOptions.NotHideCallWindowName);
         }
     }
 }

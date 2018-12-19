@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Globalization;
-using System.Text;
-using System.Windows.Forms;
+using System;
 using ContactPoint.Common;
 using ContactPoint.BaseDesign.BaseNotifyControls;
 
@@ -13,26 +6,18 @@ namespace ContactPoint.NotifyControls
 {
     public partial class CallNotifyControl : NotifyControl
     {
-        private ICall _call;
-
-        public ICall Call
-        {
-            get { return this._call; }
-        }
+        public ICall Call { get; private set; }
 
         public CallNotifyControl(ICall call)
         {
             InitializeComponent();
 
-            lock (call)
-            {
-                _call = call;
+            Call = call;
 
-                _call.OnRemoved += new Action<CallRemoveReason>(_call_OnRemoved);
-                _call.OnStateChanged += new EmptyDelegate(_call_OnStateChanged);
-                _call.OnInfoChanged += new EmptyDelegate(_call_OnInfoChanged);
-                _call.OnDurationChanged += new EmptyDelegate(_call_OnDurationChanged);
-            }
+            Call.OnRemoved += new Action<CallRemoveReason>(_call_OnRemoved);
+            Call.OnStateChanged += new EmptyDelegate(_call_OnStateChanged);
+            Call.OnInfoChanged += new EmptyDelegate(_call_OnInfoChanged);
+            Call.OnDurationChanged += new EmptyDelegate(_call_OnDurationChanged);
 
             RefreshUI();
         }
@@ -46,7 +31,7 @@ namespace ContactPoint.NotifyControls
                 return;
             }
 
-            this.lblTime.Text = _call.Duration.ToFormattedString();
+            this.lblTime.Text = Call.Duration.ToFormattedString();
         }
 
         void _call_OnInfoChanged()
@@ -70,7 +55,7 @@ namespace ContactPoint.NotifyControls
                 return;
             }
 
-            if (this._call.State == CallState.ACTIVE && ParentForm != null)
+            if (this.Call.State == CallState.ACTIVE && ParentForm != null)
                 Close();
         }
 
@@ -83,46 +68,46 @@ namespace ContactPoint.NotifyControls
                 return;
             }
 
-            if (Handle == IntPtr.Zero) _call = null;
+            if (Handle == IntPtr.Zero) Call = null;
             else Close();
         }
 
         void RefreshUI()
         {
-            this.lblLine.Text = this._call.Line >= 0 ? (this._call.Line + 1).ToString() : "";
-            this.lblName.Text = this._call.Name.Length > 0 ? this._call.Name : "-";
-            this.lblNumber.Text = this._call.Number;
+            this.lblLine.Text = this.Call.Line >= 0 ? (this.Call.Line + 1).ToString() : "";
+            this.lblName.Text = this.Call.Name.Length > 0 ? this.Call.Name : "-";
+            this.lblNumber.Text = this.Call.Number;
         }
 
         private void btnCall_Click(object sender, EventArgs e)
         {
-            _call.Answer();
+            Call.Answer();
 
             Close();
         }
 
         private void btnDrop_Click(object sender, EventArgs e)
         {
-            _call.Drop();
+            Call.Drop();
 
             Close();
         }
 
         public override void OnShow()
         {
-            if (_call == null || _call.IsDisposed) Close();
+            if (Call == null || Call.IsDisposed) Close();
 
             base.OnShow();
         }
 
         public override void OnClosing()
         {
-            if (this._call != null)
+            if (this.Call != null)
             {
-                this._call.OnRemoved -= _call_OnRemoved;
-                this._call.OnStateChanged -= _call_OnStateChanged;
-                this._call.OnInfoChanged -= _call_OnInfoChanged;
-                this._call.OnDurationChanged -= _call_OnDurationChanged;
+                this.Call.OnRemoved -= _call_OnRemoved;
+                this.Call.OnStateChanged -= _call_OnStateChanged;
+                this.Call.OnInfoChanged -= _call_OnInfoChanged;
+                this.Call.OnDurationChanged -= _call_OnDurationChanged;
             }
         }
     }
