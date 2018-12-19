@@ -92,11 +92,11 @@ namespace ContactPoint.Core.CallManager
             _raiseCallRemovedEventCallback = RaiseCallRemovedEventCallback;
             _deferredOperationCallback = DeferredOperationCallback;
 
-            _durationTimer = new System.Windows.Forms.Timer {Interval = 1000};
+            _durationTimer = new System.Windows.Forms.Timer { Interval = 1000 };
             _durationTimer.Tick += DurationTimerTick;
             _durationTimer.Start();
 
-            _internalTimer = new System.Windows.Forms.Timer {Interval = 100};
+            _internalTimer = new System.Windows.Forms.Timer { Interval = 100 };
             _internalTimer.Tick += InternalTimerTick;
             _internalTimer.Start();
 
@@ -309,14 +309,14 @@ namespace ContactPoint.Core.CallManager
                     }
 
                     var newCall = new CallWrapper(this, number)
-                                      {
-                                          LastUserAction = CallAction.Make,
-                                          State = CallState.CONNECTING
-                                      };
+                    {
+                        LastUserAction = CallAction.Make,
+                        State = CallState.CONNECTING
+                    };
 
                     var headersCollection = new List<SipHeader>();
                     if (headers != null)
-                        headersCollection.AddRange(headers.Select(header => new SipHeader() {name = header.Key, value = header.Value}));
+                        headersCollection.AddRange(headers.Select(header => new SipHeader() { name = header.Key, value = header.Value }));
 
                     if (!AssignLineForCall(newCall))
                     {
@@ -360,7 +360,7 @@ namespace ContactPoint.Core.CallManager
                     var headers = new List<SipHeader>();
                     foreach (var header in thisCall.Headers.Where(x => x.Name.StartsWith("x-", StringComparison.OrdinalIgnoreCase)))
                     {
-                        headers.Add(new SipHeader {name = header.Name, value = header.Value});
+                        headers.Add(new SipHeader { name = header.Name, value = header.Value });
                     }
 
                     _sip.SipekResources.CallManager.OnUserTransfer(call.SessionId, number, headers.ToArray());
@@ -520,7 +520,7 @@ namespace ContactPoint.Core.CallManager
             // Incoming call raises after CallStateRefresh! So we have our call in collection
             Call call = FindCallBySessionId(sessionId);
             if (call == null) return;
-            
+
             if (Monitor.TryEnter(call, OPERATION_WAIT_TIMEOUT))
             {
                 Logger.LogNotice($"Local call found! Id: {call.Id}. Assigning values.");
@@ -553,7 +553,7 @@ namespace ContactPoint.Core.CallManager
         {
             Logger.LogNotice($"Call state refresh for {sessionId}.");
             Call call = FindCallBySessionId(sessionId);
-            
+
             if (call == null) // Call not found in our collection, but it may be exists! Let's add it
             {
                 Logger.LogNotice($"Call not found for {sessionId}.");
@@ -763,7 +763,7 @@ namespace ContactPoint.Core.CallManager
             {
                 if (call.LastState == CallState.NULL) // It is not normal!!! May be raise removed event
                     RemoveCallInternal(call, CallRemoveReason.NULL);
-                
+
                 return;
             }
 
