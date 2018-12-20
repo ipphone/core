@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ContactPoint.Common.Contacts;
 using ContactPoint.Common.Contacts.Local;
 
@@ -101,6 +101,11 @@ namespace ContactPoint.Contacts.Locals
             if (tag == null) return base.Equals(obj);
 
             return tag.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

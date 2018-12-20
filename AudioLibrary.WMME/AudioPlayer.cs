@@ -23,15 +23,18 @@ namespace AudioLibrary.WMME
 
             try
             {
-                WaveStream stream = new WaveStream(fileName);
-                if (stream.Length <= 0)
-                    throw new Exception("Invalid WAV file");
+                using (var fileStream = new FileStream(fileName, FileMode.Open))
+                using (var stream = new WaveStream(fileStream))
+                {
+                    if (stream.Length <= 0)
+                        throw new Exception("Invalid WAV file");
 
-                _format = stream.Format;
-                if (_format.formatTag != WaveFormatTag.PCM && _format.formatTag != WaveFormatTag.IEEE_FLOAT)
-                    throw new Exception("Olny PCM files are supported");
+                    _format = stream.Format;
+                    if (_format.formatTag != WaveFormatTag.PCM && _format.formatTag != WaveFormatTag.IEEE_FLOAT)
+                        throw new Exception("Olny PCM files are supported");
 
-                _stream = stream;
+                    _stream = stream;
+                }
             }
             catch
             {

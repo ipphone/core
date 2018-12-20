@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -58,12 +58,12 @@ namespace ContactPoint.BaseDesign.Components
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            _myButton.MouseEnter(e);
+            _myButton.MouseEnterMe(e);
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            _myButton.MouseLeave(e);
+            _myButton.MouseLeaveMe(e);
         }
     }
 }

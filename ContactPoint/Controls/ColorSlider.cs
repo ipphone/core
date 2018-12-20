@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -248,7 +248,8 @@ namespace ContactPoint.Controls
             }
         }
 
-        private uint smallChange = 1;
+        #pragma warning disable 3003
+
         /// <summary>
         /// Gets or sets trackbar's small change. It affects how to behave when directional keys are pressed
         /// </summary>
@@ -256,13 +257,7 @@ namespace ContactPoint.Controls
         [Description("Set trackbar's small change")]
         [Category("ColorSlider")]
         [DefaultValue(1)]
-        public uint SmallChange
-        {
-            get { return smallChange; }
-            set { smallChange = value; }
-        }
-
-        private uint largeChange = 5;
+        public uint SmallChange { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets trackbar's large change. It affects how to behave when PageUp/PageDown keys are pressed
@@ -271,11 +266,9 @@ namespace ContactPoint.Controls
         [Description("Set trackbar's large change")]
         [Category("ColorSlider")]
         [DefaultValue(5)]
-        public uint LargeChange
-        {
-            get { return largeChange; }
-            set { largeChange = value; }
-        }
+        public uint LargeChange { get; set; } = 5;
+
+        #pragma warning restore 3003
 
         private bool drawFocusRectangle = true;
         /// <summary>
@@ -935,12 +928,12 @@ namespace ContactPoint.Controls
             {
                 case Keys.Down:
                 case Keys.Left:
-                    SetProperValue(Value - (int)smallChange);
+                    SetProperValue(Value - (int)SmallChange);
                     if (Scroll != null) Scroll(this, new ScrollEventArgs(ScrollEventType.SmallDecrement, Value));
                     break;
                 case Keys.Up:
                 case Keys.Right:
-                    SetProperValue(Value + (int)smallChange);
+                    SetProperValue(Value + (int)SmallChange);
                     if (Scroll != null) Scroll(this, new ScrollEventArgs(ScrollEventType.SmallIncrement, Value));
                     break;
                 case Keys.Home:
@@ -950,11 +943,11 @@ namespace ContactPoint.Controls
                     Value = barMaximum;
                     break;
                 case Keys.PageDown:
-                    SetProperValue(Value - (int)largeChange);
+                    SetProperValue(Value - (int)LargeChange);
                     if (Scroll != null) Scroll(this, new ScrollEventArgs(ScrollEventType.LargeDecrement, Value));
                     break;
                 case Keys.PageUp:
-                    SetProperValue(Value + (int)largeChange);
+                    SetProperValue(Value + (int)LargeChange);
                     if (Scroll != null) Scroll(this, new ScrollEventArgs(ScrollEventType.LargeIncrement, Value));
                     break;
             }

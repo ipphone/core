@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 using AudioLibrary.Interfaces;
 using AudioLibrary.PjSIP.ManagedWatcher;
 
@@ -15,8 +12,9 @@ namespace AudioLibrary.PjSIP
         public event Action<IAudioDevice> MuteChanged;
 
         internal int Index { get; private set; }
+
         public Audio Audio { get; private set; }
-        public string Name { get; set; }
+        public string Name { get; private set; }
         public bool PlaybackSupport { get; private set; }
         public bool RecordingSupport { get; private set; }
 
@@ -38,13 +36,19 @@ namespace AudioLibrary.PjSIP
             {
                 if (PlaybackSupport) Audio.SpeakerVolume = value;
                 else Audio.MicVolume = value;
+
+                VolumeChanged?.Invoke(this);
             }
         }
 
         public bool Mute
         {
             get { return Audio.MicMute; }
-            set { Audio.MicMute = value; }
+            set 
+            { 
+                Audio.MicMute = value; 
+                MuteChanged?.Invoke(this);
+            }
         }
 
         internal AudioDevice(Audio audio, Imports.PjAudioDeviceInfo audioDeviceInfo, int index)

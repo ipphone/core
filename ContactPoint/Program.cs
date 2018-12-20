@@ -1,4 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
+// ReSharper disable InconsistentNaming
 
 using System;
 using System.ComponentModel;
@@ -473,6 +473,7 @@ namespace ContactPoint
 
 #region Debug Thread watcher
 #if DEBUG
+#pragma warning disable 0618
         private static DateTime _watcherLastActivity = DateTime.Now;
         private static Thread _watcherTargetThread = null;
         private static bool _watcherThreadShutdown = false;
@@ -511,6 +512,7 @@ namespace ContactPoint
 
             ready.Wait();
             targetThread.Suspend();
+
             try { stackTrace = new StackTrace(targetThread, true); }
             catch { /* Deadlock */ }
             finally
@@ -521,6 +523,7 @@ namespace ContactPoint
 
             return stackTrace;
         }
+#pragma warning restore 0618
 #endif
 #endregion
     }

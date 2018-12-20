@@ -33,6 +33,7 @@ namespace ContactPoint.Plugins.CallTools.CallNotifyWindow
             _plugin.PluginManager.Core.CallManager.OnIncomingCall += CallManager_OnIncomingCall;
 
             IsStarted = true;
+            Started?.Invoke(this);
         }
 
         public void Stop()
@@ -43,6 +44,7 @@ namespace ContactPoint.Plugins.CallTools.CallNotifyWindow
             _plugin.PluginManager.Core.CallManager.OnIncomingCall -= CallManager_OnIncomingCall;
 
             IsStarted = false;
+            Stopped?.Invoke(this, string.Empty);
         }
 
         void CallManager_OnIncomingCall(ICall call)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using AudioLibrary.WMME.Native;
 
@@ -10,14 +10,9 @@ namespace AudioLibrary.WMME
 		private long m_DataPos;
 		private long m_Length;
 
-		private WAVEFORMATEX m_Format;
+        public WAVEFORMATEX Format { get; private set; }
 
-		public WAVEFORMATEX Format
-		{
-			get { return m_Format; }
-		}
-
-		private string ReadChunk(BinaryReader reader)
+        private string ReadChunk(BinaryReader reader)
 		{
 			byte[] ch = new byte[4];
 			reader.Read(ch, 0, ch.Length);
@@ -42,16 +37,18 @@ namespace AudioLibrary.WMME
 			if (len < 16) // bad format chunk length
 				throw new Exception("Invalid file format");
 
-			m_Format = new WAVEFORMATEX(22050, 16, 2); // initialize to any format
-			m_Format.formatTag = (WaveFormatTag)Reader.ReadInt16();
-			m_Format.nChannels = Reader.ReadInt16();
-			m_Format.nSamplesPerSec = Reader.ReadInt32();
-			m_Format.nAvgBytesPerSec = Reader.ReadInt32();
-			m_Format.nBlockAlign = Reader.ReadInt16();
-			m_Format.wBitsPerSample = Reader.ReadInt16(); 
+            Format = new WAVEFORMATEX(22050, 16, 2)
+            {
+                formatTag = (WaveFormatTag)Reader.ReadInt16(),
+                nChannels = Reader.ReadInt16(),
+                nSamplesPerSec = Reader.ReadInt32(),
+                nAvgBytesPerSec = Reader.ReadInt32(),
+                nBlockAlign = Reader.ReadInt16(),
+                wBitsPerSample = Reader.ReadInt16()
+            }; // initialize to any format
 
-			// advance in the stream to skip the wave format block 
-			len -= 16; // minimum format size
+            // advance in the stream to skip the wave format block 
+            len -= 16; // minimum format size
 			while (len > 0)
 			{
 				Reader.ReadByte();
@@ -59,8 +56,7 @@ namespace AudioLibrary.WMME
 			}
 
 			// assume the data chunk is aligned
-			while(m_Stream.Position < m_Stream.Length && ReadChunk(Reader) != "data")
-				;
+			while(m_Stream.Position < m_Stream.Length && ReadChunk(Reader) != "data");
 
 			if (m_Stream.Position >= m_Stream.Length)
 				throw new Exception("Invalid file format");
@@ -71,42 +67,17 @@ namespace AudioLibrary.WMME
 			Position = 0;
 		}
 
-		public WaveStream(string fileName) : this(new FileStream(fileName, FileMode.Open))
+		public WaveStream(Stream stream)
 		{
-		}
-		public WaveStream(Stream S)
-		{
-			m_Stream = S;
+			m_Stream = stream;
 			ReadHeader();
 		}
-		~WaveStream()
-		{
-			Dispose();
-		}
-		public void Dispose()
-		{
-			if (m_Stream != null)
-				m_Stream.Close();
-			GC.SuppressFinalize(this);
-		}
 
-		public override bool CanRead
-		{
-			get { return true; }
-		}
-		public override bool CanSeek
-		{
-			get { return true; }
-		}
-		public override bool CanWrite
-		{
-			get { return false; }
-		}
-		public override long Length
-		{
-			get { return m_Length; }
-		}
-		public override long Position
+        public override bool CanRead => true;
+        public override bool CanSeek => true;
+        public override bool CanWrite => false;
+        public override long Length => m_Length;
+        public override long Position
 		{
 			get { return m_Stream.Position - m_DataPos; }
 			set { Seek(value, SeekOrigin.Begin); }
@@ -116,8 +87,7 @@ namespace AudioLibrary.WMME
 			Dispose();
 		}
 		public override void Flush()
-		{
-		}
+		{ }
 		public override void SetLength(long len)
 		{
 			throw new InvalidOperationException();

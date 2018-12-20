@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ContactPoint.Common.Contacts.Local;
@@ -7,8 +7,6 @@ namespace ContactPoint.Plugins.ContactsUi.Controls
 {
   public class DataGridViewTagsColumns : DataGridViewColumn
     {
-        public string DataPropertyName { get; set; }
-
         public DataGridViewTagsColumns()
             : base(new DataGridViewTagsCell())
         { }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ComponentFactory.Krypton.Toolkit;
 using System.Drawing;
 using System.Windows.Forms;
@@ -131,12 +131,12 @@ namespace ContactPoint.BaseDesign.Components
             this.OnPaint(new PaintEventArgs(g, new Rectangle(0, 0, this.Width, this.Height)));
         }
 
-        public void MouseEnter(EventArgs e)
+        public void MouseEnterMe(EventArgs e)
         {
             this.OnMouseEnter(e);
         }
 
-        public void MouseLeave(EventArgs e)
+        public void MouseLeaveMe(EventArgs e)
         {
             this.OnMouseLeave(e);
         }
