@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using AudioLibrary.WMME.Native;
 
 namespace AudioLibrary.WMME
 {
-    internal class WaveOut
+    internal class WaveOut : IDisposable
     {
         private IntPtr m_WaveOut;
         private WaveOutBuffer m_Buffers; // linked list

@@ -101,8 +101,11 @@ namespace ContactPoint
             // the Assert permission in this stack frame.
             perm.Assert();
 
+#if DEBUG
+            System.Windows.Forms.Timer watchdogTimer;
+#endif
+
             ThreadPool.SetMaxThreads(50, 200);
-            System.Windows.Forms.Timer watcherTimer;
             bool mutexAquired = false;
             using (var mutex = new Mutex(false, mutex_id))
             {
@@ -149,10 +152,9 @@ namespace ContactPoint
 #endif
 
 #if DEBUG
-                // Watcher initialization
-                watcherTimer = new System.Windows.Forms.Timer { Interval = 3000 };
-                watcherTimer.Tick += (s, e) => { _watcherLastActivity = DateTime.Now; };
-                watcherTimer.Start();
+                watchdogTimer = new System.Windows.Forms.Timer { Interval = 3000 };
+                watchdogTimer.Tick += (s, e) => { _watcherLastActivity = DateTime.Now; };
+                watchdogTimer.Start();
 
                 _watcherTargetThread = Thread.CurrentThread;
                 _watcherLastActivity = DateTime.Now;
@@ -266,7 +268,7 @@ namespace ContactPoint
 
 #if DEBUG
                     _watcherThreadShutdown = true;
-                    watcherTimer.Stop();
+                    watchdogTimer.Stop();
 #endif
                 }
             }
