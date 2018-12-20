@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SQLite;
@@ -700,8 +700,6 @@ where p.is_deleted = 0 and p.number like '%{0}'", phoneNumber);
                     return null;
                 }
             }
-
-            return null;
         }
 
         internal void InsertOrUpdateContactInfo(ContactInfoLocal contactInfo, bool repairDeleted)

@@ -1,4 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
+// ReSharper disable InconsistentNaming
 
 using System;
 using System.ComponentModel;
@@ -101,8 +101,11 @@ namespace ContactPoint
             // the Assert permission in this stack frame.
             perm.Assert();
 
+#if DEBUG
+            System.Windows.Forms.Timer watchdogTimer;
+#endif
+
             ThreadPool.SetMaxThreads(50, 200);
-            System.Windows.Forms.Timer watcherTimer;
             bool mutexAquired = false;
             using (var mutex = new Mutex(false, mutex_id))
             {
@@ -149,10 +152,9 @@ namespace ContactPoint
 #endif
 
 #if DEBUG
-                // Watcher initialization
-                watcherTimer = new System.Windows.Forms.Timer { Interval = 3000 };
-                watcherTimer.Tick += (s, e) => { _watcherLastActivity = DateTime.Now; };
-                watcherTimer.Start();
+                watchdogTimer = new System.Windows.Forms.Timer { Interval = 3000 };
+                watchdogTimer.Tick += (s, e) => { _watcherLastActivity = DateTime.Now; };
+                watchdogTimer.Start();
 
                 _watcherTargetThread = Thread.CurrentThread;
                 _watcherLastActivity = DateTime.Now;
@@ -266,7 +268,7 @@ namespace ContactPoint
 
 #if DEBUG
                     _watcherThreadShutdown = true;
-                    watcherTimer.Stop();
+                    watchdogTimer.Stop();
 #endif
                 }
             }
@@ -473,6 +475,7 @@ namespace ContactPoint
 
 #region Debug Thread watcher
 #if DEBUG
+#pragma warning disable 0618
         private static DateTime _watcherLastActivity = DateTime.Now;
         private static Thread _watcherTargetThread = null;
         private static bool _watcherThreadShutdown = false;
@@ -511,6 +514,7 @@ namespace ContactPoint
 
             ready.Wait();
             targetThread.Suspend();
+
             try { stackTrace = new StackTrace(targetThread, true); }
             catch { /* Deadlock */ }
             finally
@@ -521,6 +525,7 @@ namespace ContactPoint
 
             return stackTrace;
         }
+#pragma warning restore 0618
 #endif
 #endregion
     }

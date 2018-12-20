@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using ContactPoint.Common;
 using ContactPoint.Common.PluginManager;
@@ -11,8 +11,10 @@ namespace ContactPoint.Core.PluginManager
     {
         private readonly ICore _core;
 
+        #pragma warning disable 0067
         public event ServiceStartedDelegate Started;
         public event ServiceStoppedDelegate Stopped;
+        #pragma warning restore 0067
 
         public ICore Core { get; }
         public IEnumerable<IPluginInformation> Plugins { get; }

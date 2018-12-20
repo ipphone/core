@@ -126,7 +126,7 @@ namespace Sipek.Sip
         #region Variables
 
         // config structure (used for special configuration options)
-        public SipConfigStruct ConfigMore = SipConfigStruct.Instance;
+        public SipConfigStruct ConfigMore { get; private set; } = SipConfigStruct.Instance;
 
         #endregion Variables
 

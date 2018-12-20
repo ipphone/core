@@ -442,7 +442,7 @@ namespace Sipek.Common.CallControl
                     call.Session = newsession;
                     _calls.Add(newsession, call);
                 }
-                catch (ArgumentException e)
+                catch
                 {
                     // previous call not released ()
                     // first release old one

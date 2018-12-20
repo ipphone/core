@@ -1,5 +1,6 @@
-﻿using ContactPoint.Common;
+using ContactPoint.Common;
 using System.Timers;
+using System.Linq;
 
 namespace ContactPoint.Services
 {
@@ -83,13 +84,10 @@ namespace ContactPoint.Services
         {
             if (!_active || _callToPickup != null) return;
 
-            lock (call)
+            if (CanPickupCall(call))
             {
-                if (CanPickupCall(call))
-                {
-                    _callToPickup = call;
-                    _timer.Start();
-                }
+                _callToPickup = call;
+                _timer.Start();
             }
         }
 
@@ -118,13 +116,10 @@ namespace ContactPoint.Services
 
         bool CanPickupCall(ICall callToPickup)
         {
-            foreach (var call in Core.CallManager)
-                if (call != callToPickup)
-                    if (call.State == CallState.ACTIVE || call.State == CallState.HOLDING || // Check if we have an active call
-                        call.State == CallState.CONNECTING || call.State == CallState.ALERTING) // Check if we have an outgoing call
-                        return false;
-
-            return true;
+            return !Core.CallManager.ToArray().Any(call => 
+                call != callToPickup && (
+                    call.State == CallState.ACTIVE || call.State == CallState.HOLDING || // Check if we have an active call
+                    call.State == CallState.CONNECTING || call.State == CallState.ALERTING)); // Check if we have an outgoing call
         }
     }
 }

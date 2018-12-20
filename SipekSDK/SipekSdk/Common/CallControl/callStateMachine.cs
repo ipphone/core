@@ -53,8 +53,8 @@ namespace Sipek.Common.CallControl
         private DateTime _timestamp;
         private CCallManager _manager;
         // Timers
-        protected ITimer _noreplyTimer;
-        protected ITimer _noresponseTimer;
+        private ITimer _noreplyTimer;
+        private ITimer _noresponseTimer;
 
         private int _session = -1;
         private ICallProxyInterface _sigProxy;
@@ -388,7 +388,7 @@ namespace Sipek.Common.CallControl
                     break;
                 //case ETimerType.ERELEASED:
                 //    success = _releasedTimer.Start();
-                    break;
+                //    break;
                 case ETimerType.ENORESPONSE:
                     success = _noresponseTimer.Start();
                     break;
@@ -410,7 +410,7 @@ namespace Sipek.Common.CallControl
                     break;
                 //case ETimerType.ERELEASED:
                 //    success = _releasedTimer.Stop();
-                    break;
+                //    break;
                 case ETimerType.ENORESPONSE:
                     success = _noresponseTimer.Stop();
                     break;

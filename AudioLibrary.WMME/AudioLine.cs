@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AudioLibrary.Interfaces;
 using System.Runtime.InteropServices;
 using AudioLibrary.WMME.Native;
+using System.Diagnostics;
 
 namespace AudioLibrary.WMME
 {
@@ -284,7 +285,7 @@ namespace AudioLibrary.WMME
             }
             catch (Exception e)
             {
-                // TODO: Log error
+                Trace.TraceError("Unable to set volume on channel {0} #{1}: {2}", Name, Id, e.Message);
             }
         }
 
@@ -329,7 +330,7 @@ namespace AudioLibrary.WMME
             }
             catch (Exception e)
             {
-                // TODO: log error
+                Trace.TraceError("Unable to reload values on audio line {0} #{1}: {2}", Name, Id, e.Message);
             }
 
             RaiseVolumeChangedEvent(this);

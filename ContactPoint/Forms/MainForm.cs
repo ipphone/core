@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -186,15 +186,13 @@ namespace ContactPoint.Forms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason != CloseReason.ApplicationExitCall &&
-                e.CloseReason != CloseReason.WindowsShutDown &&
-                e.CloseReason != CloseReason.TaskManagerClosing)
+            if (!e.CloseReason.HasFlag(CloseReason.ApplicationExitCall) &&
+                !e.CloseReason.HasFlag(CloseReason.WindowsShutDown) &&
+                !e.CloseReason.HasFlag(CloseReason.TaskManagerClosing))
             {
-                if ((new QuestionForm(CaptionStrings.CaptionStrings.CloseQuestion)).ShowDialog() != DialogResult.OK &&
-                    e.CloseReason != CloseReason.WindowsShutDown)
+                if ((new QuestionForm(CaptionStrings.CaptionStrings.CloseQuestion)).ShowDialog() != DialogResult.OK)
                 {
                     e.Cancel = true;
-
                     return;
                 }
             }
@@ -571,14 +569,18 @@ namespace ContactPoint.Forms
         private void btnMinimize_Click(object sender, EventArgs e)
         {
             Focus();
-            //this.ShowInTaskbar = false;
             Hide();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             Focus();
+
+#if DEBUG
+            Close();
+#else
             Hide();
+#endif
         }
 
         private void kryptonCommandSettings_Execute(object sender, EventArgs e)

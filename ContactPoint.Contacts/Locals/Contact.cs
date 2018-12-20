@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ContactPoint.Common.Contacts;
@@ -8,46 +8,21 @@ namespace ContactPoint.Contacts.Locals
 {
     internal class Contact : IContact
     {
-        private readonly List<ContactInfoLocal> _contactInfos = new List<ContactInfoLocal>();
-        private string _firstName = String.Empty;
-        private string _lastName = String.Empty;
-        private string _company = String.Empty;
-        private string _middleName = String.Empty;
-
         public event Action<IContact> Changed;
 
         public ContactsManager ContactsManager { get; private set; }
         public long Id { get; set; }
 
-        public string FirstName
-        {
-            get { return _firstName; }
-            set { _firstName = value; }
-        }
-
-        public string LastName
-        {
-            get { return _lastName; }
-            set { _lastName = value; }
-        }
-
-        public string MiddleName
-        {
-            get { return _middleName; }
-            set { _middleName = value; }
-        }
-
-        public string Company
-        {
-            get { return _company; }
-            set { _company = value; }
-        }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string MiddleName { get; set; } = string.Empty;
+        public string Company { get; set; } = string.Empty;
 
         public string ShowedName 
         { 
             get
             {
-                var result = String.Empty;
+                var result = string.Empty;
 
                 if (!string.IsNullOrEmpty(LastName)) result = LastName;
                 if (!string.IsNullOrEmpty(FirstName)) result += string.Format("{1}{0}", FirstName, result.Length > 0 ? ", " : "");
@@ -60,13 +35,10 @@ namespace ContactPoint.Contacts.Locals
 
         IEnumerable<IContactInfoLocal> IContact.ContactInfos
         {
-            get { return _contactInfos.AsEnumerable<IContactInfoLocal>(); }
+            get { return ContactInfos.AsEnumerable<IContactInfoLocal>(); }
         }
 
-        internal List<ContactInfoLocal> ContactInfos
-        {
-            get { return _contactInfos; }
-        }
+        internal List<ContactInfoLocal> ContactInfos { get; } = new List<ContactInfoLocal>();
 
         internal Contact(ContactsManager contactsManager)
             : this(contactsManager, -1)
@@ -81,22 +53,22 @@ namespace ContactPoint.Contacts.Locals
 
         public void LinkContactInfo(IContactInfoLocal contact)
         {
-            if (_contactInfos.Any(x => x.AddressBook.Id == contact.AddressBook.Id)) throw new InvalidOperationException("Contact info already linked.");
+            if (ContactInfos.Any(x => x.AddressBook.Id == contact.AddressBook.Id)) throw new InvalidOperationException("Contact info already linked.");
 
             var addressBook = ContactsManager.AddressBooks.FirstOrDefault(x => x.Id == contact.AddressBook.Id);
             if (addressBook == null) throw new InvalidOperationException("Address book is not registered.");
 
             var contactInfoLocal = contact as ContactInfoLocal ?? new ContactInfoLocal(contact, addressBook, ContactsManager);
 
-            _contactInfos.Add(contactInfoLocal);
+            ContactInfos.Add(contactInfoLocal);
         }
 
         public void UnlinkContactInfo(IContactInfoLocal contactInfo)
         {
-            var target = _contactInfos.FirstOrDefault(x => x.Id == contactInfo.Id);
+            var target = ContactInfos.FirstOrDefault(x => x.Id == contactInfo.Id);
 
             if (target != null)
-                _contactInfos.Remove(target);
+                ContactInfos.Remove(target);
         }
 
         public void Submit()
@@ -137,6 +109,11 @@ namespace ContactPoint.Contacts.Locals
             if (contact == null) return base.Equals(obj);
 
             return contact.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

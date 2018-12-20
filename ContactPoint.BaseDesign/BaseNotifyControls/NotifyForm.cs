@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -26,10 +26,11 @@ namespace ContactPoint.BaseDesign.BaseNotifyControls
              int cy,                // height
              uint uFlags);
 
-        MouseMessageFilter _messageFilter;
-        Timer _closeTimer = new Timer();
-        Timer _showTimer = new Timer();
-        int _timeout = 0;
+        private readonly object _lockObj = new object();
+        private readonly MouseMessageFilter _messageFilter;
+        private readonly Timer _closeTimer = new Timer();
+        private readonly Timer _showTimer = new Timer();
+        private int _timeout = 0;
         private bool _loaded = false;
         private bool _closeOnShow = false;
 
@@ -68,7 +69,7 @@ namespace ContactPoint.BaseDesign.BaseNotifyControls
 
         public void QueryClose()
         {
-            lock (this)
+            lock (_lockObj)
             {
                 if (_loaded) CloseInternal();
                 else _closeOnShow = true;
@@ -222,7 +223,7 @@ namespace ContactPoint.BaseDesign.BaseNotifyControls
 
         internal void ShowGracefully()
         {
-            lock (this)
+            lock (_lockObj)
             {
                 Opacity = 0;
                 ShowWindow(Handle, SW_SHOWNOACTIVATE);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using ContactPoint.Common;
@@ -14,11 +14,11 @@ namespace ContactPoint.Core.SIP
 {
     internal class SIP : ISip
     {
+        private readonly object _lockObj = new object();
         private readonly Core _core;
-        private readonly List<ISipCodec> _codecsList;
-        private readonly ISipAccount _account;
-        private readonly SipekResources _sipekResources;
         private readonly System.Timers.Timer _deferredSetAudioDevicesTimer;
+        
+        internal SipekResources SipekResources { get; private set; }
 
         public SIP(Core core, ISynchronizeInvoke syncInvoke)
         {
@@ -30,25 +30,25 @@ namespace ContactPoint.Core.SIP
             _deferredSetAudioDevicesTimer.Stop();
 
             // Initialize PjSIP
-            _sipekResources = new SipekResources(core);
+            SipekResources = new SipekResources(core);
 
-            if (!CheckUdpPort(_sipekResources.Configurator.SIPPort))
+            if (!CheckUdpPort(SipekResources.Configurator.SIPPort))
             {
-                if (CheckUdpPort(5060)) _sipekResources.Configurator.SIPPort = 5060;
-                else if (CheckUdpPort(5061)) _sipekResources.Configurator.SIPPort = 5061;
+                if (CheckUdpPort(5060)) SipekResources.Configurator.SIPPort = 5060;
+                else if (CheckUdpPort(5061)) SipekResources.Configurator.SIPPort = 5061;
                 else throw new InvalidOperationException("SIP port is in use");
             }
             
-            if (_sipekResources.StackProxy.initialize() != 0)
+            if (SipekResources.StackProxy.initialize() != 0)
                 throw new InvalidOperationException("Can't initialize PjSIP proxy stack!");
 
-            if (_sipekResources.CallManager.Initialize(_sipekResources.StackProxy) != 0)
+            if (SipekResources.CallManager.Initialize(SipekResources.StackProxy) != 0)
                 throw new InvalidOperationException("Can't initialize PjSIP call manager!");
 
-            _codecsList = LoadCodecs();
+            Codecs = LoadCodecs();
 
             // Initialize account
-            _account = new SipAccount(this);
+            Account = new SipAccount(this);
             Messenger = new SipMessenger(this);
 
             NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
@@ -83,14 +83,9 @@ namespace ContactPoint.Core.SIP
             SetAudioDevicesDeferred();
         }
 
-        internal SipekResources SipekResources
-        {
-            get { return _sipekResources; }
-        }
-
         void _deferredSetAudioDevicesTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            lock (this)
+            lock (_lockObj)
             {
                 _deferredSetAudioDevicesTimer.Stop();
 
@@ -104,7 +99,7 @@ namespace ContactPoint.Core.SIP
         /// </summary>
         private void SetAudioDevicesDeferred()
         {
-            lock (this)
+            lock (_lockObj)
             {
                 _deferredSetAudioDevicesTimer.Start();
             }
@@ -112,7 +107,7 @@ namespace ContactPoint.Core.SIP
 
         void NetworkChange_NetworkAddressChanged(object sender, EventArgs e)
         {
-            _account.Renew();
+            Account.Renew();
         }
 
         /// <summary>
@@ -120,43 +115,61 @@ namespace ContactPoint.Core.SIP
         /// </summary>
         private void SetAudioDevices()
         {
-            if (Core.Audio.PlaybackDevice != null) Core.SettingsManager["PlaybackDevice"] = Core.Audio.PlaybackDevice.Name;
-            if (Core.Audio.RecordingDevice != null) Core.SettingsManager["RecordingDevice"] = Core.Audio.RecordingDevice.Name;
+            var playbackDevice = Core.Audio.PlaybackDevice;
+            var recordingDevice = Core.Audio.RecordingDevice;
+            
+            Logger.LogNotice(string.Format("Setting audio devices {0}/{1}", playbackDevice?.Name ?? "none", recordingDevice?.Name ?? "none"));
 
             try
             {
-                if (Core.Audio.PlaybackDevice == null || Core.Audio.RecordingDevice == null)
+                if (playbackDevice == null || recordingDevice == null)
                 {
-                    _sipekResources.StackProxy.setSoundDevice(
-                        String.Empty,
-                        String.Empty
-                        );
+                    Logger.LogWarn("One of audio devices is invalid or not found - reseting audio devices settings!");
+                    SipekResources.StackProxy.setSoundDevice(string.Empty, string.Empty);
 
-                    Logger.LogWarn(String.Format("Setting null audio devices"));
+                    playbackDevice = null;
+                    recordingDevice = null;
                 }
                 else
                 {
-                    _sipekResources.StackProxy.setSoundDevice(
-                        Core.Audio.PlaybackDevice.Name.Substring(0, Core.Audio.PlaybackDevice.Name.Length > 31 ? 31 : Core.Audio.PlaybackDevice.Name.Length), // 31 is the max length of sound device name in PjSIP
-                        Core.Audio.RecordingDevice.Name.Substring(0, Core.Audio.RecordingDevice.Name.Length > 31 ? 31 : Core.Audio.RecordingDevice.Name.Length)
-                        );
+                    var playbackDeviceName = GetPjSipDeviceName(playbackDevice);
+                    var recordingDeviceName = GetPjSipDeviceName(recordingDevice);
 
-                    Logger.LogNotice(String.Format("Setting audio devices {0}/{1}",
-                        Core.Audio.PlaybackDevice != null ? Core.Audio.PlaybackDevice.Name : "none",
-                        Core.Audio.RecordingDevice != null ? Core.Audio.RecordingDevice.Name : "none"));
+                    SipekResources.StackProxy.setSoundDevice(playbackDeviceName, recordingDeviceName);
+                
+                    if (Core.Audio.PlaybackDevice != null) Core.SettingsManager["PlaybackDevice"] = playbackDeviceName;
+                    if (Core.Audio.RecordingDevice != null) Core.SettingsManager["RecordingDevice"] = recordingDeviceName;
                 }
             }
             catch (Exception e)
             {
                 Logger.LogWarn(e);
             }
+
+            PlaybackDeviceChanged?.Invoke(playbackDevice);
+            RecordingDeviceChanged?.Invoke(recordingDevice);
+        }
+
+        /// <summary>
+        /// 31 is the max length of sound device name in PjSIP
+        /// </summary>
+        /// <param name="device">Device</param>
+        /// <returns></returns>
+        string GetPjSipDeviceName(IAudioDevice device)
+        {
+            if (device.Name.Length > 31)
+            {
+                return device.Name.Substring(0, 31);
+            }
+
+            return device.Name;
         }
 
         void codec_EnabledChanged(ISipCodec codec)
         {
             try
             {
-                Logger.LogNotice(String.Format("Setting codec priority on {0} to {1}", codec.Name, codec.Priority));
+                Logger.LogNotice(string.Format("Setting codec priority on {0} to {1}", codec.Name, codec.Priority));
                 SipekResources.StackProxy.setCodecPriority(codec.Name, codec.Priority);
             }
             catch (Exception e)
@@ -171,18 +184,18 @@ namespace ContactPoint.Core.SIP
         {
             List<ISipCodec> codecList = new List<ISipCodec>();
 
-            int noOfCodecs = _sipekResources.StackProxy.getNoOfCodecs();
+            int noOfCodecs = SipekResources.StackProxy.getNoOfCodecs();
 
             Logger.LogNotice("Loading codecs");
             for (int i = 0; i < noOfCodecs; i++)
             {
-                ISipCodec codec = new SipCodec(this, _sipekResources.StackProxy.getCodec(i));
+                ISipCodec codec = new SipCodec(this, SipekResources.StackProxy.getCodec(i));
 
                 codec.EnabledChanged += new Action<ISipCodec>(codec_EnabledChanged);
 
                 codecList.Add(codec);
 
-                Logger.LogNotice(String.Format("Codec {0} loaded", codec.Name));
+                Logger.LogNotice(string.Format("Codec {0} loaded", codec.Name));
             }
 
             Logger.LogNotice("Setting codecs priorities");
@@ -200,40 +213,34 @@ namespace ContactPoint.Core.SIP
 
         public event Action<IAudioDevice> PlaybackDeviceChanged;
 
-        public ISipAccount Account
-        {
-            get { return _account; }
-        }
+        public ISipAccount Account { get; }
 
         public ISipMessenger Messenger { get; }
 
-        public List<ISipCodec> Codecs
-        {
-            get { return _codecsList; }
-        }
+        public List<ISipCodec> Codecs { get; }
 
         public SipTransportType TransportType
         {
-            get { return (_sipekResources.Configurator.Account.TransportMode == ETransportMode.TM_TCP ? SipTransportType.TCP : SipTransportType.UDP); }
-            set { _sipekResources.Configurator.Account.TransportMode = (value == SipTransportType.TCP ? ETransportMode.TM_TCP : ETransportMode.TM_UDP); }
+            get { return (SipekResources.Configurator.Account.TransportMode == ETransportMode.TM_TCP ? SipTransportType.TCP : SipTransportType.UDP); }
+            set { SipekResources.Configurator.Account.TransportMode = (value == SipTransportType.TCP ? ETransportMode.TM_TCP : ETransportMode.TM_UDP); }
         }
 
         public SipDTMFMode DTMFMode
         {
-            get { return ConvertSipekDTMFMode(_sipekResources.Configurator.DtmfMode); }
-            set { _sipekResources.Configurator.DtmfMode = ConvertSipDTMFMode(value); }
+            get { return ConvertSipekDTMFMode(SipekResources.Configurator.DtmfMode); }
+            set { SipekResources.Configurator.DtmfMode = ConvertSipDTMFMode(value); }
         }
 
         public int EchoCancelationTimeout
         {
-            get { return _sipekResources.Configurator.ECTail; }
-            set { _sipekResources.Configurator.ECTail = value; }
+            get { return SipekResources.Configurator.ECTail; }
+            set { SipekResources.Configurator.ECTail = value; }
         }
 
         public bool VoiceActiveDetection
         {
-            get { return _sipekResources.Configurator.VADEnabled; }
-            set { _sipekResources.Configurator.VADEnabled = value; }
+            get { return SipekResources.Configurator.VADEnabled; }
+            set { SipekResources.Configurator.VADEnabled = value; }
         }
 
         public ICore Core

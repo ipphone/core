@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 using System.Windows.Input;
 
 namespace ContactPoint.BaseDesign.Wpf
@@ -11,7 +8,9 @@ namespace ContactPoint.BaseDesign.Wpf
         private readonly Action<object> _handler;
         private readonly Func<object, bool> _canExecuteHandler;
 
+        #pragma warning disable 0067
         public event EventHandler CanExecuteChanged;
+        #pragma warning restore 0067
 
         public DelegateCommand(Action<object> handler)
         {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -7,26 +7,29 @@ using ContactPoint.Common;
 
 namespace ContactPoint.Controls
 {
-    public class MainFormPhoneLineControl
+    class MainFormPhoneLineControl
     {
         private readonly ICore _core;
         private readonly EmptyDelegate _callOnStateChanged;
         private readonly EmptyDelegate _callOnInfoChanged;
         private readonly EmptyDelegate _callOnDurationChanged;
         private readonly Action<CallRemoveReason> _callOnRemoved;
-        private readonly KryptonCheckButton _controlButton;
         private readonly Control _controlCallerName;
         private readonly Control _controlCallerNumber;
         private readonly Control _controlDuration;
         private readonly Control _controlCallState;
         private readonly KryptonCheckButton _holdButton;
-
         private ICall _call;
+        private bool _active = false;
+
+        public int Line { get; } = -1;
+        public KryptonCheckButton ControlButton { get; }
+
         public ICall Call
         {
             get { return _call; }
             set {
-                Trace.TraceInformation("Set call with sessionId '" + value?.SessionId + "' on MainFormPhoneLineControl" + _controlButton.Text);
+                Trace.TraceInformation("Set call with sessionId '" + value?.SessionId + "' on MainFormPhoneLineControl" + ControlButton.Text);
 
                 if (_call != null)
                 {
@@ -34,25 +37,17 @@ namespace ContactPoint.Controls
                     _call.OnRemoved -= _callOnRemoved;
                     _call.OnInfoChanged -= _callOnInfoChanged;
                     _call.OnDurationChanged -= _callOnDurationChanged;
+                    _call = null;
                 }
 
-                if (value != null)
+                if (value != null && !value.IsDisposed)
                 {
-                    lock (value)
-                    {
-                        if (!value.IsDisposed)
-                        {
-                            _call = value;
-                            _call.OnStateChanged += _callOnStateChanged;
-                            _call.OnRemoved += _callOnRemoved;
-                            _call.OnInfoChanged += _callOnInfoChanged;
-                            _call.OnDurationChanged += _callOnDurationChanged;
-                        }
-                        else
-                            _call = null;
-                    }
+                    _call = value;
+                    _call.OnStateChanged += _callOnStateChanged;
+                    _call.OnRemoved += _callOnRemoved;
+                    _call.OnInfoChanged += _callOnInfoChanged;
+                    _call.OnDurationChanged += _callOnDurationChanged;
                 }
-                else _call = null;
 
                 if (_active)
                 {
@@ -65,18 +60,11 @@ namespace ContactPoint.Controls
             }
         }
 
-        private readonly int _line = -1;
-        public int Line
-        {
-            get { return _line; }
-        }
-
-        private bool _active = false;
         public bool Active
         {
             get { return _active; }
             set {
-                Trace.TraceInformation("Activate MainFormPhoneLineControl" + _controlButton.Text);
+                Trace.TraceInformation("Activate MainFormPhoneLineControl" + ControlButton.Text);
 
                 _active = value;
 
@@ -90,8 +78,6 @@ namespace ContactPoint.Controls
                 RefreshBackUI();
             }
         }
-
-        public KryptonCheckButton ControlButton => _controlButton;
 
         public MainFormPhoneLineControl(
             ICore core,
@@ -110,8 +96,8 @@ namespace ContactPoint.Controls
             _callOnRemoved = Call_OnRemoved;
 
             _core = core;
-            _line = line;
-            _controlButton = controlButton;
+            Line = line;
+            ControlButton = controlButton;
             _controlCallerName = controlCallerName;
             _controlCallerNumber = controlCallerNumber;
             _controlDuration = controlDuration;
@@ -125,29 +111,38 @@ namespace ContactPoint.Controls
 
         void Call_OnDurationChanged()
         {
-            if (_controlButton.InvokeRequired)
+            if (!_active || _call == null)
             {
-                _controlButton.BeginInvoke(_callOnDurationChanged);
+                return;
+            }
+
+            if (ControlButton.InvokeRequired)
+            {
+                ControlButton.BeginInvoke(_callOnDurationChanged);
 
                 return;
             }
 
-            if (_active && _call != null && _call.ActiveDuration > TimeSpan.Zero)
+            if (_call.ActiveDuration > TimeSpan.Zero)
             {
                 _controlDuration.Text = _call.ActiveDuration.ToFormattedString();
+            }
+            else if (_call.Duration > TimeSpan.Zero)
+            {
+                _controlDuration.Text = _call.Duration.ToFormattedString();
             }
         }
 
         void Call_OnStateChanged()
         {
-            if (_controlButton.InvokeRequired)
+            if (ControlButton.InvokeRequired)
             {
-                _controlButton.BeginInvoke(_callOnStateChanged);
+                ControlButton.BeginInvoke(_callOnStateChanged);
 
                 return;
             }
 
-            Trace.TraceInformation("New call state on MainFormPhoneLineControl" + _controlButton.Text + ", new state: " + SipHelper.SipCallStateDecode(_call?.State ?? CallState.NULL));
+            Trace.TraceInformation("New call state on MainFormPhoneLineControl" + ControlButton.Text + ", new state: " + SipHelper.SipCallStateDecode(_call?.State ?? CallState.NULL));
 
             if (_active)
             {
@@ -159,9 +154,9 @@ namespace ContactPoint.Controls
 
         void Call_OnInfoChanged()
         {
-            if (_controlButton.InvokeRequired)
+            if (ControlButton.InvokeRequired)
             {
-                _controlButton.BeginInvoke(_callOnInfoChanged);
+                ControlButton.BeginInvoke(_callOnInfoChanged);
 
                 return;
             }
@@ -176,9 +171,9 @@ namespace ContactPoint.Controls
 
         void Call_OnRemoved(CallRemoveReason reason)
         {
-            if (_controlButton.InvokeRequired)
+            if (ControlButton.InvokeRequired)
             {
-                _controlButton.BeginInvoke(_callOnRemoved, reason);
+                ControlButton.BeginInvoke(_callOnRemoved, reason);
 
                 return;
             }
@@ -203,17 +198,15 @@ namespace ContactPoint.Controls
         private readonly bool _callerNumberTrackChanges = true;
         void RefreshUI()
         {
-            //Logger.LogNotice("Refreshing UI on MainFormPhoneLineControl" + this._controlButton.Text);
-
             if (Active)
             {
-                _controlButton.Checked = true;
-                _controlButton.StateCommon.Content.ShortText.Font = new Font(_controlButton.StateCommon.Content.ShortText.Font, FontStyle.Bold);
+                ControlButton.Checked = true;
+                ControlButton.StateCommon.Content.ShortText.Font = new Font(ControlButton.StateCommon.Content.ShortText.Font, FontStyle.Bold);
             }
             else
             {
-                _controlButton.Checked = false;
-                _controlButton.StateCommon.Content.ShortText.Font = new Font(_controlButton.StateCommon.Content.ShortText.Font, FontStyle.Regular);
+                ControlButton.Checked = false;
+                ControlButton.StateCommon.Content.ShortText.Font = new Font(ControlButton.StateCommon.Content.ShortText.Font, FontStyle.Regular);
             }
             
             if (_call != null && Active)
@@ -224,7 +217,7 @@ namespace ContactPoint.Controls
                 if (_call.Contact != null && !string.IsNullOrWhiteSpace(_call.Contact.ShowedName))
                     _controlCallerName.Text = _call.Contact.ShowedName;
 
-                if (String.IsNullOrEmpty(_controlCallerNumber.Text))
+                if (string.IsNullOrEmpty(_controlCallerNumber.Text))
                 {
                     _controlCallerNumber.Text = _call.Number;
 
@@ -234,6 +227,10 @@ namespace ContactPoint.Controls
                 if (_call.ActiveDuration > TimeSpan.Zero)
                 {
                     _controlDuration.Text = _call.ActiveDuration.ToFormattedString();
+                }
+                else if (_call.Duration > TimeSpan.Zero)
+                {
+                    _controlDuration.Text = _call.Duration.ToFormattedString();
                 }
 
                 _holdButton.Checked = _call.State == CallState.HOLDING;
@@ -277,6 +274,7 @@ namespace ContactPoint.Controls
         static readonly Color DefaultOutgoingColor = Color.SkyBlue;
         static readonly Color DefaultHoldingColor = Color.Orange;
         static readonly Color DefaultConferenceColor = Color.HotPink;
+
         void RefreshBackUI()
         {
             if (_call != null)
@@ -304,36 +302,36 @@ namespace ContactPoint.Controls
 
         void SetColorOnControlButton(Color color)
         {
-            var color1 = ControlPaint.LightLight(color);
+            var lightColor = ControlPaint.LightLight(color);
 
-            _controlButton.OverrideDefault.Back.Color2 = color;
-            _controlButton.OverrideDefault.Back.Color1 = color1;
+            ControlButton.OverrideDefault.Back.Color2 = color;
+            ControlButton.OverrideDefault.Back.Color1 = lightColor;
 
-            _controlButton.OverrideFocus.Back.Color2 = color;
-            _controlButton.OverrideFocus.Back.Color1 = color1;
+            ControlButton.OverrideFocus.Back.Color2 = color;
+            ControlButton.OverrideFocus.Back.Color1 = lightColor;
 
-            _controlButton.StateCommon.Back.Color2 = color;
-            _controlButton.StateCommon.Back.Color1 = color1;
+            ControlButton.StateCommon.Back.Color2 = color;
+            ControlButton.StateCommon.Back.Color1 = lightColor;
 
-            _controlButton.StateNormal.Back.Color2 = color;
-            _controlButton.StateNormal.Back.Color1 = color1;
+            ControlButton.StateNormal.Back.Color2 = color;
+            ControlButton.StateNormal.Back.Color1 = lightColor;
 
-            _controlButton.StatePressed.Back.Color2 = color;
-            _controlButton.StatePressed.Back.Color1 = color1;
+            ControlButton.StatePressed.Back.Color2 = color;
+            ControlButton.StatePressed.Back.Color1 = lightColor;
 
-            _controlButton.StateTracking.Back.Color2 = color;
-            _controlButton.StateTracking.Back.Color1 = color1;
+            ControlButton.StateTracking.Back.Color2 = color;
+            ControlButton.StateTracking.Back.Color1 = lightColor;
 
-            _controlButton.StateCheckedNormal.Back.Color2 = color;
-            _controlButton.StateCheckedNormal.Back.Color1 = color1;
+            ControlButton.StateCheckedNormal.Back.Color2 = color;
+            ControlButton.StateCheckedNormal.Back.Color1 = lightColor;
 
-            _controlButton.StateCheckedPressed.Back.Color2 = color;
-            _controlButton.StateCheckedPressed.Back.Color1 = color1;
+            ControlButton.StateCheckedPressed.Back.Color2 = color;
+            ControlButton.StateCheckedPressed.Back.Color1 = lightColor;
 
-            _controlButton.StateCheckedTracking.Back.Color2 = color;
-            _controlButton.StateCheckedTracking.Back.Color1 = color1;
+            ControlButton.StateCheckedTracking.Back.Color2 = color;
+            ControlButton.StateCheckedTracking.Back.Color1 = lightColor;
 
-            _controlButton.Update();
+            ControlButton.Update();
         }
     }
 }

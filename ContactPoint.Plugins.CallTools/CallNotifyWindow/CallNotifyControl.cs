@@ -1,44 +1,44 @@
-﻿using System;
+using System;
 using System.Drawing;
-using System.Globalization;
 using ContactPoint.BaseDesign.BaseNotifyControls;
 using ContactPoint.Common;
 
-namespace ContactPoint.Plugins.CallTools.CallNotifyWindow {
-    public partial class CallNotifyControl : NotifyControl {
+namespace ContactPoint.Plugins.CallTools.CallNotifyWindow
+{
+    public partial class CallNotifyControl : NotifyControl
+    {
+        private readonly bool _persistentWindow;
         private ICall _call;
-        private bool _persistentWindow;
 
-        public CallNotifyControl(ICall call, bool persistentWindow) {
+        public CallNotifyControl(ICall call, bool persistentWindow)
+        {
             InitializeComponent();
 
-            lock (call) {
-                _call = call;
-                _persistentWindow = persistentWindow;
-                AttachToEventHandlers();
-            }
+            _call = call;
+            _call.OnRemoved += _call_OnRemoved;
+            _call.OnStateChanged += _call_OnStateChanged;
+            _call.OnInfoChanged += _call_OnInfoChanged;
+            _call.OnDurationChanged += _call_OnDurationChanged;
+
+            _persistentWindow = persistentWindow;
 
             labelColor.BackColor = Color.LightGray;
 
             RefreshUI();
         }
 
-        private void AttachToEventHandlers() {
-            _call.OnRemoved += _call_OnRemoved;
-            _call.OnStateChanged += _call_OnStateChanged;
-            _call.OnInfoChanged += _call_OnInfoChanged;
-            _call.OnDurationChanged += _call_OnDurationChanged;
-        }
-
-        private void DetachFromEventHandlers() {
+        private void DetachFromEventHandlers()
+        {
             _call.OnRemoved -= _call_OnRemoved;
             _call.OnStateChanged -= _call_OnStateChanged;
             _call.OnInfoChanged -= _call_OnInfoChanged;
             _call.OnDurationChanged -= _call_OnDurationChanged;
         }
 
-        void _call_OnDurationChanged() {
-            if (InvokeRequired) {
+        void _call_OnDurationChanged()
+        {
+            if (InvokeRequired)
+            {
                 BeginInvoke(new EmptyDelegate(_call_OnDurationChanged));
 
                 return;
@@ -47,8 +47,10 @@ namespace ContactPoint.Plugins.CallTools.CallNotifyWindow {
             lblTime.Text = _call.Duration.ToFormattedString();
         }
 
-        void _call_OnInfoChanged() {
-            if (InvokeRequired) {
+        void _call_OnInfoChanged()
+        {
+            if (InvokeRequired)
+            {
                 BeginInvoke(new EmptyDelegate(_call_OnInfoChanged));
                 return;
             }
@@ -56,34 +58,45 @@ namespace ContactPoint.Plugins.CallTools.CallNotifyWindow {
             RefreshUI();
         }
 
-        void _call_OnStateChanged() {
-            if (InvokeRequired) {
+        void _call_OnStateChanged()
+        {
+            if (InvokeRequired)
+            {
                 BeginInvoke(new EmptyDelegate(_call_OnStateChanged));
                 return;
             }
 
-            if (_call.State == CallState.ACTIVE && ParentForm != null && !_persistentWindow) {
+            if (_call.State == CallState.ACTIVE && ParentForm != null && !_persistentWindow)
+            {
                 Close();
-            } else if (ParentForm != null) {
+            }
+            else if (ParentForm != null)
+            {
                 RefreshUI();
             }
         }
 
-        void _call_OnRemoved(CallRemoveReason reason) {
-            if (InvokeRequired) {
+        void _call_OnRemoved(CallRemoveReason reason)
+        {
+            if (InvokeRequired)
+            {
                 BeginInvoke(new Action<CallRemoveReason>(_call_OnRemoved), reason);
 
                 return;
             }
 
-            if (Handle == IntPtr.Zero) {
+            if (Handle == IntPtr.Zero)
+            {
                 _call = null;
-            } else {
+            }
+            else
+            {
                 Close();
             }
         }
 
-        void RefreshUI() {
+        void RefreshUI()
+        {
             this.lblLine.Text = this._call.Line >= 0 ? (this._call.Line + 1).ToString() : "";
             this.lblName.Text = this._call.Name.Length > 0 ? this._call.Name : "-";
             this.lblNumber.Text = this._call.Number;
@@ -92,49 +105,62 @@ namespace ContactPoint.Plugins.CallTools.CallNotifyWindow {
             if (_call.Headers.Contains("x-info"))
                 this.labelInfo.Text = _call.Headers.GetValueSafe("x-info");
 
-            if (_call.Contact != null && !string.IsNullOrWhiteSpace(_call.Contact.ShowedName)) {
+            if (_call.Contact != null && !string.IsNullOrWhiteSpace(_call.Contact.ShowedName))
+            {
                 lblName.Text = _call.Contact.ShowedName;
 
                 var queueDisplayName = _call.Headers.GetValueSafe("x-queue-display-name");
                 if (!String.IsNullOrEmpty(queueDisplayName))
                     this.labelInfo.Text = Uri.UnescapeDataString(queueDisplayName);
-            } else {
+            }
+            else
+            {
                 var queueDisplayName = _call.Headers.GetValueSafe("x-queue-display-name");
                 if (!String.IsNullOrEmpty(queueDisplayName))
                     this.lblName.Text = Uri.UnescapeDataString(queueDisplayName);
             }
 
-            if (_call.Headers.Contains("x-color")) {
-                try {
+            if (_call.Headers.Contains("x-color"))
+            {
+                try
+                {
                     labelColor.BackColor = Color.FromName(_call.Headers["x-color"].Value);
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     Logger.LogWarn(e, "Header 'x-color' was found but color can't be parsed. Color value is invalid or null.");
                 }
             }
         }
 
-        private void btnCall_Click(object sender, EventArgs e) {
+        private void btnCall_Click(object sender, EventArgs e)
+        {
             _call.Answer();
 
-            if (!_persistentWindow) {
+            if (!_persistentWindow)
+            {
                 Close();
             }
         }
 
-        private void btnDrop_Click(object sender, EventArgs e) {
+        private void btnDrop_Click(object sender, EventArgs e)
+        {
             _call.Drop();
 
             Close();
         }
 
-        public override void OnShow() {
+        public override void OnShow()
+        {
             if (_call == null || _call.IsDisposed) { Close(); }
 
             base.OnShow();
         }
 
-        public override void OnClosing() {
-            if (_call != null) {
+        public override void OnClosing()
+        {
+            if (_call != null)
+            {
                 DetachFromEventHandlers();
             }
         }
