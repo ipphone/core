@@ -104,12 +104,6 @@
     <Compile Include="NotifyControls\AudioDevicesRemovedNotifyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NotifyControls\CallNotifyControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="NotifyControls\CallNotifyControl.Designer.cs">
-      <DependentUpon>CallNotifyControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="CaptionStrings\CaptionStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -160,9 +154,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NotifyControls\AudioDevicesNotifyControl.resx">
       <DependentUpon>AudioDevicesNotifyControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NotifyControls\CallNotifyControl.resx">
-      <DependentUpon>CallNotifyControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CaptionStrings\CaptionStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
