@@ -1,6 +1,6 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("ContactPoint.exe")]
+[assembly: AssemblyTitle("IP Phone")]
 [assembly: AssemblyDescription("ContactPoint IP Phone")]
 [assembly: ComVisible(false)]
