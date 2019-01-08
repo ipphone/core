@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ContactPoint.BaseDesign.BaseNotifyControls;
 
@@ -9,8 +11,8 @@ namespace ContactPoint.BaseDesign
     {
         private static NotifyManager _instance;
 
-        List<NotifyForm> _items = new List<NotifyForm>();
-        Form _mainForm;
+        private readonly List<NotifyForm> _notifyForms = new List<NotifyForm>();
+        private readonly Form _mainForm;
 
         private NotifyManager(Form mainForm)
         {
@@ -41,64 +43,64 @@ namespace ContactPoint.BaseDesign
             Notify(control, 5000);
         }
 
-        private delegate void NotifyDelegate(NotifyControl control, int timeout);
         public void Notify(NotifyControl control, int timeout)
         {
             if (_mainForm.InvokeRequired)
             {
-                _mainForm.BeginInvoke(new NotifyDelegate(Notify), control, timeout);
-
+                _mainForm.BeginInvoke(new Action<NotifyControl, int>(Notify), control, timeout);
                 return;
             }
 
-            var frm = new NotifyForm(control) { NotifyControl = control, Timeout = timeout };
-            control.NotifyForm = frm;
+            var notifyForm = new NotifyForm(control) 
+            { 
+                NotifyControl = control, 
+                Timeout = timeout
+            };
 
-            frm.SetPosition(GetNextPosition(frm.Width, frm.Height));
+            notifyForm.SetPosition(GetNextPosition(notifyForm.Width, notifyForm.Height));
+            lock (_notifyForms)
+            {
+                _notifyForms.Add(notifyForm);
+            }
 
-            this._items.Add(frm);
+            notifyForm.FormClosed += NotifyFormClosed;
 
-            frm.FormClosed += new FormClosedEventHandler(frm_FormClosed);
-
+            control.NotifyForm = notifyForm;
             control.NotifyOnCreate();
 
-            frm.ShowGracefully();
+            notifyForm.ShowGracefully();
         }
 
         private Point GetNextPosition(int frmWidth, int frmHeight)
         {
-            Rectangle rect = Screen.GetWorkingArea(this._mainForm);
+            var rect = Screen.GetWorkingArea(_mainForm);
 
-            for (int i = 1; i <= this._items.Count; i++)
+            lock (_notifyForms)
             {
-                Point checkPoint = new Point(
-                    rect.Width - frmWidth - 10,
-                    rect.Height - (frmHeight + 10) * i
-                    );
-
-                if (CheckPosition(checkPoint))
-                    return checkPoint;
+                for (int i = 1; i <= _notifyForms.Count; i++)
+                {
+                    var position = new Point(rect.Width - frmWidth - 10, rect.Height - (frmHeight + 10) * i);
+                    if (_notifyForms.All(form => form.Location.Y != position.Y))
+                    {
+                        return position;
+                    }
+                }
             }
 
-            return new Point(
-                    rect.Width - frmWidth - 10,
-                    rect.Height - (frmHeight + 10) * (this._items.Count + 1)
-                    );
+            return new Point(rect.Width - frmWidth - 10, rect.Height - (frmHeight + 10) * (_notifyForms.Count + 1));
         }
 
-        private bool CheckPosition(Point point)
+        private void NotifyFormClosed(object sender, FormClosedEventArgs e)
         {
-            foreach (NotifyForm form in this._items)
-                if (form.Location.Y == point.Y)
-                    return false;
+            if (sender is NotifyForm form)
+            {
+                form.FormClosed -= NotifyFormClosed;
 
-            return true;
-        }
-
-        void frm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (sender != null)
-                this._items.Remove(sender as NotifyForm);
+                lock (_notifyForms)
+                {
+                    _notifyForms.Remove(form);
+                }
+            }
         }
     }
 }
