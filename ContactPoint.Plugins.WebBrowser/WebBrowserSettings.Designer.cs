@@ -1,4 +1,4 @@
-﻿using ContactPoint.BaseDesign;
+using ContactPoint.BaseDesign;
 
 namespace ContactPoint.Plugins.WebBrowser
 {
@@ -141,8 +141,6 @@ namespace ContactPoint.Plugins.WebBrowser
             // 
             // WebBrowserSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 265);
             this.Controls.Add(this.txtTriggerHeaders);
             this.Controls.Add(label2);
