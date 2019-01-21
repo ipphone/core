@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace ContactPoint.Plugins.WebBrowser
 {
-    [Plugin("{5D9C4631-B7AD-4501-A07B-4F130AA7A17F}", "Browser form", HaveSettingsForm = true)]
+    [Plugin("{5D9C4631-B7AD-4501-A07B-4F130AA7A17F}", "External Web Browser popups", HaveSettingsForm = true)]
     public class WebBrowserPluginDefinition : Plugin
     {
         internal static IEnumerable<Browser> Browsers { get; private set; }
