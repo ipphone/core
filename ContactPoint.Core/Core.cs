@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using ContactPoint.Common;
 using ContactPoint.Common.Audio;

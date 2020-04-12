@@ -80,7 +80,11 @@ namespace ContactPoint.Contacts
             }
             else
             {
-                InitializeConnection(dbPath);
+                if (!InitializeConnection(dbPath))
+                {
+                    Logger.LogWarn("Error loading ContactsManager - continue without Contacts API");
+                    return;
+                }
             }
 
             var contacts = new Dictionary<long, Contact>();
@@ -417,7 +421,11 @@ namespace ContactPoint.Contacts
             Logger.LogNotice($"Creating Database at '{path}'");
             SQLiteConnection.CreateFile(path);
 
-            InitializeConnection(path);
+            if (!InitializeConnection(path))
+            {
+                Logger.LogWarn("Error loading ContactsManager - continue without Contacts API");
+                return;
+            }
 
             using (new EnsuredResourceCriticalOperation(_sqlConnection))
             {
@@ -425,11 +433,22 @@ namespace ContactPoint.Contacts
             }
         }
 
-        private void InitializeConnection(string path)
+        private bool InitializeConnection(string path)
         {
             Logger.LogNotice($"Initializing SQLiteConnection to '{path}'");
-            _sqlConnection = new SQLiteConnection($"Data Source={path};Version=3;");
-            _sqlConnection.Open();
+            try
+            {
+                _sqlConnection = new SQLiteConnection($"Data Source={path};Version=3;");
+                _sqlConnection.Open();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e);
+            }
+
+            return false;
         }
 
         public void Dispose()
