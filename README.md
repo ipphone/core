@@ -21,11 +21,11 @@ Latest binaries: https://github.com/ipphone/core/releases/latest
 
 <img src="https://ipphone.github.io/images/ipphone-04_final-08.png" width="310" /> <img src="https://ipphone.github.io/images/ipphone-02.png" />
 
-## License
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fipphone%2Fcore.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fipphone%2Fcore?ref=badge_large)
-
 ## References
 
 - [PJSIP – pjproject](https://github.com/pjsip/pjproject)
 - [ComponentFactory – Krypton](https://github.com/ComponentFactory/Krypton)
+
+## License check
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fipphone%2Fcore.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fipphone%2Fcore?ref=badge_large)
