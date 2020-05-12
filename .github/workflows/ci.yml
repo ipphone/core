@@ -77,7 +77,7 @@ jobs:
         Configuration: ${{ matrix.configuration }}
 
     - name: NuGet restore
-      run: nuget restore $env:Solution_Name
+      run: dotnet restore $env:Solution_Name
 
     # Run build
     - name: Build
