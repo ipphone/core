@@ -46,8 +46,8 @@ jobs:
   build:
     strategy:
       matrix:
-        configuration: [Release]
-        platform: [AnyCPU]
+        configuration: [Release, Debug]
+        platform: [Any CPU]
 
     runs-on: windows-latest  # For a list of available runner types, refer to 
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
