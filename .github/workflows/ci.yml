@@ -76,8 +76,11 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
+    - name: NuGet restore
+      run: nuget restore $env:Solution_Name
+
     # Run build
-    - name: Execute unit tests
+    - name: Build
       run: msbuild $env:Solution_Name /t:Build /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
