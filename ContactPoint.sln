@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExceptionReporter", "ExceptionReporter", "{F5F1C452-1853-4FD6-8997-FB3A93E611BC}"
 EndProject
@@ -103,6 +103,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.PauseN
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Tests.WinForms", "ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj", "{E867EDFC-3F38-48B0-8AB7-D894C743C1F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,6 +187,10 @@ Global
 		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FABC01DB-A76D-4BA3-B63E-3024771A64A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E867EDFC-3F38-48B0-8AB7-D894C743C1F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E867EDFC-3F38-48B0-8AB7-D894C743C1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E867EDFC-3F38-48B0-8AB7-D894C743C1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E867EDFC-3F38-48B0-8AB7-D894C743C1F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -206,5 +212,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {03268C23-E6D9-4799-B76D-5BD32F32956F}
 	EndGlobalSection
 EndGlobal
