@@ -96,6 +96,8 @@ jobs:
     # Execute all unit tests in the solution
     - name: Execute unit tests
       run: dotnet test
+#      env:
+#        BIN_PATH: ..\Binaries\net472
 
     # Decode the base 64 encoded pfx and save the Signing_Certificate
 #    - name: Decode the pfx

@@ -15,30 +15,30 @@ namespace ContactPoint.Tests.WinForms
     {
         public WindowsDriver<WindowsElement> ProcessWindow { get; set; }
         public WindowsElement MainForm { get; set; }
+        public AppiumLocalService AppiumService { get; set; }
 
         [TestInitialize]
         public void TestSetup()
         {
-            var binPath = Environment.GetEnvironmentVariable("BIN_PATH") ?? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "Binaries"));
+            var binPath = Environment.GetEnvironmentVariable("BIN_PATH") ?? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "..", "Binaries", "net472"));
 
             var appOpts = new AppiumOptions();
             appOpts.AddAdditionalCapability("app", Path.Combine(binPath, "contactpoint.exe"));
             appOpts.AddAdditionalCapability("appWorkingDir", binPath);
 
             var serviceUrl = Environment.GetEnvironmentVariable("APPIUM_URL");
-            if (string.IsNullOrEmpty(serviceUrl))
+            if (!string.IsNullOrEmpty(serviceUrl))
             {
-                var appiumService = new AppiumServiceBuilder()
-                    .WithIPAddress("127.0.0.1")
-                    .UsingAnyFreePort()
-                    .Build();
+                ProcessWindow = new WindowsDriver<WindowsElement>(new Uri(serviceUrl), appOpts);
+            }
+            else
+            {
+                AppiumService = AppiumLocalService.BuildDefaultService();
+                AppiumService.Start();
 
-                appiumService.Start();
-
-                serviceUrl = appiumService.ServiceUrl.ToString();
+                ProcessWindow = new WindowsDriver<WindowsElement>(AppiumService, appOpts);
             }
 
-            ProcessWindow = new WindowsDriver<WindowsElement>(new Uri(serviceUrl), appOpts);
             foreach (var hndl in ProcessWindow.WindowHandles)
             {
                 ProcessWindow.SwitchTo().Window(hndl);
@@ -59,6 +59,7 @@ namespace ContactPoint.Tests.WinForms
         public void TestCleanup()
         {
             ProcessWindow?.Close();
+            AppiumService?.Dispose();
         }
 
         [TestMethod]
