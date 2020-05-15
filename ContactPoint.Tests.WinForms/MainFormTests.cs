@@ -26,6 +26,7 @@ namespace ContactPoint.Tests.WinForms
 
             var appOpts = new AppiumOptions();
             appOpts.AddAdditionalCapability("app", Path.Combine(binPath, "contactpoint.exe"));
+            appOpts.AddAdditionalCapability("appArguments", "/DisableSettingsFormAutoStartup /DisableSplashScreen");
             appOpts.AddAdditionalCapability("appWorkingDir", binPath);
 
             var serviceUrl = Environment.GetEnvironmentVariable("APPIUM_URL");
@@ -41,19 +42,31 @@ namespace ContactPoint.Tests.WinForms
                 ProcessWindow = new WindowsDriver<WindowsElement>(AppiumService, appOpts);
             }
 
-            Thread.Sleep(TimeSpan.FromSeconds(waitStartupTimeout));
-            foreach (var hndl in ProcessWindow.WindowHandles)
+            try
             {
-                ProcessWindow.SwitchTo().Window(hndl);
+                MainForm = ProcessWindow.FindElementByXPath("//Window[@Name=\"IP PHONE\"][@AutomationId=\"MainForm\"]");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
 
-                try
+            if (MainForm == null)
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(waitStartupTimeout));
+                foreach (var hndl in ProcessWindow.WindowHandles)
                 {
-                    MainForm = ProcessWindow.FindElementByXPath("//Window[@Name=\"IP PHONE\"][@AutomationId=\"MainForm\"]");
-                    if (MainForm != null) break;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
+                    try
+                    {
+                        ProcessWindow.SwitchTo().Window(hndl);
+
+                        MainForm = ProcessWindow.FindElementByXPath("//Window[@Name=\"IP PHONE\"][@AutomationId=\"MainForm\"]");
+                        if (MainForm != null) break;
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                    }
                 }
             }
         }
