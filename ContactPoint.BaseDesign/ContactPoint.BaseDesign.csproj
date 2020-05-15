@@ -1,183 +1,111 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{65FE7F1C-522A-481B-B033-E8DAE7269CF5}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ContactPoint.BaseDesign</RootNamespace>
-    <AssemblyName>ContactPoint.BaseDesign</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SignAssembly>false</SignAssembly>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFramework>net472</TargetFramework>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <OutputPath>..\..\Binaries\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\Binaries\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\Binaries\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.1.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
-      <HintPath>..\packages\KryptonWinFormControls.4.4.1.0\lib\net40\ComponentFactory.Krypton.Toolkit.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>CommonAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="AlertForm.cs">
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs" Link="CommonAssemblyInfo.cs" />
+    <Compile Update="AlertForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AlertForm.Designer.cs">
+    <Compile Update="AlertForm.Designer.cs">
       <DependentUpon>AlertForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BaseNotifyControls\NotifyControl.cs">
+    <Compile Update="BaseNotifyControls\NotifyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BaseNotifyControls\NotifyForm.cs">
+    <Compile Update="BaseNotifyControls\NotifyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BaseNotifyControls\NotifyForm.Designer.cs">
+    <Compile Update="BaseNotifyControls\NotifyForm.Designer.cs">
       <DependentUpon>NotifyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Components\AdvancedBindingSource.cs">
+    <Compile Update="Components\AdvancedBindingSource.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\ControlsPanel.cs">
+    <Compile Update="Components\ControlsPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\IEntityControl.cs" />
-    <Compile Include="Components\PropertyAccessor.cs" />
-    <Compile Include="Components\SelectableControl.cs">
+    <Compile Update="Components\SelectableControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Components\SelectableVerticalLayoutList.cs">
+    <Compile Update="Components\SelectableVerticalLayoutList.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\SelectableVerticalLayoutPanel.cs">
+    <Compile Update="Components\SelectableVerticalLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\TextBoxWatermarkExtender.cs" />
-    <Compile Include="Components\UIButton.cs" />
-    <Compile Include="Components\UIToolStripButton.cs">
+    <Compile Update="Components\UIToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\VerticalLayoutPanel.cs">
+    <Compile Update="Components\VerticalLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LineSeparator.cs">
+    <Compile Update="LineSeparator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NotifyManager.cs" />
-    <Compile Include="OwnLabel.cs">
+    <Compile Update="OwnLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="QuestionForm.cs">
+    <Compile Update="QuestionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuestionForm.Designer.cs">
+    <Compile Update="QuestionForm.Designer.cs">
       <DependentUpon>QuestionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SyncUi.cs" />
-    <Compile Include="Tweener.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AlertForm.resx">
+    <EmbeddedResource Update="AlertForm.resx">
       <DependentUpon>AlertForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="BaseNotifyControls\NotifyForm.resx">
+    <EmbeddedResource Update="BaseNotifyControls\NotifyForm.resx">
       <DependentUpon>NotifyForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Components\VerticalLayoutPanel.resx">
+    <EmbeddedResource Update="Components\VerticalLayoutPanel.resx">
       <DependentUpon>VerticalLayoutPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuestionForm.resx">
+    <EmbeddedResource Update="QuestionForm.resx">
       <DependentUpon>QuestionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Resources\ic_dialog_alert.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\close1.png" />
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
-if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"
-</PreBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

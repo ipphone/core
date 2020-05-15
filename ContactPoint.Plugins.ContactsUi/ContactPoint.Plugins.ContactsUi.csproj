@@ -1,209 +1,126 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C73F8CD8-6E51-4681-9010-3586672818C9}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ContactPoint.Plugins.ContactsUi</RootNamespace>
-    <AssemblyName>ContactPoint.Plugins.ContactsUi</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net472</TargetFramework>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <OutputPath>..\..\Binaries\Plugins\ContactsUI\</OutputPath>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\Binaries\Plugins\ContactsUI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RegisterForComInterop>false</RegisterForComInterop>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\Binaries\Plugins\ContactsUI\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RegisterForComInterop>false</RegisterForComInterop>
-    <Prefer32Bit>false</Prefer32Bit>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <DefineConstants />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.1.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
-      <HintPath>..\packages\KryptonWinFormControls.4.4.1.0\lib\net40\ComponentFactory.Krypton.Toolkit.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ContactPoint.BaseDesign">
-      <HintPath>..\..\Binaries\ContactPoint.BaseDesign.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ContactPoint.Common">
-      <HintPath>..\..\Binaries\ContactPoint.Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ContactPoint.Contacts">
-      <HintPath>..\..\Binaries\ContactPoint.Contacts.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ContactPoint.Core">
-      <HintPath>..\..\Binaries\ContactPoint.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactPoint.Common\ContactPoint.Common.csproj" />
+    <ProjectReference Include="..\ContactPoint.Core\ContactPoint.Core.csproj" />
+    <ProjectReference Include="..\ContactPoint.Contacts\ContactPoint.Contacts.csproj" />
     <Reference Include="PresentationCore" />
-    <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>CommonAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="ContactsCommand.cs" />
-    <Compile Include="ContactsUiService.cs" />
-    <Compile Include="Controls\AddPhoneEmailControl.cs">
+    <Compile Include="..\CommonAssemblyInfo.cs" Link="CommonAssemblyInfo.cs" />
+    <Compile Update="Controls\AddPhoneEmailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\AddPhoneEmailControl.Designer.cs">
+    <Compile Update="Controls\AddPhoneEmailControl.Designer.cs">
       <DependentUpon>AddPhoneEmailControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ContactDetailsControl.cs">
+    <Compile Update="Controls\ContactDetailsControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\DataGridViewTagsCell.cs" />
-    <Compile Include="Controls\EmailControl.cs">
+    <Compile Update="Controls\EmailControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\EmailControl.Designer.cs">
+    <Compile Update="Controls\EmailControl.Designer.cs">
       <DependentUpon>EmailControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PhoneControl.cs">
+    <Compile Update="Controls\PhoneControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\PhoneControl.Designer.cs">
+    <Compile Update="Controls\PhoneControl.Designer.cs">
       <DependentUpon>PhoneControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TagsListControl.cs">
+    <Compile Update="Controls\TagsListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\TagsListControl.Designer.cs">
+    <Compile Update="Controls\TagsListControl.Designer.cs">
       <DependentUpon>TagsListControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TextBoxValidationHelper.cs" />
-    <Compile Include="Controls\TextDetailsControl.cs">
+    <Compile Update="Controls\TextDetailsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\TextDetailsControl.Designer.cs">
+    <Compile Update="Controls\TextDetailsControl.Designer.cs">
       <DependentUpon>TextDetailsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ContactForm.cs">
+    <Compile Update="Forms\ContactForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ContactForm.Designer.cs">
+    <Compile Update="Forms\ContactForm.Designer.cs">
       <DependentUpon>ContactForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ContactsListForm.cs">
+    <Compile Update="Forms\ContactsListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ContactsListForm.Designer.cs">
+    <Compile Update="Forms\ContactsListForm.Designer.cs">
       <DependentUpon>ContactsListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TagForm.cs">
+    <Compile Update="Forms\TagForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TagForm.Designer.cs">
+    <Compile Update="Forms\TagForm.Designer.cs">
       <DependentUpon>TagForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ContactEmailViewModel.cs" />
-    <Compile Include="ViewModels\ContactInfoViewModel.cs" />
-    <Compile Include="ViewModels\ContactPhoneViewModel.cs" />
-    <Compile Include="ViewModels\ContactTagViewModel.cs" />
-    <Compile Include="ViewModels\ContactViewModel.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\AddPhoneEmailControl.resx">
+    <EmbeddedResource Update="Controls\AddPhoneEmailControl.resx">
       <DependentUpon>AddPhoneEmailControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\EmailControl.resx">
+    <EmbeddedResource Update="Controls\EmailControl.resx">
       <DependentUpon>EmailControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\PhoneControl.resx">
+    <EmbeddedResource Update="Controls\PhoneControl.resx">
       <DependentUpon>PhoneControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TagsListControl.resx">
+    <EmbeddedResource Update="Controls\TagsListControl.resx">
       <DependentUpon>TagsListControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TextDetailsControl.resx">
+    <EmbeddedResource Update="Controls\TextDetailsControl.resx">
       <DependentUpon>TextDetailsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ContactForm.resx">
+    <EmbeddedResource Update="Forms\ContactForm.resx">
       <DependentUpon>ContactForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ContactsListFOrm.resx">
+    <EmbeddedResource Update="Forms\ContactsListFOrm.resx">
       <DependentUpon>ContactsListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TagForm.resx">
+    <EmbeddedResource Update="Forms\TagForm.resx">
       <DependentUpon>TagForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\contacts1.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

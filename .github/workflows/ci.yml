@@ -46,8 +46,7 @@ jobs:
   build:
     strategy:
       matrix:
-        configuration: [Release, Debug]
-        platform: [Any CPU]
+        configuration: [Release]
 
     runs-on: windows-latest  # For a list of available runner types, refer to 
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -73,20 +72,18 @@ jobs:
       uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
 
     - name: Restore application dependencies
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration /p:Platform=$env:Platform
+      run: msbuild $env:Solution_Name -t:Restore -p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
-        Platform: ${{ matrix.platform }}
 
-    - name: NuGet restore
-      run: dotnet restore $env:Solution_Name
+    #- name: NuGet restore
+    #  run: dotnet restore $env:Solution_Name
 
     # Run build
     - name: Build
-      run: msbuild $env:Solution_Name /t:Build /p:Configuration=$env:Configuration /p:Platform=$env:Platform
+      run: msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
-        Platform: ${{ matrix.platform }}
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
