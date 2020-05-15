@@ -187,7 +187,10 @@ namespace ContactPoint
                     {
                         PartLoading("Initialize Splash Screen UI");
                         _loaderForm = new LoaderForm();
-                        ThreadPool.QueueUserWorkItem(StartLoaderForm);
+                        if (!GetCommandLineSwitch("/DisableSplashScreen", args))
+                        {
+                            ThreadPool.QueueUserWorkItem(StartLoaderForm);
+                        }
                         CoreLoader.LoadingFailed += LoadingFailed;
                         CoreLoader.PartLoading += PartLoading;
 
@@ -244,6 +247,7 @@ namespace ContactPoint
                                     PartLoading("Configuring Windows Forms UI");
                                     AppContext.ContactPointForm.Core = core;
                                     AppContext.ContactPointForm.CallOnStartup = makeCallMessage;
+                                    AppContext.ContactPointForm.DisableSettingsFormAutoStartup = GetCommandLineSwitch("/DisableSettingsFormAutoStartup", args);
 
                                     AppContext.ContactPointForm.Shown += MainFormShown;
 

@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Service;
@@ -21,6 +22,7 @@ namespace ContactPoint.Tests.WinForms
         public void TestSetup()
         {
             var binPath = Environment.GetEnvironmentVariable("BIN_PATH") ?? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "..", "Binaries", "net472"));
+            var waitStartupTimeout = Int32.Parse(Environment.GetEnvironmentVariable("WAIT_STARTUP_TIMEOUT") ?? "15");
 
             var appOpts = new AppiumOptions();
             appOpts.AddAdditionalCapability("app", Path.Combine(binPath, "contactpoint.exe"));
@@ -39,6 +41,7 @@ namespace ContactPoint.Tests.WinForms
                 ProcessWindow = new WindowsDriver<WindowsElement>(AppiumService, appOpts);
             }
 
+            Thread.Sleep(TimeSpan.FromSeconds(waitStartupTimeout));
             foreach (var hndl in ProcessWindow.WindowHandles)
             {
                 ProcessWindow.SwitchTo().Window(hndl);

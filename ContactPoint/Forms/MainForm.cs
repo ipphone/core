@@ -64,6 +64,7 @@ namespace ContactPoint.Forms
         }
 
         public StartPhoneCallCommand CallOnStartup { get; set; }
+        public bool DisableSettingsFormAutoStartup { get; set; }
 
         private bool TransferMode
         {
@@ -166,9 +167,9 @@ namespace ContactPoint.Forms
             AutoAnswerService.Create(_core);
 
             // Check if first run - run settings
-            if (_core.Sip.Account.UserName == "")
+            if (string.IsNullOrEmpty(_core.Sip.Account.UserName))
             {
-                kryptonCommandSettings.PerformExecute();
+                if (!DisableSettingsFormAutoStartup) kryptonCommandSettings.PerformExecute();
             }
             else
             {
