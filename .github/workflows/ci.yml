@@ -71,6 +71,11 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
 
+    - name: Setup NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
     - name: Restore application dependencies
       run: msbuild $env:Solution_Name -t:Restore -p:Configuration=$env:Configuration
       env:
@@ -84,6 +89,9 @@ jobs:
       run: msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
+
+    - name: Setup Appium
+      run: npm install -g appium
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
