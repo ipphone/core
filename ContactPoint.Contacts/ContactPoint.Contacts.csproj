@@ -20,9 +20,6 @@
     <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.112.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ContactPoint.Common">
-      <HintPath>..\..\Binaries\ContactPoint.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +37,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj" />
+    <ProjectReference Include="..\ContactPoint.Common\ContactPoint.Common.csproj" />
+    <ProjectReference Include="..\ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj">
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
 </Project>
