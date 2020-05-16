@@ -9,7 +9,7 @@
     <AssemblyTitle>ContactPoint.Tests.WinForms</AssemblyTitle>
     <Product>ContactPoint.Tests.WinForms</Product>
     <Copyright>Copyright ©ContactPoint 2020</Copyright>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <OutDir>bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <SccProjectName>SAK</SccProjectName>
@@ -9,11 +9,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>
-    <OutputPath>..\..\Binaries\Plugins\WebBrowser\</OutputPath>
+    <OutDir>..\..\Binaries\Plugins\WebBrowser\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\Binaries\Plugins\WebBrowser\</OutputPath>
+    <OutDir>..\..\Binaries\Plugins\WebBrowser\</OutDir>
     <DefineConstants />
   </PropertyGroup>
   <ItemGroup>

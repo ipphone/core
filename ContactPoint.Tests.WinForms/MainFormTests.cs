@@ -14,37 +14,38 @@ namespace ContactPoint.Tests.WinForms
     [TestCategory("Smoke")]
     public class MainFormTests
     {
-        public WindowsDriver<WindowsElement> ProcessWindow { get; set; }
+        public WindowsDriver<WindowsElement> AppSession { get; set; }
         public WindowsElement MainForm { get; set; }
         public AppiumLocalService AppiumService { get; set; }
 
         [TestInitialize]
         public void TestSetup()
         {
-            var binPath = Environment.GetEnvironmentVariable("BIN_PATH") ?? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "..", "Binaries", "net472"));
-            var waitStartupTimeout = Int32.Parse(Environment.GetEnvironmentVariable("WAIT_STARTUP_TIMEOUT") ?? "15");
+            var binPath = Environment.GetEnvironmentVariable("BIN_PATH") ?? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "Binaries"));
+            var waitStartupTimeout = int.Parse(Environment.GetEnvironmentVariable("WAIT_STARTUP_TIMEOUT") ?? "15");
+            var appArguments = Environment.GetEnvironmentVariable("APP_ARGUMENTS");
 
             var appOpts = new AppiumOptions();
             appOpts.AddAdditionalCapability("app", Path.Combine(binPath, "contactpoint.exe"));
-            appOpts.AddAdditionalCapability("appArguments", "/DisableSettingsFormAutoStartup /DisableSplashScreen");
+            appOpts.AddAdditionalCapability("appArguments", $"/DisableSettingsFormAutoStartup /DisableSplashScreen ${appArguments}");
             appOpts.AddAdditionalCapability("appWorkingDir", binPath);
 
             var serviceUrl = Environment.GetEnvironmentVariable("APPIUM_URL");
             if (!string.IsNullOrEmpty(serviceUrl))
             {
-                ProcessWindow = new WindowsDriver<WindowsElement>(new Uri(serviceUrl), appOpts);
+                AppSession = new WindowsDriver<WindowsElement>(new Uri(serviceUrl), appOpts);
             }
             else
             {
                 AppiumService = AppiumLocalService.BuildDefaultService();
                 AppiumService.Start();
 
-                ProcessWindow = new WindowsDriver<WindowsElement>(AppiumService, appOpts);
+                AppSession = new WindowsDriver<WindowsElement>(AppiumService, appOpts);
             }
 
             try
             {
-                MainForm = ProcessWindow.FindElementByXPath("//Window[@Name=\"IP PHONE\"][@AutomationId=\"MainForm\"]");
+                MainForm = AppSession.FindElementByXPath("//Window[@Name=\"IP PHONE\"][@AutomationId=\"MainForm\"]");
             }
             catch (Exception e)
             {
@@ -54,13 +55,13 @@ namespace ContactPoint.Tests.WinForms
             if (MainForm == null)
             {
                 Thread.Sleep(TimeSpan.FromSeconds(waitStartupTimeout));
-                foreach (var hndl in ProcessWindow.WindowHandles)
+                foreach (var hndl in AppSession.WindowHandles)
                 {
                     try
                     {
-                        ProcessWindow.SwitchTo().Window(hndl);
+                        AppSession.SwitchTo().Window(hndl);
 
-                        MainForm = ProcessWindow.FindElementByXPath("//Window[@Name=\"IP PHONE\"][@AutomationId=\"MainForm\"]");
+                        MainForm = AppSession.FindElementByXPath("//Window[@Name=\"IP PHONE\"][@AutomationId=\"MainForm\"]");
                         if (MainForm != null) break;
                     }
                     catch (Exception e)
@@ -68,13 +69,15 @@ namespace ContactPoint.Tests.WinForms
                         Debug.WriteLine(e);
                     }
                 }
+
+                AppSession.LaunchApp();
             }
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            ProcessWindow?.Close();
+            AppSession?.Close();
             AppiumService?.Dispose();
         }
 

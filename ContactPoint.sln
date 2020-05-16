@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint", "ContactPoint\ContactPoint.csproj", "{C551E320-ABEA-4515-92FA-6D6CE2262C6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint", "ContactPoint\ContactPoint.csproj", "{C551E320-ABEA-4515-92FA-6D6CE2262C6F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2B1C372E-097F-4268-B1EA-2B918BEBD94B} = {2B1C372E-097F-4268-B1EA-2B918BEBD94B}
 		{60A93330-81F1-46CC-87C6-F38C4B5DBC7B} = {60A93330-81F1-46CC-87C6-F38C4B5DBC7B}
@@ -28,27 +28,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint", "ContactPoin
 		{68C897FA-1B69-41C5-AD99-4B7FB0386152} = {68C897FA-1B69-41C5-AD99-4B7FB0386152}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SipekSdk", "SipekSDK\SipekSdk\SipekSdk.csproj", "{2B1C372E-097F-4268-B1EA-2B918BEBD94B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SipekSdk", "SipekSDK\SipekSdk\SipekSdk.csproj", "{2B1C372E-097F-4268-B1EA-2B918BEBD94B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Core", "ContactPoint.Core\ContactPoint.Core.csproj", "{9590E970-9A52-4430-8E09-22AB36F4A746}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Core", "ContactPoint.Core\ContactPoint.Core.csproj", "{9590E970-9A52-4430-8E09-22AB36F4A746}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Common", "ContactPoint.Common\ContactPoint.Common.csproj", "{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Common", "ContactPoint.Common\ContactPoint.Common.csproj", "{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.BaseDesign", "ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj", "{65FE7F1C-522A-481B-B033-E8DAE7269CF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.BaseDesign", "ContactPoint.BaseDesign\ContactPoint.BaseDesign.csproj", "{65FE7F1C-522A-481B-B033-E8DAE7269CF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionReporter.Core", "ExceptionReporter\ExceptionReporter\ExceptionReporter.Core.csproj", "{B1FEB096-4729-4DBC-B192-C8912CBA86D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExceptionReporter.Core", "ExceptionReporter\ExceptionReporter\ExceptionReporter.Core.csproj", "{B1FEB096-4729-4DBC-B192-C8912CBA86D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32Mapi", "ExceptionReporter\Win32Mapi\Win32Mapi.csproj", "{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Win32Mapi", "ExceptionReporter\Win32Mapi\Win32Mapi.csproj", "{60A93330-81F1-46CC-87C6-F38C4B5DBC7B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.CallsLog", "ContactPoint.Plugins.CallsLog\ContactPoint.Plugins.CallsLog.csproj", "{55E74C39-8525-402A-9949-52E6146BAE80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Plugins.CallsLog", "ContactPoint.Plugins.CallsLog\ContactPoint.Plugins.CallsLog.csproj", "{55E74C39-8525-402A-9949-52E6146BAE80}"
 	ProjectSection(ProjectDependencies) = postProject
 		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.HotKeys", "ContactPoint.Plugins.HotKeys\ContactPoint.Plugins.HotKeys.csproj", "{00099B5F-8E23-4405-A711-CEF15298FF03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Plugins.HotKeys", "ContactPoint.Plugins.HotKeys\ContactPoint.Plugins.HotKeys.csproj", "{00099B5F-8E23-4405-A711-CEF15298FF03}"
 	ProjectSection(ProjectDependencies) = postProject
 		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
@@ -57,14 +57,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.HotKey
 		{B1FEB096-4729-4DBC-B192-C8912CBA86D1} = {B1FEB096-4729-4DBC-B192-C8912CBA86D1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.CallTools", "ContactPoint.Plugins.CallTools\ContactPoint.Plugins.CallTools.csproj", "{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Plugins.CallTools", "ContactPoint.Plugins.CallTools\ContactPoint.Plugins.CallTools.csproj", "{FC7ADD6F-D066-4A82-9AF7-5EC2D6DF1B37}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.BaseDesign.Wpf", "ContactPoint.BaseDesign.Wpf\ContactPoint.BaseDesign.Wpf.csproj", "{DF5CB26D-0EEB-4F52-8064-406ABFB88746}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.BaseDesign.Wpf", "ContactPoint.BaseDesign.Wpf\ContactPoint.BaseDesign.Wpf.csproj", "{DF5CB26D-0EEB-4F52-8064-406ABFB88746}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Contacts", "ContactPoint.Contacts\ContactPoint.Contacts.csproj", "{6F150B66-5634-42B9-8C73-3635A46E906C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Contacts", "ContactPoint.Contacts\ContactPoint.Contacts.csproj", "{6F150B66-5634-42B9-8C73-3635A46E906C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.LocalAddressBook", "ContactPoint.Plugins.LocalAddressBook\ContactPoint.Plugins.LocalAddressBook.csproj", "{D743AED5-F49B-47D5-8424-9D3AA15619F4}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -84,26 +84,28 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.Contac
 		{E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6} = {E6BBCC82-FBF2-493C-8365-8D0C7A7E17A6}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.WebBrowser", "ContactPoint.Plugins.WebBrowser\ContactPoint.Plugins.WebBrowser.csproj", "{9510C4E1-9CD0-4466-88CD-3CBDFA63831A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Plugins.WebBrowser", "ContactPoint.Plugins.WebBrowser\ContactPoint.Plugins.WebBrowser.csproj", "{9510C4E1-9CD0-4466-88CD-3CBDFA63831A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioLibrary", "AudioLibrary", "{8E3667CE-EB8E-4B93-89A2-871FF0C208F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioLibrary", "AudioLibrary\AudioLibrary.csproj", "{618762DA-52BA-458F-B709-C92F8EF3F4E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioLibrary", "AudioLibrary\AudioLibrary.csproj", "{618762DA-52BA-458F-B709-C92F8EF3F4E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioLibrary.PjSIP", "AudioLibrary.PjSIP\AudioLibrary.PjSIP.csproj", "{68C897FA-1B69-41C5-AD99-4B7FB0386152}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioLibrary.PjSIP", "AudioLibrary.PjSIP\AudioLibrary.PjSIP.csproj", "{68C897FA-1B69-41C5-AD99-4B7FB0386152}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioLibrary.WMME", "AudioLibrary.WMME\AudioLibrary.WMME.csproj", "{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioLibrary.WMME", "AudioLibrary.WMME\AudioLibrary.WMME.csproj", "{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.PauseNotifications", "ContactPoint.Plugins.PauseNotifications\ContactPoint.Plugins.PauseNotifications.csproj", "{FABC01DB-A76D-4BA3-B63E-3024771A64A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Plugins.PauseNotifications", "ContactPoint.Plugins.PauseNotifications\ContactPoint.Plugins.PauseNotifications.csproj", "{FABC01DB-A76D-4BA3-B63E-3024771A64A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Tests.WinForms", "ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj", "{E867EDFC-3F38-48B0-8AB7-D894C743C1F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Tests.WinForms", "ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj", "{E867EDFC-3F38-48B0-8AB7-D894C743C1F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{60B299BB-F31C-43D6-944F-15A3B05F1369}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -209,9 +211,10 @@ Global
 		{68C897FA-1B69-41C5-AD99-4B7FB0386152} = {8E3667CE-EB8E-4B93-89A2-871FF0C208F4}
 		{5B1BD7AB-06BD-4E24-9F96-6BA7DFFC576E} = {8E3667CE-EB8E-4B93-89A2-871FF0C208F4}
 		{FABC01DB-A76D-4BA3-B63E-3024771A64A1} = {7AF0EEF2-3C57-4BDD-AA80-0C5EADC37176}
+		{E867EDFC-3F38-48B0-8AB7-D894C743C1F7} = {60B299BB-F31C-43D6-944F-15A3B05F1369}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {03268C23-E6D9-4799-B76D-5BD32F32956F}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

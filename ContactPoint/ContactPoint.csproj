@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
     <OutputType>WinExe</OutputType>
@@ -14,7 +14,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
-    <OutputPath>..\..\Binaries\</OutputPath>
+    <OutDir>..\..\Binaries\</OutDir>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <PreBuildEvent />
     <PostBuildEvent>if not exist "$(TargetDir)Plugins" md "$(TargetDir)Plugins"</PostBuildEvent>

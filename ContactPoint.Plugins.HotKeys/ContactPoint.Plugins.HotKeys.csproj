@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
     <TargetFramework>net472</TargetFramework>
@@ -28,11 +28,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>
-    <OutputPath>..\..\Binaries\Plugins\HotKeys\</OutputPath>
+    <OutDir>..\..\Binaries\Plugins\HotKeys\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\Binaries\Plugins\HotKeys\</OutputPath>
+    <OutDir>..\..\Binaries\Plugins\HotKeys\</OutDir>
     <DefineConstants />
   </PropertyGroup>
   <PropertyGroup>

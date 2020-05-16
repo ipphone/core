@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
     <RootNamespace>Sipek</RootNamespace>
@@ -30,12 +30,12 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>
-    <OutputPath>..\..\Binaries\</OutputPath>
+    <OutDir>..\..\Binaries\</OutDir>
     <NoWarn>3005</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\Binaries\</OutputPath>
+    <OutDir>..\..\Binaries\</OutDir>
     <DefineConstants />
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <NoWarn>3005</NoWarn>

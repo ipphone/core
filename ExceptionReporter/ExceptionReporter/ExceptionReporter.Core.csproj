@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
     <RootNamespace>ExceptionReporter</RootNamespace>
@@ -7,7 +7,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <OutputPath>..\..\..\Binaries\</OutputPath>
+    <OutDir>..\..\..\Binaries\</OutDir>
     <WarningLevel>0</WarningLevel>
     <PostBuildEvent />
     <PostBuildEvent />
