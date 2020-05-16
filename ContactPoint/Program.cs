@@ -93,6 +93,13 @@ namespace ContactPoint
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
+            var args = Environment.GetCommandLineArgs();
+            if (GetCommandLineSwitch("/?", args) || GetCommandLineSwitch("/h", args) || GetCommandLineSwitch("/help", args))
+            {
+                PrintCommandLineParameters();
+                return;
+            }
+
             // Permit unmanaged code permissions
             var perm = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
 
@@ -113,8 +120,6 @@ namespace ContactPoint
 #if DEBUG
                 logLevel = 5;
 #endif
-                var args = Environment.GetCommandLineArgs();
-
                 var logLevelStr = GetCommandLineParameter("/loglevel", args);
                 if (!string.IsNullOrEmpty(logLevelStr)) int.TryParse(logLevelStr, NumberStyles.Any, null, out logLevel);
 
@@ -330,6 +335,34 @@ namespace ContactPoint
             }
 
             return null;
+        }
+
+        private static void PrintCommandLineParameters()
+        {
+            Console.WriteLine($@"ContactPoint IP Phone ({typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion})
+Usage: ContactPoint.exe [options]
+
+Start IP Phone application.
+
+Options:
+  /Help, /h, /?                     Show command line help.
+  /Call <SIP_URI>                   Start application and initiate new SIP session after application startup
+                                    OR notify already running instance to initiate new SIP session.
+  /DisableSplashScreen              Disable Splash Screen on application startup.
+  /DisableExceptionReporter         Disable Exception Reporter for handling unhandled exceptions.
+  /DisableSettingsFormAutoStartup   Disable first time Settings window automatic bring up on application startup.
+  /Log <FILENAME>                   Write logs into specified file.
+  /LogLevel <LOGLEVEL>              Set log level from 0 (min) to 10 (max),
+                                    default: 0.
+");
+
+#if DEBUG
+            Console.WriteLine($@"
+DEBUG mode options:
+  /Debugger                         Attach debugger right after application startup.
+  /NewUI                            Start application with new UI (WPF).
+");
+#endif
         }
 
         static void StartLoaderForm(object obj)
