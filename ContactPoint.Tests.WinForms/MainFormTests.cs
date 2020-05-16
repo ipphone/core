@@ -22,10 +22,14 @@ namespace ContactPoint.Tests.WinForms
         public void TestSetup()
         {
             var binPath = Environment.GetEnvironmentVariable("BIN_PATH") ?? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "Binaries"));
-            var waitStartupTimeout = int.Parse(Environment.GetEnvironmentVariable("WAIT_STARTUP_TIMEOUT") ?? "15");
+            var waitStartupTimeout = Environment.GetEnvironmentVariable("WAIT_STARTUP_TIMEOUT") ?? "20";
             var appArguments = Environment.GetEnvironmentVariable("APP_ARGUMENTS");
 
             var appOpts = new AppiumOptions();
+            appOpts.AddAdditionalCapability("platformName", "Windows");
+            appOpts.AddAdditionalCapability("deviceName", "WindowsPC");
+            appOpts.AddAdditionalCapability("ms:experimental-webdriver", true);
+            appOpts.AddAdditionalCapability("ms:waitForAppLaunch", waitStartupTimeout);
             appOpts.AddAdditionalCapability("app", Path.Combine(binPath, "contactpoint.exe"));
             appOpts.AddAdditionalCapability("appArguments", $"/DisableSettingsFormAutoStartup /DisableSplashScreen ${appArguments}");
             appOpts.AddAdditionalCapability("appWorkingDir", binPath);
@@ -54,7 +58,6 @@ namespace ContactPoint.Tests.WinForms
 
             if (MainForm == null)
             {
-                Thread.Sleep(TimeSpan.FromSeconds(waitStartupTimeout));
                 foreach (var hndl in AppSession.WindowHandles)
                 {
                     try
