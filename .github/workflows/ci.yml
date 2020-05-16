@@ -48,6 +48,7 @@ jobs:
       matrix:
         configuration: [Release]
 
+    continue-on-error: true
     runs-on: windows-latest  # For a list of available runner types, refer to 
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
@@ -71,11 +72,6 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
 
-    - name: Setup NodeJS
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-
     - name: Restore application dependencies
       run: msbuild $env:Solution_Name -t:Restore -p:Configuration=$env:Configuration
       env:
@@ -89,14 +85,13 @@ jobs:
       run: msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
-        
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        name: Binaries
-        path: ../Binaries
 
     # Run automation
+    - name: Setup NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
     - name: Setup Appium
       run: npm install -g appium
 
@@ -106,6 +101,12 @@ jobs:
       env:
         APP_ARGUMENTS: /loglevel 10 /log ipphone-log.txt
 #        BIN_PATH: ..\Binaries\net472
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: Binaries
+        path: ../Binaries
         
     - name: Upload test results
       uses: actions/upload-artifact@v1.0.0
