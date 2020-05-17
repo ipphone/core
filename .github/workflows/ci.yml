@@ -59,7 +59,9 @@ jobs:
         name: Binaries
 
     - name: Execute unit tests
-      run: dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:'.NETFramework,Version=v4.7.2' /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt
+      run: |
+        corflags Binaries\ContactPoint.exe /32bit+
+        dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:'.NETFramework,Version=v4.7.2' /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt
       env:
         APP_ARGUMENTS: /loglevel 10 /log ../TestResults/ipphone_log.txt
         
