@@ -52,10 +52,10 @@ namespace Sipek.Sip
         delegate int OnMessageReceivedCallback(string from, string message);
         delegate int OnBuddyStatusChangedCallback(int buddyId, int status, string statusText);
 
-        //[DllImport(PjsipDll, CallingConvention = CallingConvention.Cdecl)]
-        //private static extern int onMessageReceivedCallback(OnMessageReceivedCallback cb);
-        //[DllImport(PjsipDll, CallingConvention = CallingConvention.Cdecl)]
-        //private static extern int onBuddyStatusChangedCallback(OnBuddyStatusChangedCallback cb);
+        [DllImport(PjsipDll, CallingConvention = CallingConvention.Cdecl, BestFitMapping = true, EntryPoint = "onMessageReceivedCallback", ExactSpelling = false, PreserveSig = false, ThrowOnUnmappableChar = false, SetLastError = false)]
+        private static extern int onMessageReceivedCallback(OnMessageReceivedCallback cb);
+        [DllImport(PjsipDll, CallingConvention = CallingConvention.Cdecl, BestFitMapping = true, EntryPoint = "onBuddyStatusChangedCallback", ExactSpelling = false, PreserveSig = false, ThrowOnUnmappableChar = false, SetLastError = false)]
+        private static extern int onBuddyStatusChangedCallback(OnBuddyStatusChangedCallback cb);
 
         static readonly OnMessageReceivedCallback MessageReceivedCallback = OnMessageReceived;
         static readonly OnBuddyStatusChangedCallback BuddyStatusChangedCallback = OnBuddyStatusChanged;
@@ -65,8 +65,8 @@ namespace Sipek.Sip
 
         private pjsipPresenceAndMessaging()
         {
-            //onBuddyStatusChangedCallback(BuddyStatusChangedCallback);
-            //onMessageReceivedCallback(MessageReceivedCallback);
+            onBuddyStatusChangedCallback(BuddyStatusChangedCallback);
+            onMessageReceivedCallback(MessageReceivedCallback);
         }
 
         /// <summary>
