@@ -41,7 +41,7 @@ jobs:
         path: ../Binaries
 
   test:
-    runs-on: windows-2016
+    runs-on: windows-latest
     needs: build
 
     steps:
@@ -59,8 +59,7 @@ jobs:
         name: Binaries
 
     - name: Execute unit tests
-      shell: powershell
-      run: $ErrorActionPreference='SilentlyContinue'; dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:'.NETFramework,Version=v4.7.2' /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt
+      run: Invoke-Command -Command { dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:'.NETFramework,Version=v4.7.2' /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt } -ErrorAction SilentlyContinue
       env:
         APP_ARGUMENTS: /loglevel 10 /log ../TestResults/ipphone_log.txt
         
