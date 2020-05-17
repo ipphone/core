@@ -59,7 +59,7 @@ jobs:
         name: Binaries
 
     - name: Install VCRedist
-      run: Invoke-WebRequest https://github.com/ipphone/install/blob/master/vcredist_x86.exe -OutFile vcredist_x86.exe && vcredist_x86.exe /Q
+      run: Invoke-WebRequest https://github.com/ipphone/install/blob/master/vcredist_x86.exe?raw=true -OutFile vcredist_x86.exe && vcredist_x86.exe /Q
 
     - name: Execute unit tests
       run: dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:'.NETFramework,Version=v4.7.2' /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt
