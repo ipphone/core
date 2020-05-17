@@ -41,7 +41,7 @@ jobs:
         path: ../Binaries
 
   test:
-    runs-on: [ windows-latest, windows-2016 ]
+    runs-on: windows-2016
     needs: build
 
     steps:
