@@ -21,7 +21,7 @@ namespace ContactPoint.Tests.WinForms
         [TestInitialize]
         public void TestSetup()
         {
-            var binPath = Environment.GetEnvironmentVariable("BIN_PATH") ?? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "Binaries"));
+            var binPath = Environment.GetEnvironmentVariable("BIN_PATH") ?? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, ".."));
             var waitStartupTimeout = Environment.GetEnvironmentVariable("WAIT_STARTUP_TIMEOUT") ?? "20";
             var appArguments = Environment.GetEnvironmentVariable("APP_ARGUMENTS");
 

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <TestProjectType>UnitTest</TestProjectType>
-    <OutDir>bin\$(Configuration)\</OutDir>
+    <OutDir>..\..\Binaries\Tests\</OutDir>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <ItemGroup>
