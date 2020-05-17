@@ -62,7 +62,7 @@ jobs:
       run: Invoke-WebRequest -Uri https://github.com/ipphone/install/blob/master/vcredist_x86.exe?raw=true -OutFile vcredist_x86.exe
 
     - name: Install VCRedist x86
-      run: vcredist_x86.exe /Q
+      run: .\vcredist_x86.exe /Q
 
     - name: Execute unit tests
       run: dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:'.NETFramework,Version=v4.7.2' /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt
