@@ -59,11 +59,12 @@ jobs:
         name: Binaries
 
     - name: Execute unit tests
-      run: dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:'.NETFramework,Version=v4.7.2' /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt || $true
+      run: dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:'.NETFramework,Version=v4.7.2' /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt
       env:
         APP_ARGUMENTS: /loglevel 10 /log ../TestResults/ipphone_log.txt
         
     - name: Upload test results
+      if: always()
       uses: actions/upload-artifact@v1.0.0
       with:
         name: TestResults
