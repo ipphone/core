@@ -38,11 +38,6 @@ jobs:
         name: Binaries
         path: ../Binaries
 
-  test:
-    runs-on: windows-latest
-    needs: build
-
-    steps:
     - name: Setup NodeJS
       uses: actions/setup-node@v1
       with:
