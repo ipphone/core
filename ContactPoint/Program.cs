@@ -323,7 +323,7 @@ DEBUG mode options:
         {
 #if !DEBUG
             PartLoading("Initialize Splash Screen UI");
-            _loaderForm.ShowDialog();
+            LoaderForm.ShowDialog();
 #endif
         }
 
