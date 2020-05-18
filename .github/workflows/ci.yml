@@ -71,10 +71,10 @@ jobs:
       run: .\vcredist_x64.exe /Q
 
     - name: Assign x86 flag
-      run: 'C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\CorFlags.exe' .\Binaries\ContactPoint.exe /32bit+
+      run: Invoke-Command -Command { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\CorFlags.exe" .\Binaries\ContactPoint.exe /32bit+ }
 
     - name: Execute unit tests
-      run: dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:'.NETFramework,Version=v4.7.2' /logger:trx /Diag:TestResults\vstest_log.txt
+      run: dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:".NETFramework,Version=v4.7.2" /logger:trx /Diag:TestResults\vstest_log.txt
       env:
         APP_ARGUMENTS: /loglevel 10 /log ../TestResults/ipphone_log.txt
         
