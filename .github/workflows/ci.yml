@@ -76,7 +76,7 @@ jobs:
     - name: Execute unit tests
       run: dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:".NETFramework,Version=v4.7.2" /logger:trx /Diag:TestResults\vstest_log.txt
       env:
-        APP_ARGUMENTS: /loglevel 10 /log ../TestResults/ipphone_log.txt
+        APP_ARGUMENTS: /loglevel 5 /log ../TestResults/ipphone_log.txt
         
     - name: Upload test results
       if: always()

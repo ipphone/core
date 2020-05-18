@@ -120,9 +120,9 @@ namespace ContactPoint.Forms
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == Program.WM_COPYDATA && m.WParam.ToInt32() == Program.MAKECALL_MESSAGE_ID)
+            if (m.Msg == WinApiMessageTransport.WM_COPYDATA && m.WParam.ToInt32() == WinApiMessageTransport.MAKECALL_MESSAGE_ID)
             {
-                var st = (COPYDATASTRUCT)Marshal.PtrToStructure(m.LParam, typeof(COPYDATASTRUCT));
+                var st = (WinApiMessageTransport.COPYDATASTRUCT)Marshal.PtrToStructure(m.LParam, typeof(WinApiMessageTransport.COPYDATASTRUCT));
 
                 if (st.lpData.Length > 0)
                 {
