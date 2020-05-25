@@ -27,7 +27,6 @@ using System.Runtime.InteropServices;
 
 namespace Sipek.Sip
 {
-
     public class pjsipPresenceAndMessaging : IPresenceAndMessaging
     {
         [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_addBuddy", CallingConvention = CallingConvention.Cdecl)]
@@ -39,16 +38,16 @@ namespace Sipek.Sip
         [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_setStatus", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_setStatus(int accId, int presenceState);
 
-        delegate int OnMessageReceivedCallback(string from, string message);
-        delegate int OnBuddyStatusChangedCallback(int buddyId, int status, string statusText);
+        public delegate int OnMessageReceivedCallback(string from, string message);
+        public delegate int OnBuddyStatusChangedCallback(int buddyId, int status, string statusText);
 
-        [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl, BestFitMapping = true, EntryPoint = "onMessageReceivedCallback", ExactSpelling = false, PreserveSig = false, ThrowOnUnmappableChar = false, SetLastError = false)]
+        [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl, EntryPoint = "onMessageReceivedCallback")]
         private static extern int onMessageReceivedCallback(OnMessageReceivedCallback cb);
-        [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl, BestFitMapping = true, EntryPoint = "onBuddyStatusChangedCallback", ExactSpelling = false, PreserveSig = false, ThrowOnUnmappableChar = false, SetLastError = false)]
+        [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl, EntryPoint = "onBuddyStatusChangedCallback")]
         private static extern int onBuddyStatusChangedCallback(OnBuddyStatusChangedCallback cb);
 
-        static readonly OnMessageReceivedCallback MessageReceivedCallback = OnMessageReceived;
-        static readonly OnBuddyStatusChangedCallback BuddyStatusChangedCallback = OnBuddyStatusChanged;
+        public static readonly OnMessageReceivedCallback MessageReceivedCallback = new OnMessageReceivedCallback(OnMessageReceived);
+        public static readonly OnBuddyStatusChangedCallback BuddyStatusChangedCallback = new OnBuddyStatusChangedCallback(OnBuddyStatusChanged);
 
         private static pjsipPresenceAndMessaging _instance;
         public static pjsipPresenceAndMessaging Instance => _instance ?? (_instance = new pjsipPresenceAndMessaging());
