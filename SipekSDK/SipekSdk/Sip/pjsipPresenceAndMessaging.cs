@@ -39,15 +39,15 @@ namespace Sipek.Sip
         private static extern int dll_setStatus(int accId, int presenceState);
 
         public delegate int OnMessageReceivedCallback(string from, string message);
-        public delegate int OnBuddyStatusChangedCallback(int buddyId, int status, string statusText);
+        public delegate int fptr_buddystatus(int buddyId, int status, string statusText);
 
         [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl, EntryPoint = "onMessageReceivedCallback")]
         private static extern int onMessageReceivedCallback(OnMessageReceivedCallback cb);
         [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl, EntryPoint = "onBuddyStatusChangedCallback")]
-        private static extern int onBuddyStatusChangedCallback(OnBuddyStatusChangedCallback cb);
+        private static extern int onBuddyStatusChangedCallback(fptr_buddystatus cb);
 
         public static readonly OnMessageReceivedCallback MessageReceivedCallback = new OnMessageReceivedCallback(OnMessageReceived);
-        public static readonly OnBuddyStatusChangedCallback BuddyStatusChangedCallback = new OnBuddyStatusChangedCallback(OnBuddyStatusChanged);
+        public static readonly fptr_buddystatus BuddyStatusChangedCallback = new fptr_buddystatus(OnBuddyStatusChanged);
 
         private static pjsipPresenceAndMessaging _instance;
         public static pjsipPresenceAndMessaging Instance => _instance ?? (_instance = new pjsipPresenceAndMessaging());
