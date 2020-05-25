@@ -3,7 +3,6 @@
     <TargetFramework>net48</TargetFramework>
     <TestProjectType>UnitTest</TestProjectType>
     <OutDir>..\..\Binaries\Tests\</OutDir>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <ItemGroup>

@@ -10,7 +10,6 @@
     <StartupObject>ContactPoint.Program</StartupObject>
     <AssemblyName>ContactPoint</AssemblyName>
     <PlatformTarget>x86</PlatformTarget>
-    <Prefer32Bit>true</Prefer32Bit>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
