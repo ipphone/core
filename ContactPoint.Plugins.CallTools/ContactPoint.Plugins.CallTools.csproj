@@ -1,11 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProductVersion>8.0.30703</ProductVersion>
     <TargetFramework>net472</TargetFramework>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutDir>..\..\Binaries\Plugins\CallTools\</OutDir>
   </PropertyGroup>
@@ -14,7 +9,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
-    <DefineConstants />
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />

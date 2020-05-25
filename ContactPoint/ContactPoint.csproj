@@ -1,17 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net472</TargetFramework>
     <ApplicationIcon>ipphone.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Prefer32Bit>true</Prefer32Bit>
     <OutDir>..\..\Binaries\</OutDir>
     <PostBuildEvent>if not exist "$(TargetDir)Plugins" md "$(TargetDir)Plugins"</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
     <StartupObject>ContactPoint.Program</StartupObject>
     <AssemblyName>ContactPoint</AssemblyName>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>true</Prefer32Bit>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
@@ -144,8 +144,6 @@
     <EmbeddedResource Update="Controls\MainFormPhoneStatusControl.resx">
       <DependentUpon>MainFormPhoneStatusControl.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="pjsipDll.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

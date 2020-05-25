@@ -1,27 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProductVersion>9.0.30729</ProductVersion>
     <RootNamespace>ExceptionReporter</RootNamespace>
     <TargetFramework>net472</TargetFramework>
-    <ApplicationIcon />
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <OutDir>..\..\..\Binaries\</OutDir>
     <WarningLevel>0</WarningLevel>
-    <PostBuildEvent />
-    <PostBuildEvent />
-    <PostBuildEvent />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>
-    <DocumentationFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.1.271, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">

@@ -1,20 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutDir>..\..\Binaries\Plugins\WebBrowser\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>
-    <OutDir>..\..\Binaries\Plugins\WebBrowser\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
-    <OutDir>..\..\Binaries\Plugins\WebBrowser\</OutDir>
-    <DefineConstants />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
