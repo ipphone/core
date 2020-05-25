@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
@@ -6,20 +6,9 @@ namespace Sipek
 {
     public static class CommonDelegates
     {
-
-#if LINUX
-		internal const string PJSIP_DLL = "libpjsipDll.so"; 
-#elif MOBILE
-		internal const string PJSIP_DLL = "pjsipdll_mobile.dll"; 
-#elif TLS
-		internal const string PJSIP_DLL = "pjsipdll_tls.dll"; 
-#else
-        internal const string PJSIP_DLL = "pjsipDll.dll";
-#endif
-
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_isThreadRegistered", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_isThreadRegistered", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool dll_isThreadRegistered();
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_threadRegister", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_threadRegister", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_threadRegister(string name);
 
         private static volatile Dispatcher _dispatcher;

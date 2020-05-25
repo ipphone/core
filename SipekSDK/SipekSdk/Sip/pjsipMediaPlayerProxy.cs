@@ -8,19 +8,9 @@ namespace Sipek.Sip
     {
         private readonly object _lockObj = new object();
 
-#if LINUX
-		internal const string PJSIP_DLL = "libpjsipDll.so"; 
-#elif MOBILE
-		internal const string PJSIP_DLL = "pjsipdll_mobile.dll"; 
-#elif TLS
-		internal const string PJSIP_DLL = "pjsipdll_tls.dll"; 
-#else
-        internal const string PJSIP_DLL = "pjsipDll.dll";
-#endif
-
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_playWav", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_playWav", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_playWav(string wavFile, bool loopFile, int callId);
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_releaseWav", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_releaseWav", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool dll_releaseWav(int playerId);
 
         private volatile bool _isPlaying = false;

@@ -57,64 +57,52 @@ namespace Sipek.Sip
     {
         #region DLL declarations
 
-#if LINUX
-		internal const string PJSIP_DLL = "libpjsipDll.so"; 
-#elif MOBILE
-		internal const string PJSIP_DLL = "pjsipdll_mobile.dll"; 
-#elif TLS
-		internal const string PJSIP_DLL = "pjsipdll_tls.dll"; 
-#else
-        internal const string PJSIP_DLL = "pjsipDll.dll";
-#endif
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_makeCall", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int dll_makeCall(int accountId, string uri, [MarshalAs(UnmanagedType.LPArray)] SipHeader[] headers, int headersCount);
 
-        // call API
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_makeCall", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int dll_makeCall(int accountId, string uri,
-                                               [MarshalAs(UnmanagedType.LPArray)] SipHeader[] headers, int headersCount);
-
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_releaseCall", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_releaseCall", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_releaseCall(int callId);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_answerCall", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_answerCall", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_answerCall(int callId, int code);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_holdCall", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_holdCall", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_holdCall(int callId);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_retrieveCall", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_retrieveCall", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_retrieveCall(int callId);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_xferCall", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_xferCall", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_xferCall(int callId, string uri);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_xferCall", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_xferCall", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_xferCallWithHeaders(int callId, string uri, [MarshalAs(UnmanagedType.LPArray)] SipHeader[] headers, int headersCount);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_xferCallWithReplaces", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_xferCallWithReplaces", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_xferCallWithReplaces(int callId, int dstSession);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_serviceReq", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_serviceReq", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_serviceReq(int callId, int serviceCode, string destUri);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_dialDtmf", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_dialDtmf", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_dialDtmf(int callId, string digits, int mode);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_getCurrentCodec", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_getCurrentCodec", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_getCurrentCodec(int callId, StringBuilder codec);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_makeConference", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_makeConference", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_makeConference(int callId);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_sendCallMessage", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_sendCallMessage", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_sendCallMessage(int callId, string message);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_isThreadRegistered", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_isThreadRegistered", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool dll_isThreadRegistered();
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_threadRegister", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_threadRegister", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_threadRegister(string name);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_connectCallsMedia", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_connectCallsMedia", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_connectCallsMedia(int call1Id, int call2Id);
 
         #endregion
@@ -122,16 +110,16 @@ namespace Sipek.Sip
         #region Callback Declarations
 
         // passing delegates to unmanaged code (.dll)
-        [DllImport(PJSIP_DLL, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl)]
         private static extern int onCallStateCallback(OnCallStateChanged cb);
 
-        [DllImport(PJSIP_DLL, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl)]
         private static extern int onCallIncoming(OnCallIncoming cb);
 
-        [DllImport(PJSIP_DLL, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl)]
         private static extern int onCallHoldConfirmCallback(OnCallHoldConfirm cb);
 
-        [DllImport(PJSIP_DLL, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, CallingConvention = CallingConvention.Cdecl)]
         private static extern int onCallMediaStateChanged(OnCallMediaStateChanged cb);
 
         // Static declaration because of CallbackonCollectedDelegate exception!

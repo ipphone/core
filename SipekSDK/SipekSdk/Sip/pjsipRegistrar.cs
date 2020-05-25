@@ -32,23 +32,13 @@ namespace Sipek.Sip
     {
         #region Dll declarations
 
-#if LINUX
-		internal const string PJSIP_DLL = "libpjsipDll.so"; 
-#elif MOBILE
-		internal const string PJSIP_DLL = "pjsipdll_mobile.dll"; 
-#elif TLS
-		internal const string PJSIP_DLL = "pjsipdll_tls.dll"; 
-#else
-        internal const string PJSIP_DLL = "pjsipDll.dll";
-#endif
-
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_registerAccount", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_registerAccount", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_registerAccount(string uri, string reguri, string domain, string username, string password, string proxy, bool isdefault);
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_removeAccounts", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_removeAccounts", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_removeAccounts();
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_renewAccount", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_renewAccount", CallingConvention = CallingConvention.Cdecl)]
         private static extern void dll_renewAccount(int accountId);
-        [DllImport(PJSIP_DLL, EntryPoint = "onRegStateCallback", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "onRegStateCallback", CallingConvention = CallingConvention.Cdecl)]
         private static extern int onRegStateCallback(OnRegStateChanged cb);
 
         #endregion
