@@ -74,7 +74,7 @@ jobs:
       run: Invoke-Command -Command { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\CorFlags.exe" .\Binaries\ContactPoint.exe  /32BITPREF+ /32BITREQ+ /Force }
 
     - name: Execute unit tests
-      run: dotnet test Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:".NETFramework,Version=v4.7.2" /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt
+      run: dotnet test Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:".NETFramework,Version=v4.7.2" /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt
       env:
         APP_ARGUMENTS: /loglevel 10 /log ..\TestResults\ipphone_log.txt
         
