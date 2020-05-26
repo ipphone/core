@@ -9,7 +9,7 @@
     <PostBuildEvent>if not exist "$(TargetDir)Plugins" md "$(TargetDir)Plugins"</PostBuildEvent>
     <StartupObject>ContactPoint.Program</StartupObject>
     <AssemblyName>ContactPoint</AssemblyName>
-    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>true</Prefer32Bit>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
@@ -143,9 +143,6 @@
     <EmbeddedResource Update="Controls\MainFormPhoneStatusControl.resx">
       <DependentUpon>MainFormPhoneStatusControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="pjsipDll.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Content Include="ipphone.ico" />
     <None Include="Sounds\congestion.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -166,5 +163,10 @@
     <ProjectReference Include="..\ContactPoint.Core\ContactPoint.Core.csproj" />
     <ProjectReference Include="..\ContactPoint.Common\ContactPoint.Common.csproj" />
     <ProjectReference Include="..\ExceptionReporter\ExceptionReporter\ExceptionReporter.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="pjsipDll.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
