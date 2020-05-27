@@ -13,7 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		.github\workflows\ci.yml = .github\workflows\ci.yml
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
-		ContactPoint.sln.DotSettings = ContactPoint.sln.DotSettings
 		ContactPoint.vsext = ContactPoint.vsext
 		LICENSE = LICENSE
 		README.md = README.md
@@ -67,7 +66,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.BaseDesign.Wpf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Contacts", "ContactPoint.Contacts\ContactPoint.Contacts.csproj", "{6F150B66-5634-42B9-8C73-3635A46E906C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.LocalAddressBook", "ContactPoint.Plugins.LocalAddressBook\ContactPoint.Plugins.LocalAddressBook.csproj", "{D743AED5-F49B-47D5-8424-9D3AA15619F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Plugins.LocalAddressBook", "ContactPoint.Plugins.LocalAddressBook\ContactPoint.Plugins.LocalAddressBook.csproj", "{D743AED5-F49B-47D5-8424-9D3AA15619F4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
@@ -75,7 +74,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.LocalA
 		{C73F8CD8-6E51-4681-9010-3586672818C9} = {C73F8CD8-6E51-4681-9010-3586672818C9}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPoint.Plugins.ContactsUi", "ContactPoint.Plugins.ContactsUi\ContactPoint.Plugins.ContactsUi.csproj", "{C73F8CD8-6E51-4681-9010-3586672818C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactPoint.Plugins.ContactsUi", "ContactPoint.Plugins.ContactsUi\ContactPoint.Plugins.ContactsUi.csproj", "{C73F8CD8-6E51-4681-9010-3586672818C9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{65FE7F1C-522A-481B-B033-E8DAE7269CF5} = {65FE7F1C-522A-481B-B033-E8DAE7269CF5}
 		{C551E320-ABEA-4515-92FA-6D6CE2262C6F} = {C551E320-ABEA-4515-92FA-6D6CE2262C6F}
@@ -215,7 +214,7 @@ Global
 		{E867EDFC-3F38-48B0-8AB7-D894C743C1F7} = {60B299BB-F31C-43D6-944F-15A3B05F1369}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {03268C23-E6D9-4799-B76D-5BD32F32956F}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {03268C23-E6D9-4799-B76D-5BD32F32956F}
 	EndGlobalSection
 EndGlobal
