@@ -10,7 +10,7 @@
     <StartupObject>ContactPoint.Program</StartupObject>
     <AssemblyName>ContactPoint</AssemblyName>
     <Prefer32Bit>true</Prefer32Bit>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
