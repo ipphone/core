@@ -29,24 +29,30 @@ jobs:
     - name: Restore application dependencies
       run: msbuild $env:Solution_Name -t:Restore -p:Configuration=$env:Configuration
 
+    - name: Update CommonAssemnblyInfo.cs file
+      run: |
+        $line="[assembly: System.Reflection.AssemblySignatureKeyAttribute(`"${{ secrets.CP_SIGNATURE_PUBKEY }}`", `"${{ secrets.CP_COUNTERSIGNATURE_PUBKEY }}`")]"
+        [System.IO.File]::AppendAllText(".\core\CommonAssemblyInfo.cs", $line)
+
     - name: Build
       run: |
         msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
         msbuild ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj -t:Build -p:Configuration=$env:Configuration
 
     # Decode the base 64 encoded pfx and save the Signing_Certificate
-    - name: Decode signature key
+    - name: Decode signing key
       run: |
-        $sign_key_bytes = [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}")
-        [IO.File]::WriteAllBytes(".\SignatureKey.snk", $sign_key_bytes)
         
-    - name: Sign app assemblies
+    - name: Sign application assemblies
       run: |
-        $files = ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") | ls -Recurse
-        ForEach ($f in $files)
-        {
-          &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$f" ".\SignatureKey.snk"
-        }
+        [IO.File]::WriteAllBytes(".\SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
+        ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |`
+          ls -Recurse |%`
+            { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" ".\SignatureKey.snk" }
+        Remove-Item .\SignatureKey.snk
+
+    - name: Remove signing key
+      run: 
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1.0.0
