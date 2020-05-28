@@ -33,7 +33,21 @@ jobs:
       run: |
         msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
         msbuild ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj -t:Build -p:Configuration=$env:Configuration
+
+    # Decode the base 64 encoded pfx and save the Signing_Certificate
+    - name: Decode signature key
+      run: |
+        $sign_key_bytes = [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}")
+        [IO.File]::WriteAllBytes(".\SignatureKey.snk", $sign_key_bytes)
         
+    - name: Sign app assemblies
+      run: |
+        $files = ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") | ls -Recurse
+        ForEach ($f in $files)
+        {
+          &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$f" ".\SignatureKey.snk"
+        }
+
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
@@ -84,13 +98,6 @@ jobs:
       with:
         name: TestResults
         path: TestResults
-
-    # Decode the base 64 encoded pfx and save the Signing_Certificate
-#    - name: Decode the pfx
-#      run: |
-#        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
-#        $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
-#        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
 
     # Create the app package by building and packaging the Windows Application Packaging project
 #    - name: Create the app package
