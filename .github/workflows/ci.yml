@@ -32,7 +32,7 @@ jobs:
     - name: Update CommonAssemnblyInfo.cs file
       run: |
         $line='[assembly: System.Reflection.AssemblySignatureKeyAttribute("${{ secrets.CP_SIGNATURE_PUBKEY }}", "${{ secrets.CP_COUNTERSIGNATURE_PUBKEY }}")]'
-        [System.IO.File]::AppendAllText(".\core\CommonAssemblyInfo.cs", $line)
+        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", $line)
 
     - name: Build
       run: |
@@ -41,9 +41,9 @@ jobs:
         
     - name: Sign application assemblies
       run: |
-        [IO.File]::WriteAllBytes(".\SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
-        ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") | ls -Recurse |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" ".\SignatureKey.snk" }
-        Remove-Item .\SignatureKey.snk
+        [IO.File]::WriteAllBytes("SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
+        ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") | ls ..\Binaries\ -Recurse |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" ".\SignatureKey.snk" }
+        Remove-Item SignatureKey.snk
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1.0.0
