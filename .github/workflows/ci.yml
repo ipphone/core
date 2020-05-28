@@ -31,7 +31,7 @@ jobs:
 
     - name: Update CommonAssemnblyInfo.cs file
       run: |
-        $line="[assembly: System.Reflection.AssemblySignatureKeyAttribute(`"${{ secrets.CP_SIGNATURE_PUBKEY }}`", `"${{ secrets.CP_COUNTERSIGNATURE_PUBKEY }}`")]"
+        $line='[assembly: System.Reflection.AssemblySignatureKeyAttribute("${{ secrets.CP_SIGNATURE_PUBKEY }}", "${{ secrets.CP_COUNTERSIGNATURE_PUBKEY }}")]'
         [System.IO.File]::AppendAllText(".\core\CommonAssemblyInfo.cs", $line)
 
     - name: Build
