@@ -34,6 +34,10 @@ jobs:
         $line='[assembly: System.Reflection.AssemblySignatureKeyAttribute("${{ secrets.CP_SIGNATURE_PUBKEY }}", "${{ secrets.CP_COUNTERSIGNATURE_PUBKEY }}")]'
         [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", $line)
 
+    - name: Update porject files to enable assembly signing
+      run: |
+        ls *.csproj -Recurse |% { Get-Content -path $_ | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>true</DelaySign></PropertyGroup></Project>"} | Set-Content $_ -Force }
+
     - name: Build
       run: |
         msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
@@ -43,7 +47,10 @@ jobs:
       run: |
         [IO.File]::WriteAllBytes("SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
         ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |% { ls "..\Binaries\$_" -Recurse } |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" "SignatureKey.snk" }
-        Remove-Item SignatureKey.snk
+        
+    - name: Remove signing key
+      if: always()
+      run: Remove-Item SignatureKey.snk
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1.0.0
