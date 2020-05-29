@@ -40,7 +40,7 @@ jobs:
       run: |
         ForEach ($csproj_path in (ls *.csproj -Recurse))
         {
-          $c = Get-Content -path $csproj_path | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><AssemblyOriginatorKeyFile>$env:GITHUB_WORKSPACE\IdentityPubKey.snk</AssemblyOriginatorKeyFile><DelaySign>false</DelaySign></PropertyGroup></Project>"}
+          $c = Get-Content -path $csproj_path | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><AssemblyOriginatorKeyFile>$env:GITHUB_WORKSPACE\SignatureKey.snk</AssemblyOriginatorKeyFile><DelaySign>false</DelaySign></PropertyGroup></Project>"}
           Set-Content -Path $csproj_path -Value $c -Force
         }
 
@@ -52,9 +52,9 @@ jobs:
         msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
         msbuild ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj -t:Build -p:Configuration=$env:Configuration
         
-    - name: Sign application assemblies
-      run: |
-        ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |% { ls "..\Binaries\$_" -Recurse } |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" "SignatureKey.snk" }
+#    - name: Sign application assemblies
+#      run: |
+#        ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |% { ls "..\Binaries\$_" -Recurse } |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" "SignatureKey.snk" }
             
     - name: Remove signing key
       if: always()
