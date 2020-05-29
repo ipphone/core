@@ -36,7 +36,10 @@ jobs:
 
     - name: Update porject files to enable assembly signing
       run: |
-        ls *.csproj -Recurse |% { Get-Content -path $_ | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>true</DelaySign></PropertyGroup></Project>"} | Set-Content $_ -Force }
+        ForEach ($str in (ls *.csproj -Recurse))
+        {
+          Get-Content -path $str | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>true</DelaySign></PropertyGroup></Project>"} | Set-Content $str -Force
+        }
 
     - name: Build
       run: |
@@ -47,7 +50,7 @@ jobs:
       run: |
         [IO.File]::WriteAllBytes("SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
         ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |% { ls "..\Binaries\$_" -Recurse } |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" "SignatureKey.snk" }
-        
+            
     - name: Remove signing key
       if: always()
       run: Remove-Item SignatureKey.snk
