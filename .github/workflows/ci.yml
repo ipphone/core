@@ -38,10 +38,10 @@ jobs:
 
     - name: Update porject files to enable assembly signing
       run: |
-        ForEach ($str in (ls *.csproj -Recurse))
+        ForEach ($csproj_path in (ls *.csproj -Recurse))
         {
-          $c = Get-Content -path $str | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><AssemblyOriginatorKeyFile>$env:GITHUB_WORKSPACE\IdentityPubKey.snk</AssemblyOriginatorKeyFile><DelaySign>true</DelaySign></PropertyGroup></Project>"}
-          Set-Content -Path $str -Value $c -Force
+          $c = Get-Content -path $csproj_path | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><AssemblyOriginatorKeyFile>$env:GITHUB_WORKSPACE\IdentityPubKey.snk</AssemblyOriginatorKeyFile><DelaySign>false</DelaySign></PropertyGroup></Project>"}
+          Set-Content -Path $csproj_path -Value $c -Force
         }
 
     - name: Restore application dependencies
