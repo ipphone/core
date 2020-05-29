@@ -11,6 +11,10 @@
     <AssemblyName>ContactPoint</AssemblyName>
     <Prefer32Bit>true</Prefer32Bit>
     <PlatformTarget>x86</PlatformTarget>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://ipphone.github.io/</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/ipphone/</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
@@ -144,6 +148,14 @@
       <DependentUpon>MainFormPhoneStatusControl.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="ipphone.ico" />
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="Resources\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="Sounds\congestion.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

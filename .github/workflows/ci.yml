@@ -90,6 +90,9 @@ jobs:
     - name: Download VCRedist x64
       run: Invoke-WebRequest -Uri https://github.com/ipphone/install/blob/master/vcredist_x64.exe?raw=true -OutFile vcredist_x64.exe
 
+    - name: Unblock dll/exe files
+      run: ls .\* -Recurse -Include ("*.dll","*.exe") | Unblock-File -EA 0
+
     - name: Install VCRedist x86
       run: .\vcredist_x86.exe /Q
 
