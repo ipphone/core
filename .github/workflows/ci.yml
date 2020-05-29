@@ -26,8 +26,10 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
 
-    - name: Restore application dependencies
-      run: msbuild $env:Solution_Name -t:Restore -p:Configuration=$env:Configuration
+    - name: Download signing keys
+      run: |
+        [IO.File]::WriteAllBytes("SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
+        [IO.File]::WriteAllBytes("IdentityPubKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_IDENTITY_PUBKEY }}"))
 
     - name: Update CommonAssemnblyInfo.cs file
       run: |
@@ -38,23 +40,25 @@ jobs:
       run: |
         ForEach ($str in (ls *.csproj -Recurse))
         {
-          $c = Get-Content -path $str | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>true</DelaySign></PropertyGroup></Project>"}
+          $c = Get-Content -path $str | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><AssemblyOriginatorKeyFile>..\IdentityPubKey.snk</AssemblyOriginatorKeyFile><DelaySign>true</DelaySign></PropertyGroup></Project>"}
           Set-Content -Path $str -Value $c -Force
         }
 
-    - name: Build
+    - name: Restore application dependencies
+      run: msbuild $env:Solution_Name -t:Restore -p:Configuration=$env:Configuration
+
+    - name: Build application
       run: |
         msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
         msbuild ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj -t:Build -p:Configuration=$env:Configuration
         
     - name: Sign application assemblies
       run: |
-        [IO.File]::WriteAllBytes("SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
         ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |% { ls "..\Binaries\$_" -Recurse } |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" "SignatureKey.snk" }
             
     - name: Remove signing key
       if: always()
-      run: Remove-Item SignatureKey.snk
+      run: Remove-Item SignatureKey.snk IdentityPubKey.snk
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1.0.0
