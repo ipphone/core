@@ -38,7 +38,7 @@ jobs:
       run: |
         ForEach ($str in (ls *.csproj -Recurse))
         {
-          var $c = Get-Content -path $str | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>true</DelaySign></PropertyGroup></Project>"}
+          $c = Get-Content -path $str | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>true</DelaySign></PropertyGroup></Project>"}
           Set-Content -Path $str -Value $c -Force
         }
 
