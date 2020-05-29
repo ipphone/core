@@ -29,6 +29,7 @@ jobs:
     - name: Download signing keys
       run: |
         [IO.File]::WriteAllBytes("SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
+        [IO.File]::WriteAllBytes("IdentityKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_IDENTITY_KEY }}"))
         [IO.File]::WriteAllBytes("IdentityPubKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_IDENTITY_PUBKEY }}"))
 
     - name: Update CommonAssemnblyInfo.cs file
@@ -40,7 +41,7 @@ jobs:
       run: |
         ForEach ($csproj_path in (ls *.csproj -Recurse))
         {
-          $c = Get-Content -path $csproj_path | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><AssemblyOriginatorKeyFile>$env:GITHUB_WORKSPACE\SignatureKey.snk</AssemblyOriginatorKeyFile><DelaySign>false</DelaySign></PropertyGroup></Project>"}
+          $c = Get-Content -path $csproj_path | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><AssemblyOriginatorKeyFile>$env:GITHUB_WORKSPACE\IdentityKey.snk</AssemblyOriginatorKeyFile><DelaySign>false</DelaySign></PropertyGroup></Project>"}
           Set-Content -Path $csproj_path -Value $c -Force
         }
 
@@ -52,15 +53,13 @@ jobs:
         msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
         msbuild ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj -t:Build -p:Configuration=$env:Configuration
         
-#    - name: Sign application assemblies
-#      run: |
-#        ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |% { ls "..\Binaries\$_" -Recurse } |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" "SignatureKey.snk" }
+    - name: Sign application assemblies
+      run: |
+        ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |% { ls "..\Binaries\$_" -Recurse } |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" "SignatureKey.snk" }
             
     - name: Remove signing key
       if: always()
-      run: | 
-        Remove-Item SignatureKey.snk 
-        Remove-Item IdentityPubKey.snk
+      run: Remove-Item *.snk 
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1.0.0
