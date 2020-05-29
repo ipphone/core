@@ -34,7 +34,7 @@ jobs:
 
     - name: Update CommonAssemnblyInfo.cs file
       run: |
-        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", "[assembly: System.Reflection.AssemblyKeyFileAttribute(`"$env:GITHUB_WORKSPACE\SignatureKey.snk`")]")
+        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: System.Reflection.AssemblyKeyFileAttribute("' + $env:GITHUB_WORKSPACE + '\SignatureKey.snk")]')
 #        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: System.Reflection.AssemblySignatureKeyAttribute("${{ secrets.CP_SIGNATURE_PUBKEY }}", "${{ secrets.CP_COUNTERSIGNATURE_PUBKEY }}")]')
 
     - name: Update porject files to enable assembly signing
