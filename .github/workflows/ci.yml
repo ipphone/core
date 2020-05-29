@@ -58,7 +58,9 @@ jobs:
             
     - name: Remove signing key
       if: always()
-      run: Remove-Item SignatureKey.snk IdentityPubKey.snk
+      run: | 
+        Remove-Item SignatureKey.snk 
+        Remove-Item IdentityPubKey.snk
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1.0.0
