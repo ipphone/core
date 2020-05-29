@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <TestProjectType>UnitTest</TestProjectType>
@@ -19,8 +19,5 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\CommonAssemblyInfo.cs" Link="CommonAssemblyInfo.cs" />
   </ItemGroup>
 </Project>
