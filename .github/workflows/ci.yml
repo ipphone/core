@@ -26,25 +26,27 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
 
-    - name: Download signature key
-      run: |
-        [IO.File]::WriteAllBytes("SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
+#    - name: Download signature key
+#      run: |
+#        [IO.File]::WriteAllBytes("SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
+# NOT RELEVANT
 #        [IO.File]::WriteAllBytes("IdentityKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_IDENTITY_KEY }}"))
 #        [IO.File]::WriteAllBytes("IdentityPubKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_IDENTITY_PUBKEY }}"))
 
-    - name: Update CommonAssemnblyInfo.cs file
-      run: |
-        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: System.Reflection.AssemblyKeyFileAttribute(@"' + $env:GITHUB_WORKSPACE + '\SignatureKey.snk")]')
-        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: AssemblyConfiguration("' + $env:Configuration + '")]')
+#    - name: Update CommonAssemnblyInfo.cs file
+#      run: |
+#        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: System.Reflection.AssemblyKeyFileAttribute(@"' + $env:GITHUB_WORKSPACE + '\SignatureKey.snk")]')
+#        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: AssemblyConfiguration("' + $env:Configuration + '")]')
+# NOT RELEVANT
 #        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: System.Reflection.AssemblySignatureKeyAttribute("${{ secrets.CP_SIGNATURE_PUBKEY }}", "${{ secrets.CP_COUNTERSIGNATURE_PUBKEY }}")]')
 
-    - name: Update porject files to enable assembly signing
-      run: |
-        ForEach ($csproj_path in (ls *.csproj -Recurse -Exclude *Test*))
-        {
-          $csproj_content = Get-Content -path $csproj_path | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>false</DelaySign></PropertyGroup></Project>"}
-          Set-Content -Path $csproj_path -Value $csproj_content -Force
-        }
+#    - name: Update porject files to enable assembly signing
+#      run: |
+#        ForEach ($csproj_path in (ls *.csproj -Recurse -Exclude *Test*))
+#        {
+#          $csproj_content = Get-Content -path $csproj_path | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>false</DelaySign></PropertyGroup></Project>"}
+#          Set-Content -Path $csproj_path -Value $csproj_content -Force
+#        }
 
     - name: Build application
       run: |
@@ -56,9 +58,9 @@ jobs:
 #      run: |
 #        ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |% { ls "..\Binaries\$_" -Recurse } |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" "SignatureKey.snk" }
             
-    - name: Remove signature key
-      if: always()
-      run: Remove-Item *.snk 
+#    - name: Remove signature key
+#      if: always()
+#      run: Remove-Item *.snk 
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1.0.0
@@ -84,20 +86,20 @@ jobs:
       with:
         name: Binaries
 
-    - name: Download VCRedist x86
-      run: Invoke-WebRequest -Uri https://github.com/ipphone/install/blob/master/vcredist_x86.exe?raw=true -OutFile vcredist_x86.exe
+#    - name: Download VCRedist x86
+#      run: Invoke-WebRequest -Uri https://github.com/ipphone/install/blob/master/vcredist_x86.exe?raw=true -OutFile vcredist_x86.exe
 
-    - name: Download VCRedist x64
-      run: Invoke-WebRequest -Uri https://github.com/ipphone/install/blob/master/vcredist_x64.exe?raw=true -OutFile vcredist_x64.exe
+#    - name: Download VCRedist x64
+#      run: Invoke-WebRequest -Uri https://github.com/ipphone/install/blob/master/vcredist_x64.exe?raw=true -OutFile vcredist_x64.exe
 
-    - name: Unblock dll/exe files
-      run: ls .\* -Recurse -Include ("*.dll","*.exe") | Unblock-File -EA 0
+#    - name: Unblock dll/exe files
+#      run: ls .\* -Recurse -Include ("*.dll","*.exe") | Unblock-File -EA 0
 
-    - name: Install VCRedist x86
-      run: .\vcredist_x86.exe /Q
+#    - name: Install VCRedist x86
+#      run: .\vcredist_x86.exe /Q
 
-    - name: Install VCRedist x64
-      run: .\vcredist_x64.exe /Q
+#    - name: Install VCRedist x64
+#      run: .\vcredist_x64.exe /Q
 
 #    - name: Assign x86 flag
 #      run: Invoke-Command -Command { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\CorFlags.exe" .\Binaries\ContactPoint.exe  /32BITPREF+ /Force }
