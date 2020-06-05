@@ -114,6 +114,13 @@ jobs:
         name: TestResults
         path: TestResults
 
+    - name: Upload test results to CodeCov
+      if: always()
+      shell: bash
+      run: bash <(curl -s https://codecov.io/bash) -s ./TestResults
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
     # Create the app package by building and packaging the Windows Application Packaging project
 #    - name: Create the app package
 #      run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
