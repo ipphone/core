@@ -8,6 +8,7 @@
         <owners>Alex Yevtushenko</owners>
         <projectUrl>https://github.com/ipphone/core/</projectUrl>
         <iconUrl>https://avatars3.githubusercontent.com/u/26443470</iconUrl>
+        <repository type="git" url="https://github.com/ipphone/core" />
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>ContactPoint IP Phone Core Assemblies</description>
         <summary>ContactPoint IP Phone is an implementation of SIP softphone for Windows</summary>
