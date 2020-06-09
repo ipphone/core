@@ -17,7 +17,7 @@
     <RepositoryUrl>https://github.com/ipphone/</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="IPPhone.pjsipDll" Version="1.12" />
+    <PackageReference Include="IPPhone.pjsipDll" Version="1.12.129682117-ci17" />
     <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
