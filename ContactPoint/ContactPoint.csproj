@@ -17,6 +17,7 @@
     <RepositoryUrl>https://github.com/ipphone/</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="IPPhone.pjsipDll" Version="1.12" />
     <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
@@ -175,10 +176,5 @@
     <ProjectReference Include="..\ContactPoint.Core\ContactPoint.Core.csproj" />
     <ProjectReference Include="..\ContactPoint.Common\ContactPoint.Common.csproj" />
     <ProjectReference Include="..\ExceptionReporter\ExceptionReporter\ExceptionReporter.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="pjsipDll.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>
