@@ -28,117 +28,74 @@ using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ContactPoint
 {
-	/// <summary>
-	/// Structure required to be sent with the WM_COPYDATA message
-	/// This structure is used to contain the CommandLine
-	/// </summary>
-	[StructLayout(LayoutKind.Sequential)]
-	public class COPYDATASTRUCT
-	{
-		public IntPtr dwData = new IntPtr(3);//32 bit int to passed. Not used.
-		public int cbData;//length of string. Will be one greater because of null termination.
-		[MarshalAs(UnmanagedType.LPStr)]
-		public string lpData;//string to be passed.
-
-		public COPYDATASTRUCT()
-		{ }
-
-		public COPYDATASTRUCT(string data)
-		{
-			lpData = data + "\0"; //add null termination
-			cbData = lpData.Length; //length includes null chr so will be one greater
-		}
-	}
-
     static class Program
     {
-        private const string mutex_id = "Global\\{9D643C78-280A-4455-8E3B-55E2043739ED}";
+        private const string GlobalMutexId = "Global\\{9D643C78-280A-4455-8E3B-55E2043739ED}";
 
-        private static LoaderForm _loaderForm;
-        private static bool _disableExceptionReporter;
-
-    	public const uint MAKECALL_MESSAGE_ID = 4890271;
-		public const uint WM_COPYDATA = 0x4A;
-
-		[DllImport("user32.dll")]
-		private static extern int SendMessage(
-			  IntPtr hWnd,      // handle to destination window
-			  UInt32 msg,       // message
-			  uint wParam,  // first message parameter
-			  COPYDATASTRUCT lParam   // second message parameter
-			  );
-
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		private static extern bool SetForegroundWindow(IntPtr hWnd);
-
+        private static LoaderForm LoaderForm;
         public static MainFormApplicationContext AppContext { get; private set; }
         public static ExceptionReporter.ExceptionReporter ExceptionReporter { get; private set; }
+        public static bool DisableExceptionReporter { get; set; }
 
         /// <summary> 
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        [LoaderOptimization(LoaderOptimization.MultiDomainHost)]
+        [LoaderOptimization(LoaderOptimization.SingleDomain)]
         static void Main()
         {
+            var args = Environment.GetCommandLineArgs();
+            if (GetCommandLineSwitch("/?", args) || GetCommandLineSwitch("/h", args) || GetCommandLineSwitch("/help", args))
+            {
+                PrintCommandLineParameters();
+                Environment.Exit(0);
+                return;
+            }
+
+            var logFile = GetCommandLineParameter("/log", args);
+            if (logFile != null)
+            {
+                try
+                {
+                    Logger.Out = File.CreateText(logFile);
+                }
+                catch (Exception e)
+                {
+                    Logger.LogWarn(e, "Unable to open log file at '{0}'", logFile);
+                }
+            }
+
+#if DEBUG
+            Logger.LogLevel = 5;
+#endif
+            if (int.TryParse(GetCommandLineParameter("/loglevel", args), NumberStyles.Any, null, out var logLevel))
+            {
+                Logger.LogLevel = logLevel;
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.VisualStyleState = VisualStyleState.ClientAndNonClientAreasEnabled;
-            Application.ThreadException += Application_ThreadException;
+            Application.ThreadException += ApplicationThreadException;
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
-
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainUnhandledException;
+            AppDomain.CurrentDomain.FirstChanceException += CurrentDomainFirstChanceException;
+            ThreadPool.SetMaxThreads(50, 200);
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
             // Permit unmanaged code permissions
-            var perm = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
+            new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Assert();
 
-            // The method itself is attached with the security permission 
-            // Deny for unmanaged code, which will override
-            // the Assert permission in this stack frame.
-            perm.Assert();
+            DisableExceptionReporter = GetCommandLineSwitch("/DisableExceptionReporter", args);
 
 #if DEBUG
             System.Windows.Forms.Timer watchdogTimer;
 #endif
 
-            ThreadPool.SetMaxThreads(50, 200);
             bool mutexAquired = false;
-            using (var mutex = new Mutex(false, mutex_id))
+            using (var mutex = new Mutex(false, GlobalMutexId))
             {
-                var logLevel = 0;
-#if DEBUG
-                logLevel = 5;
-#endif
-                var args = Environment.GetCommandLineArgs();
-
-                var logLevelStr = GetCommandLineParameter("/loglevel", args);
-                if (!string.IsNullOrEmpty(logLevelStr)) int.TryParse(logLevelStr, NumberStyles.Any, null, out logLevel);
-
-                Logger.LogLevel = logLevel;
-
-                // Parse logger parameter
-                var logFile = GetCommandLineParameter("/log", args);
-                if (logFile != null)
-                {
-                    try
-                    {
-                        Logger.Out = File.CreateText(logFile);
-                    }
-                    catch (Exception e)
-                    {
-                        Logger.LogWarn(e, "Unable to open log file at '{0}'", logFile);
-                    }
-                }
-
-                if (GetCommandLineSwitch("/DisableExceptionReporter", args))
-                {
-                    _disableExceptionReporter = true;
-                }
-
                 Logger.LogNotice($"ContactPoint IP Phone version: {typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}");
                 Logger.LogNotice($"Main Thread Culture is '{Thread.CurrentThread.CurrentCulture}'");
                 Logger.LogNotice($"UI Thread Culture is '{Thread.CurrentThread.CurrentUICulture}'");
@@ -170,6 +127,7 @@ namespace ContactPoint
                         if (!WaitForMutex(mutex))
                         {
                             SharedFileMessageTransportHost.SendMessage(makeCallMessage);
+                            Environment.Exit(0);
                             return;
                         }
                         else
@@ -180,14 +138,17 @@ namespace ContactPoint
                     catch (Exception e)
                     {
                         Logger.LogError(e);
-                        Environment.Exit(0);
+                        Environment.Exit(-1);
                     }
 
                     using (AppContext = new MainFormApplicationContext())
                     {
-                        PartLoading("Initialize Splash Screen UI");
-                        _loaderForm = new LoaderForm();
-                        ThreadPool.QueueUserWorkItem(StartLoaderForm);
+                        if (!GetCommandLineSwitch("/DisableSplashScreen", args))
+                        {
+                            LoaderForm = new LoaderForm();
+                            ThreadPool.QueueUserWorkItem(ShowSplashScreen);
+                        }
+
                         CoreLoader.LoadingFailed += LoadingFailed;
                         CoreLoader.PartLoading += PartLoading;
 
@@ -209,9 +170,9 @@ namespace ContactPoint
 #else
                         ExceptionReporter.Config.ShowFullDetail = false;
 #endif
-                        PartLoading("Initialize WPF Infrastructure");
 
                         // Create WPF application in order to let WPF controls work correctly
+                        PartLoading("Initialize WPF Infrastructure");
                         System.Windows.Application wpfApp = null;
                         Window wpfWnd = null;
                         try
@@ -241,13 +202,14 @@ namespace ContactPoint
                                     }
 #endif
 
-                                    PartLoading("Configuring Windows Forms UI");
+                                    PartLoading("Configuring WinForms Infrastructure");
                                     AppContext.ContactPointForm.Core = core;
                                     AppContext.ContactPointForm.CallOnStartup = makeCallMessage;
+                                    AppContext.ContactPointForm.DisableSettingsFormAutoStartup = GetCommandLineSwitch("/DisableSettingsFormAutoStartup", args);
 
                                     AppContext.ContactPointForm.Shown += MainFormShown;
 
-                                    PartLoading("Starting Windows Forms UI");
+                                    PartLoading("Starting WinForms UI");
                                     Application.Run(AppContext);
                                 }
                             }
@@ -328,10 +290,40 @@ namespace ContactPoint
             return null;
         }
 
-        static void StartLoaderForm(object obj)
+        private static void PrintCommandLineParameters()
+        {
+            Console.WriteLine($@"ContactPoint IP Phone ({typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion})
+Usage: ContactPoint.exe [options]
+
+Start IP Phone application.
+
+Options:
+  /Help, /h, /?                     Show command line help.
+  /Call <SIP_URI>                   Start application and initiate new SIP session after application startup
+                                    OR notify already running instance to initiate new SIP session.
+
+  /Log <FILENAME>                   Write logs into specified file.
+  /LogLevel <LOGLEVEL>              Set the log level: [0-10] (default: 0).
+
+  /DisableSplashScreen              Disable Splash Screen on application startup.
+  /DisableExceptionReporter         Disable Exception Reporter for handling unhandled exceptions.
+  /DisableSettingsFormAutoStartup   Disable first time Settings window automatic bring up on application startup.
+");
+
+#if DEBUG
+            Console.WriteLine($@"
+DEBUG mode options:
+  /Debugger                         Attach debugger right after application startup.
+  /NewUI                            Start application with new UI (WPF).
+");
+#endif
+        }
+
+        static void ShowSplashScreen(object obj)
         {
 #if !DEBUG
-            _loaderForm.ShowDialog();
+            PartLoading("Initialize Splash Screen UI");
+            LoaderForm.ShowDialog();
 #endif
         }
 
@@ -339,7 +331,7 @@ namespace ContactPoint
         {
             try
             {
-                _loaderForm?.TryClose();
+                LoaderForm?.TryClose();
             }
             catch (Exception ex)
             {
@@ -351,25 +343,24 @@ namespace ContactPoint
         {
             Logger.LogNotice("Part loading: " + obj);
 
-            if (_loaderForm != null && _loaderForm.IsHandleCreated && _loaderForm.IsAccessible)
+            if (LoaderForm != null && LoaderForm.IsHandleCreated && LoaderForm.IsAccessible)
             {
-                _loaderForm.SetLoadingText(obj);
+                LoaderForm.SetLoadingText(obj);
             }
         }
 
         static void LoadingFailed(Exception e)
         {
             CatchUnhandledException(null, e, "Loading failed!");
-
-            Environment.Exit(0);
+            Environment.Exit(-1);
         }
 
-        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
         {
             CatchUnhandledException(sender, e.Exception, "Application Thread exception from '{0}'");
         }
 
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             CatchUnhandledException(sender, e.ExceptionObject as Exception, "Unhandled exception from '{0}'");
 
@@ -379,7 +370,7 @@ namespace ContactPoint
             }
         }
 
-        static void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+        static void CurrentDomainFirstChanceException(object sender, FirstChanceExceptionEventArgs e)
         {
             if (e.Exception != null)
             {
@@ -391,7 +382,7 @@ namespace ContactPoint
         {
             try
             {
-                _loaderForm?.TryClose();
+                LoaderForm?.TryClose();
             }
             catch (Exception ex)
             {
@@ -406,7 +397,7 @@ namespace ContactPoint
 
             Logger.LogError(e);
 
-            if (!showExceptionReporter || _disableExceptionReporter || ExceptionReporter == null || !Application.MessageLoop)
+            if (!showExceptionReporter || DisableExceptionReporter || ExceptionReporter == null || !Application.MessageLoop)
             {
                 return;
             }

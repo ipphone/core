@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace AudioLibrary.PjSIP
 {
     internal class Imports
     {
-        internal const string PJSIP_DLL = "pjsipDll.dll";
-
         [StructLayout(LayoutKind.Sequential)]
         public struct PjAudioDeviceInfo
         {
@@ -68,25 +63,25 @@ namespace AudioLibrary.PjSIP
             public Int32 IsNull;
         }
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_enumerateSoundDevicesCount", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Sipek.Native.PJSIP_DLL, EntryPoint = "dll_enumerateSoundDevicesCount", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe int dll_enumerateSoundDevicesCount();
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_enumerateSoundDevices", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Sipek.Native.PJSIP_DLL, EntryPoint = "dll_enumerateSoundDevices", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe int dll_enumerateSoundDevices([In, Out] IntPtr audioDeviceInfos, UInt32 count);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_getMicLevel", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Sipek.Native.PJSIP_DLL, EntryPoint = "dll_getMicLevel", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe float dll_getMicLevel();
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_setMicLevel", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Sipek.Native.PJSIP_DLL, EntryPoint = "dll_setMicLevel", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void dll_setMicLevel(float value);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_getSpeakerLevel", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Sipek.Native.PJSIP_DLL, EntryPoint = "dll_getSpeakerLevel", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe float dll_getSpeakerLevel();
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_setSpeakerLevel", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Sipek.Native.PJSIP_DLL, EntryPoint = "dll_setSpeakerLevel", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void dll_setSpeakerLevel(float value);
 
-        [DllImport(PJSIP_DLL, EntryPoint = "dll_getSoundDevices", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Sipek.Native.PJSIP_DLL, EntryPoint = "dll_getSoundDevices", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void dll_getSoundDevices(ref int playbackDevice, ref int recordingDevice);
     }
 }

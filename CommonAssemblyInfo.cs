@@ -10,7 +10,6 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: AssemblyInformationalVersion("1.0.0.0")]
-[assembly: AssemblyConfiguration("")]
 [assembly: NeutralResourcesLanguage("en-US")]
 [assembly: CLSCompliant(true)]
 [assembly: CompilationRelaxations(8)]

@@ -1,4 +1,4 @@
-﻿root = true
+root = true
 
 [*]
 indent_style = space
@@ -10,5 +10,9 @@ end_of_line = crlf
 insert_final_newline = true
 
 [*.{js,json}]
+indent_size = 2
+tab_width = 2
+
+[*.{xml,csproj,conf,config,yml,yaml}]
 indent_size = 2
 tab_width = 2

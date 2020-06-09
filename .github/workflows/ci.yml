@@ -1,0 +1,147 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: ContactPoint.sln
+      Configuration: Release
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+        source-url: https://nuget.pkg.github.com/ipphone/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}  
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
+
+#    - name: Download signature key
+#      run: |
+#        [IO.File]::WriteAllBytes("SignatureKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_SIGNATURE_KEY }}"))
+# NOT RELEVANT
+#        [IO.File]::WriteAllBytes("IdentityKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_IDENTITY_KEY }}"))
+#        [IO.File]::WriteAllBytes("IdentityPubKey.snk", [System.Convert]::FromBase64String("${{ secrets.CP_IDENTITY_PUBKEY }}"))
+
+#    - name: Update CommonAssemnblyInfo.cs file
+#      run: |
+#        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: System.Reflection.AssemblyKeyFileAttribute(@"' + $env:GITHUB_WORKSPACE + '\SignatureKey.snk")]')
+#        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: AssemblyConfiguration("' + $env:Configuration + '")]')
+# NOT RELEVANT
+#        [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: System.Reflection.AssemblySignatureKeyAttribute("${{ secrets.CP_SIGNATURE_PUBKEY }}", "${{ secrets.CP_COUNTERSIGNATURE_PUBKEY }}")]')
+
+#    - name: Update porject files to enable assembly signing
+#      run: |
+#        ForEach ($csproj_path in (ls *.csproj -Recurse -Exclude *Test*))
+#        {
+#          $csproj_content = Get-Content -path $csproj_path | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>false</DelaySign></PropertyGroup></Project>"}
+#          Set-Content -Path $csproj_path -Value $csproj_content -Force
+#        }
+
+    - name: Build application
+      run: |
+        msbuild $env:Solution_Name -t:Restore -p:Configuration=$env:Configuration
+        msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
+        msbuild ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj -t:Build -p:Configuration=$env:Configuration
+        
+#    - name: Sign application assemblies
+#      run: |
+#        ("ContactPoint.exe","ContactPoint.*.dll","AudioLibrary.*.dll","AudioLibrary.dll","Win32Mapi.dll","SipekSDK.dll","ExceptionReporter.*.dll") |% { ls "..\Binaries\$_" -Recurse } |% { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -Ra "$_" "SignatureKey.snk" }
+            
+#    - name: Remove signature key
+#      if: always()
+#      run: Remove-Item *.snk 
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: Binaries
+        path: ../Binaries
+
+  test:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+    - name: Setup NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
+    - name: Setup Appium
+      run: npm install -g appium
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v1
+      with:
+        name: Binaries
+
+#    - name: Download VCRedist x86
+#      run: Invoke-WebRequest -Uri https://github.com/ipphone/install/blob/master/vcredist_x86.exe?raw=true -OutFile vcredist_x86.exe
+
+#    - name: Download VCRedist x64
+#      run: Invoke-WebRequest -Uri https://github.com/ipphone/install/blob/master/vcredist_x64.exe?raw=true -OutFile vcredist_x64.exe
+
+#    - name: Unblock dll/exe files
+#      run: ls .\* -Recurse -Include ("*.dll","*.exe") | Unblock-File -EA 0
+
+#    - name: Install VCRedist x86
+#      run: .\vcredist_x86.exe /Q
+
+#    - name: Install VCRedist x64
+#      run: .\vcredist_x64.exe /Q
+
+#    - name: Assign x86 flag
+#      run: Invoke-Command -Command { &"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\CorFlags.exe" .\Binaries\ContactPoint.exe  /32BITPREF+ /Force }
+
+    - name: Execute unit tests
+      run: dotnet vstest Binaries\Tests\*.Test*.dll /ResultsDirectory:TestResults /Framework:".NETFramework,Version=v4.7.2" /Platform:x86 /logger:trx /Diag:TestResults\vstest_log.txt
+      env:
+        APP_ARGUMENTS: /loglevel 10 /log ..\TestResults\ipphone_log.txt
+        
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: TestResults
+        path: TestResults
+
+    - name: Upload test results to CodeCov
+      if: always()
+      shell: bash
+      run: bash <(curl -s https://codecov.io/bash) -s ./TestResults
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    # Create the app package by building and packaging the Windows Application Packaging project
+#    - name: Create the app package
+#      run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+#      env:
+#        Appx_Bundle: Always
+#        Appx_Bundle_Platforms: x86|x64
+#        Appx_Package_Build_Mode: StoreUpload
+#        Configuration: ${{ matrix.configuration }}
+
+    # Remove the pfx
+#    - name: Remove the pfx
+#      run: Remove-Item -path $env:Wap_Project_Directory\$env:Signing_Certificate
+
+    # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
+#    - name: Upload build artifacts
+#      uses: actions/upload-artifact@v1
+#      with:
+#        name: MSIX Package
+#        path: ${{ env.Wap_Project_Directory }}\AppPackages

@@ -1,4 +1,4 @@
-﻿using System.Data.SQLite;
+using System.Data.SQLite;
 using ContactPoint.Common;
 
 namespace ContactPoint.Contacts.Schemas
@@ -88,28 +88,6 @@ CREATE UNIQUE INDEX [IDX_CONTACTS_LINKS_CONTACT_INFO_ID] ON [contacts_links](
 );
 
 ";
-
-#if CONTACTS_DEBUG
-                command.CommandText += @"
-insert into contacts (id, first_name, last_name, company) values
-(1, 'Alex', 'Yevtushenko', 'ArtPoint'),
-(2, 'Alex', 'Petrov', 'Ciklum'),
-(3, 'Elena', 'Akimenko', 'Honda'),
-(4, 'Petr', 'Alonso', 'Porsche');
-";
-//insert into tags (id, name, key) values
-//(1, 'Clients', 'k1'),
-//(2, 'Friends', 'k2'),
-//(3, 'Blacklist', 'k3');
-//
-//insert into tags_links (tag_id, contact_info_id) values
-//(1, 1),
-//(1, 2),
-//(2, 2),
-//(2, 4),
-//(3, 3);
-//";
-#endif
 
                 command.ExecuteNonQuery();
             }
