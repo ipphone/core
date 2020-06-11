@@ -75,7 +75,7 @@ jobs:
     - name: Build and Publish NuGet packages
       run: |
         ls *.nuspec |% { nuget pack $_ -Version $env:VERSION -Properties Configuration=$env:Configuration -OutputDirectory ..\out -BasePath ..\Binaries }
-        nuget push ..\out\*.nupkg -Source https://nuget.pkg.github.com/ipphone/index.json -SkipDuplicates
+        nuget push ..\out\*.nupkg -Source https://nuget.pkg.github.com/ipphone/index.json -SkipDuplicate
 
   test:
     runs-on: windows-latest
