@@ -17,7 +17,6 @@ namespace ContactPoint.BaseDesign
         private NotifyManager(Form mainForm)
         {
             _instance = this;
-
             _mainForm = mainForm;
         }
 
