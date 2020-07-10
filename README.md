@@ -21,6 +21,23 @@ Latest binaries: https://github.com/ipphone/core/releases/latest
 
 <img src="https://ipphone.github.io/images/ipphone-04_final-08.png" width="310" /> <img src="https://ipphone.github.io/images/ipphone-02.png" />
 
+## Configuration
+
+SIP account configuration settings:
+- **Display Name:** _anything you want_
+- **Username:** _sip account username_ (without domain name part, like: 1001)
+- **Password:** _sip account password_
+- **Realm:** _*_ (asterisk symbol)
+- **SIP Registrar:** asterisk server address (server IP or DNS name)
+
+> **For example**, if you have SIP account `1001@asterisk.local` with password `12345678`, configuration settings you would use:
+> - **Display Name:** `1001@asterisk.local`
+> - **Username:** `1001`
+> - **Password:** `12345678`
+> - **Realm:** `*`
+> - **SIP Registrar:** `asterisk.local`
+
+
 ## References
 
 - [PJSIP – pjproject](https://github.com/pjsip/pjproject)
