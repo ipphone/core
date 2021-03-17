@@ -27,7 +27,7 @@ jobs:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}  
 
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild
+      uses: microsoft/setup-msbuild@v1.0.2
 
 #    - name: Download signature key
 #      run: |
