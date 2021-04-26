@@ -23,8 +23,12 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
+    
+    env:
+      Solution_Name: ContactPoint.sln
+      Configuration: Release
+      
     strategy:
       fail-fast: false
       matrix:
@@ -36,7 +40,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
+      
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+      
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
@@ -49,8 +56,14 @@ jobs:
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+    #- name: Autobuild
+    #  uses: github/codeql-action/autobuild@v1
+
+    - name: Build application
+      run: |
+        msbuild $env:Solution_Name -t:Restore -p:Configuration=$env:Configuration
+        msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
+        msbuild ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj -t:Build -p:Configuration=$env:Configuration
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
