@@ -133,7 +133,7 @@ jobs:
         name: Binaries
 
     - name: Upload build artifacts to Azure
-      uses: bacongobbler/azure-blob-storage-upload@v1.1.1
+      uses: bacongobbler/azure-blob-storage-upload@v1.2.0
       with:
         connection_string: ${{ secrets.CP_AZURE_BLOB }}
         container_name: ${{ format('v{0}', env.VERSION) }}
