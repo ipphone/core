@@ -138,7 +138,8 @@ jobs:
         connection_string: ${{ secrets.CP_AZURE_BLOB }}
         container_name: ${{ format('build/v{0}', env.VERSION) }}
         source_dir: ./Binaries
-        
+
+
 #     - uses: ncipollo/release-action@v1
 #       with:
 #         artifacts: "Binaries/**"
