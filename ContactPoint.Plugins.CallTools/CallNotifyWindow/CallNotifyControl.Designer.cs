@@ -1,4 +1,4 @@
-﻿namespace ContactPoint.Plugins.CallTools.CallNotifyWindow
+namespace ContactPoint.Plugins.CallTools.CallNotifyWindow
 {
     partial class CallNotifyControl
     {
@@ -43,7 +43,7 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -57,7 +57,7 @@
             // 
             // lblLine
             // 
-            this.lblLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLine.BackColor = System.Drawing.Color.Transparent;
             this.lblLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblLine.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
@@ -70,6 +70,7 @@
             // 
             // btnCall
             // 
+            this.btnCall.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnCall.Location = new System.Drawing.Point(25, 84);
             this.btnCall.Name = "btnCall";
             this.btnCall.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(191)))), ((int)(((byte)(33)))));
@@ -112,6 +113,7 @@
             // 
             // btnDrop
             // 
+            this.btnDrop.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnDrop.Location = new System.Drawing.Point(73, 84);
             this.btnDrop.Name = "btnDrop";
             this.btnDrop.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(133)))), ((int)(((byte)(149)))));
@@ -153,7 +155,7 @@
             // 
             // lblTime
             // 
-            this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTime.BackColor = System.Drawing.Color.Transparent;
             this.lblTime.ForeColor = System.Drawing.Color.DimGray;
             this.lblTime.Location = new System.Drawing.Point(222, 85);
@@ -165,7 +167,7 @@
             // 
             // lblDirection
             // 
-            this.lblDirection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDirection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDirection.BackColor = System.Drawing.Color.Transparent;
             this.lblDirection.ForeColor = System.Drawing.Color.DimGray;
             this.lblDirection.Location = new System.Drawing.Point(207, 114);
@@ -207,11 +209,12 @@
             this.labelColor.Margin = new System.Windows.Forms.Padding(0);
             this.labelColor.Name = "labelColor";
             this.labelColor.Size = new System.Drawing.Size(8, 103);
+            this.labelColor.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.labelColor.TabIndex = 45;
             // 
             // labelInfo
             // 
-            this.labelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.labelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelInfo.BackColor = System.Drawing.Color.Transparent;
             this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -223,7 +226,8 @@
             // 
             // tagsControl1
             // 
-            this.tagsControl1.Contact = null;
+            this.tagsControl1.Contact = null; 
+            this.tagsControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))));
             this.tagsControl1.Location = new System.Drawing.Point(21, 2);
             this.tagsControl1.Name = "tagsControl1";
             this.tagsControl1.Size = new System.Drawing.Size(276, 17);
@@ -234,6 +238,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Controls.Add(this.tagsControl1);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.labelColor);
