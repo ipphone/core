@@ -72,13 +72,6 @@ jobs:
         name: Binaries
         path: ../Binaries
 
-    - name: Upload build artifacts to Azure
-      uses: bacongobbler/azure-blob-storage-upload@v1.1.1
-      with:
-        connection_string: ${{ secrets.CP_AZURE_BLOB }}
-        container_name: ${{ format('v{0}', env.VERSION) }}
-        source_dir: ../Binaries
-
     - name: Setup github package repository
       run: |
         nuget sources add -name "github" -Source https://nuget.pkg.github.com/ipphone/index.json
@@ -127,7 +120,7 @@ jobs:
         CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
 
   release:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     environment: github
     needs:
     - build
@@ -138,13 +131,20 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: Binaries
-        
-    - uses: ncipollo/release-action@v1
+
+    - name: Upload build artifacts to Azure
+      uses: bacongobbler/azure-blob-storage-upload@v1.1.1
       with:
-        artifacts: "Binaries/**"
-        # bodyFile: "body.md"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: v${{ env.VERSION }}
-        prerelease: true
-        draft: true
+        connection_string: ${{ secrets.CP_AZURE_BLOB }}
+        container_name: ${{ format('v{0}', env.VERSION) }}
+        source_dir: ./Binaries
+        
+#     - uses: ncipollo/release-action@v1
+#       with:
+#         artifacts: "Binaries/**"
+#         # bodyFile: "body.md"
+#         token: ${{ secrets.GITHUB_TOKEN }}
+#         tag: v${{ env.VERSION }}
+#         prerelease: true
+#         draft: true
 
