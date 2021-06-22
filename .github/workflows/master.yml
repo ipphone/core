@@ -8,8 +8,7 @@ on:
     - README.md
 
 env:
-  major_version: 1.13
-  VERSION: ${{ major_version }}.${{ github.run_id }}
+  VERSION: ${{ format('1.13.{0}', github.run_id) }}
 
 jobs:
   build:
