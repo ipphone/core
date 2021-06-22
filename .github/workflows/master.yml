@@ -72,6 +72,13 @@ jobs:
         name: Binaries
         path: ../Binaries
 
+    - name: Upload build artifacts to Azure
+      uses: bacongobbler/azure-blob-storage-upload@v1.1.1
+      with:
+        connection_string: ${{ secrets.CP_AZURE_BLOB }}
+        container_name: ${{ format('v{0}', env.VERSION) }}
+        source_dir: ../Binaries
+
     - name: Setup github package repository
       run: |
         nuget sources add -name "github" -Source https://nuget.pkg.github.com/ipphone/index.json
