@@ -121,7 +121,10 @@ jobs:
 
   release:
     runs-on: windows-latest
-    needs: build
+    environment: github
+    needs:
+    - build
+    - test
 
     steps:
     - name: Download build artifacts
@@ -131,7 +134,10 @@ jobs:
         
     - uses: ncipollo/release-action@v1
       with:
-        # artifacts: "Binaries/*"
+        artifacts: "Binaries/**"
         # bodyFile: "body.md"
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: v${{ env.VERSION }}
+        prerelease: true
+        draft: true
+
