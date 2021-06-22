@@ -9,7 +9,7 @@ on:
 
 env:
   major_version: 1.13
-  VERSION: ${{env.major_version}}.${{github.run_id}}
+  VERSION: ${{ major_version }}.${{ github.run_id }}
 
 jobs:
   build:
