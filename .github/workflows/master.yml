@@ -120,7 +120,7 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     environment: github
     needs:
     - build
@@ -144,5 +144,5 @@ jobs:
       with:
         azure-devops-project-url: 'https://dev.azure.com/qxzone/ContactPoint%20IP%20phone'
         azure-pipeline-name: 'Release'
-        azure-devops-token: '${{ secrets.AZURE_DEVOPS_TOKEN }}'
         azure-pipeline-variables: '{ "cp.CoreVersion": "${{ env.CoreVersion }}" }'
+        azure-devops-token: '${{ secrets.AZURE_DEVOPS_TOKEN }}'
