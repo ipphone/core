@@ -132,20 +132,18 @@ jobs:
       with:
         name: Binaries
 
-    - name: Upload build artifacts to Azure
+    - name: Upload build artifacts to Azure Blob
       uses: bacongobbler/azure-blob-storage-upload@v1.2.0
       with:
         connection_string: ${{ secrets.CP_AZURE_BLOB }}
         container_name: ${{ format('build/v{0}', env.VERSION) }}
         source_dir: ./Binaries
 
-
-#     - uses: ncipollo/release-action@v1
-#       with:
-#         artifacts: "Binaries/**"
-#         # bodyFile: "body.md"
-#         token: ${{ secrets.GITHUB_TOKEN }}
-#         tag: v${{ env.VERSION }}
-#         prerelease: true
-#         draft: true
-
+    - name: Trigger Azure Release Pipeline
+      uses: Azure/pipelines@v1
+      with:
+        azure-devops-project-url: https://dev.azure.com/qxzone/ContactPoint%20IP%20phone
+        azure-pipeline-name: 'Release'
+        azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+        azure-pipeline-variables: |
+          { "cp.CoreVersion": "${{ env.VERSION }}" }
