@@ -8,7 +8,7 @@ on:
     - README.md
 
 env:
-  VERSION: ${{ format('1.13.0.{0}', github.run_number) }}
+  CoreVersion: 1.13.1
 
 jobs:
   build:
@@ -17,6 +17,7 @@ jobs:
     env:
       Solution_Name: ContactPoint.sln
       Configuration: Release
+      VERSION: ${{ format('{0}.{1}', env.CoreVersion, github.run_number) }}
 
     steps:
     - name: Checkout
@@ -117,7 +118,7 @@ jobs:
       shell: bash
       run: bash <(curl -s https://codecov.io/bash) -s ./TestResults
       env:
-        CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   release:
     runs-on: ubuntu-latest
@@ -136,7 +137,7 @@ jobs:
       uses: bacongobbler/azure-blob-storage-upload@v1.2.0
       with:
         connection_string: ${{ secrets.CP_AZURE_BLOB }}
-        container_name: ${{ format('build/v{0}', env.VERSION) }}
+        container_name: ${{ format('build/v{0}', env.CoreVersion) }}
         source_dir: ./Binaries
 
     - name: Trigger Azure Release Pipeline
@@ -145,5 +146,4 @@ jobs:
         azure-devops-project-url: https://dev.azure.com/qxzone/ContactPoint%20IP%20phone
         azure-pipeline-name: 'Release'
         azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
-        azure-pipeline-variables: |
-          { "cp.CoreVersion": "${{ env.VERSION }}" }
+        azure-pipeline-variables: '{ "cp.CoreVersion": "${{ env.CoreVersion }}" }'
