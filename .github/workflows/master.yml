@@ -120,7 +120,7 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   release:
-    runs-on: windows-latest
+    runs-on: ubuntu-18.04
     environment: github
     needs:
     - build
