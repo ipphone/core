@@ -12,6 +12,7 @@ env:
 
 jobs:
   build:
+    if: false
     runs-on: windows-latest
 
     env:
@@ -83,6 +84,7 @@ jobs:
         nuget push ..\out\*.nupkg -Source https://nuget.pkg.github.com/ipphone/index.json -SkipDuplicate
 
   test:
+    if: false
     runs-on: windows-latest
     needs: build
 
@@ -122,25 +124,25 @@ jobs:
   release:
     runs-on: ubuntu-latest
     environment: github
-    needs:
-    - build
-    - test
+#     needs:
+#     - build
+#     - test
 
     steps:
-    - name: Download build artifacts
-      uses: actions/download-artifact@v1
-      with:
-        name: Binaries
+#     - name: Download build artifacts
+#       uses: actions/download-artifact@v1
+#       with:
+#         name: Binaries
 
-    - name: Upload build artifacts to Azure Blob
-      uses: bacongobbler/azure-blob-storage-upload@v1.2.0
-      with:
-        connection_string: ${{ secrets.CP_AZURE_BLOB }}
-        container_name: ${{ format('build/v{0}', env.CoreVersion) }}
-        source_dir: ./Binaries
+#     - name: Upload build artifacts to Azure Blob
+#       uses: bacongobbler/azure-blob-storage-upload@v1.2.0
+#       with:
+#         connection_string: ${{ secrets.CP_AZURE_BLOB }}
+#         container_name: ${{ format('build/v{0}', env.CoreVersion) }}
+#         source_dir: ./Binaries
 
     - name: Trigger Azure Release Pipeline
-      uses: Azure/pipelines@3cc9db187cd6708a70028aa35b8873cd1d8c46a8
+      uses: Azure/pipelines@master
       with:
         azure-devops-project-url: 'https://dev.azure.com/qxzone/ContactPoint%20IP%20phone'
         azure-pipeline-name: 'Release'
