@@ -142,7 +142,7 @@ jobs:
 #         source_dir: ./Binaries
 
     - name: Trigger Azure Release Pipeline
-      uses: Azure/pipelines@1.0.0
+      uses: Azure/pipelines@1
       with:
         azure-devops-project-url: 'https://dev.azure.com/qxzone/ContactPoint%20IP%20phone'
         azure-pipeline-name: 'Release'
