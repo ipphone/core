@@ -17,7 +17,6 @@ jobs:
     env:
       Solution_Name: ContactPoint.sln
       Configuration: Release
-      VERSION: ${{ format('{0}.{1}', env.CoreVersion, github.run_number) }}
 
     steps:
     - name: Checkout
@@ -45,7 +44,7 @@ jobs:
 
     - name: Update CommonAssemnblyInfo.cs file
       run: |
-        [System.IO.File]::WriteAllText("CommonAssemblyInfo.cs", [System.IO.File]::ReadAllText("CommonAssemblyInfo.cs").Replace("1.0.0.0", "$env:VERSION"))
+        [System.IO.File]::WriteAllText("CommonAssemblyInfo.cs", [System.IO.File]::ReadAllText("CommonAssemblyInfo.cs").Replace("1.0.0", "$env:CoreVersion"))
         [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: System.Reflection.AssemblyKeyFileAttribute(@"' + $env:GITHUB_WORKSPACE + '\SignatureKey.snk")]')
         [System.IO.File]::AppendAllText("CommonAssemblyInfo.cs", '[assembly: AssemblyConfiguration("' + $env:Configuration + '")]')
 
@@ -80,7 +79,8 @@ jobs:
 
     - name: Build and Publish NuGet packages
       run: |
-        ls *.nuspec |% { nuget pack $_ -Version $env:VERSION -Properties Configuration=$env:Configuration -OutputDirectory ..\out -BasePath ..\Binaries }
+        ls *.nuspec |% { nuget pack $_ -
+        $env:CoreVersion -Properties Configuration=$env:Configuration -OutputDirectory ..\out -BasePath ..\Binaries }
         nuget push ..\out\*.nupkg -Source https://nuget.pkg.github.com/ipphone/index.json -SkipDuplicate
 
   test:
