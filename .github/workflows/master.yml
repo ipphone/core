@@ -120,7 +120,7 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   release:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     environment: github
     needs:
     - build
@@ -140,7 +140,7 @@ jobs:
         source_dir: ./Binaries
 
     - name: Trigger Azure Release Pipeline
-      uses: Azure/pipelines@v1
+      uses: Azure/pipelines@master
       with:
         azure-devops-project-url: 'https://dev.azure.com/qxzone/ContactPoint%20IP%20phone'
         azure-pipeline-name: 'Release'
