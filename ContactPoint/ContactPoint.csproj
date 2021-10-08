@@ -31,59 +31,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs" Link="CommonAssemblyInfo.cs" />
-    <Compile Update="Forms\AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Forms\AboutForm.cs" />
     <Compile Update="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="NotifyControls\AudioDeviceChangedNotifyControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="NotifyControls\AudioDeviceChangedNotifyControl.cs" />
     <Compile Update="NotifyControls\AudioDeviceChangedNotifyControl.Designer.cs">
       <DependentUpon>AudioDeviceChangedNotifyControl.cs</DependentUpon>
     </Compile>
-    <Compile Update="NotifyControls\AudioDevicesAddedNotifyControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="NotifyControls\AudioDevicesNotifyControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="NotifyControls\AudioDevicesAddedNotifyControl.cs" />
+    <Compile Update="NotifyControls\AudioDevicesNotifyControl.cs" />
     <Compile Update="NotifyControls\AudioDevicesNotifyControl.Designer.cs">
       <DependentUpon>AudioDevicesNotifyControl.cs</DependentUpon>
     </Compile>
-    <Compile Update="NotifyControls\AudioDevicesRemovedNotifyControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="NotifyControls\AudioDevicesRemovedNotifyControl.cs" />
     <Compile Update="CaptionStrings\CaptionStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CaptionStrings.resx</DependentUpon>
     </Compile>
-    <Compile Update="Forms\LoaderForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Forms\LoaderForm.cs" />
     <Compile Update="Forms\LoaderForm.Designer.cs">
       <DependentUpon>LoaderForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="Forms\LoggerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Forms\LoggerForm.cs" />
     <Compile Update="Forms\LoggerForm.Designer.cs">
       <DependentUpon>LoggerForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Forms\MainForm.cs" />
     <Compile Update="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="Controls\MainFormShadeControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\MainFormPhoneStatusControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Controls\MainFormShadeControl.cs" />
+    <Compile Update="Controls\MainFormPhoneStatusControl.cs" />
     <Compile Update="Controls\MainFormPhoneStatusControl.Designer.cs">
       <DependentUpon>MainFormPhoneStatusControl.cs</DependentUpon>
     </Compile>
@@ -127,21 +107,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Update="Forms\SettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Forms\SettingsForm.cs" />
     <Compile Update="Forms\SettingsForm.designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="Controls\ToolStripUIElementButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\TransparentPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\ColorSlider.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controls\ToolStripUIElementButton.cs" />
+    <Compile Update="Controls\TransparentPanel.cs" />
+    <Compile Update="Controls\ColorSlider.cs" />
     <Compile Update="Controls\ColorSlider.designer.cs">
       <DependentUpon>ColorSlider.cs</DependentUpon>
     </Compile>

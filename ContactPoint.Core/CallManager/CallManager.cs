@@ -607,13 +607,22 @@ namespace ContactPoint.Core.CallManager
             }
             else
             {
-                if (Monitor.TryEnter(call, OPERATION_WAIT_MAXTIMEOUT))
-                {
-                    try { RefreshCallState(call, sessionId); }
-                    finally { Monitor.Exit(call); }
+                if (!Monitor.TryEnter(call, OPERATION_WAIT_MAXTIMEOUT)) return;
+                try 
+                { 
+                    RefreshCallState(call, sessionId); 
                 }
-                else
-                    return;
+                finally 
+                { 
+                    Monitor.Exit(call); 
+                }
+
+#if DEBUG
+                foreach (var hdr in call.Headers.Where(x => x.Name.StartsWith("x-")))
+                {
+                    Logger.LogNotice($"-- Call #{call.Id} has a custom header: '{hdr.Name}'='{hdr.Value}'");
+                }
+#endif
 
                 // Call found - raising event about state changed
                 RaiseCallStateChanged(call);

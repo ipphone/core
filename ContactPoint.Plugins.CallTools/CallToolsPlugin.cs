@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using ContactPoint.BaseDesign;
+using ContactPoint.BaseDesign.BaseNotifyControls;
+using ContactPoint.Common;
 using ContactPoint.Common.PluginManager;
 using ContactPoint.Core.PluginManager;
 using ContactPoint.Plugins.CallTools.AutoAnswer;
@@ -14,7 +17,6 @@ namespace ContactPoint.Plugins.CallTools
     {
         private static object _syncObject = new object();
         private static bool _autoAnswerInitialized = false;
-        private static bool _incomingCallWindowInitialized = false;
         private static bool _oneLineInitialized = false;
 
         private readonly List<IPluginUIElement> _uiElements = new List<IPluginUIElement>();
@@ -33,6 +35,8 @@ namespace ContactPoint.Plugins.CallTools
             : base(pluginManager)
         {
             CallToolsOptions = new CallToolsOptions(pluginManager.Core.SettingsManager);
+            _autoAnswerService = new AutoAnswerService(this);
+            _callNotifyWindowService = new CallNotifyWindowService(this);
         }
 
         public override void ShowSettingsDialog()
@@ -54,31 +58,18 @@ namespace ContactPoint.Plugins.CallTools
                     _oneLineInitialized = true;
                     _oneLine = _oneLine ?? new OneLineService(this);
                 }
-                if (CallToolsOptions.OneLineService && this._oneLine != null)
+                if (CallToolsOptions.OneLineService && _oneLine != null)
                 {
                     _oneLine.Start();
                     _uiElements.Add(new OneLinePluginUIElement(this, _oneLine));
                 }
 
-                if (CallToolsOptions.AutoAnswer && !_autoAnswerInitialized)
+                if (CallToolsOptions.AutoAnswer)
                 {
-                    _autoAnswerInitialized = true;
-                    _autoAnswerService = _autoAnswerService ?? new AutoAnswerService(this);
-                }
-                if (CallToolsOptions.AutoAnswer && this._autoAnswerService != null)
-                {
-                    this._autoAnswerService.Start();
+                    _autoAnswerService.Start();
                 }
 
-                if (CallToolsOptions.ShowIncomingCallWindow && !_incomingCallWindowInitialized)
-                {
-                    _incomingCallWindowInitialized = true;
-                    _callNotifyWindowService = _callNotifyWindowService ?? new CallNotifyWindowService(this);
-                }
-                if (CallToolsOptions.ShowIncomingCallWindow && this._callNotifyWindowService != null)
-                {
-                    _callNotifyWindowService.Start();
-                }
+                _callNotifyWindowService.Start();
             }
 
             if (CallToolsOptions.Pause)
@@ -93,9 +84,9 @@ namespace ContactPoint.Plugins.CallTools
         {
             _isStarted = false;
 
-            _callNotifyWindowService?.Stop();
             _oneLine?.Stop();
-            _autoAnswerService?.Stop();
+            _autoAnswerService.Stop();
+            _callNotifyWindowService.Stop();
 
             foreach (var pluginUiElement in _uiElements)
             {
