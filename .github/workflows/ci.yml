@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  CoreVersion: 1.13.2
+
 jobs:
   build:
     runs-on: windows-latest
