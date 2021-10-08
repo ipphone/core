@@ -247,9 +247,9 @@ namespace Sipek.Common.CallControl
             return CallProxy.xferCall(number, headers);
         }
 
-        public override bool xferCallSession(int partnersession)
+        public override bool xferCallSession(int partnersession, Sip.SipHeader[] headers)
         {
-            return CallProxy.xferCallSession(partnersession);
+            return CallProxy.xferCallSession(partnersession, headers);
         }
 
         public override void onHoldConfirm()
