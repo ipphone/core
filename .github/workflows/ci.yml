@@ -50,12 +50,16 @@ jobs:
 #          $csproj_content = Get-Content -path $csproj_path | ForEach {$_ -replace "</Project>", "<PropertyGroup><SignAssembly>true</SignAssembly><DelaySign>false</DelaySign></PropertyGroup></Project>"}
 #          Set-Content -Path $csproj_path -Value $csproj_content -Force
 #        }
+    - name: Update CoreVersion number
+      shell: bash
+      run: |
+        echo "CoreVersion=${{ env.CoreVersion }}-ci${{ github.run_id }}" >> $GITHUB_ENV
 
     - name: Build application
       run: |
-        msbuild $env:Solution_Name -t:Restore -p:Configuration=$env:Configuration
-        msbuild $env:Solution_Name -t:Build -p:Configuration=$env:Configuration
-        msbuild ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj -t:Build -p:Configuration=$env:Configuration
+        msbuild $env:Solution_Name -t:Restore -p:Configuration=${{ env.Configuration }}
+        msbuild $env:Solution_Name -t:Build -p:Configuration=${{ env.Configuration }}
+        msbuild ContactPoint.Tests.WinForms\ContactPoint.Tests.WinForms.csproj -t:Build -p:Configuration=${{ env.Configuration }}
         
 #    - name: Sign application assemblies
 #      run: |
@@ -70,6 +74,16 @@ jobs:
       with:
         name: Binaries
         path: ../Binaries
+
+    - name: Setup github package repository
+      run: |
+        nuget sources add -name "github" -Source https://nuget.pkg.github.com/ipphone/index.json
+        nuget setapikey ${{ secrets.GITHUB_TOKEN }} -Source https://nuget.pkg.github.com/ipphone/index.json
+
+    - name: Build and Publish NuGet packages
+      run: |
+        ls *.nuspec |% { nuget pack $_ -Version ${{ env.CoreVersion }} -Properties Configuration=${{ env.Configuration }} -OutputDirectory ..\out -BasePath ..\Binaries }
+        nuget push ..\out\*.nupkg -Source https://nuget.pkg.github.com/ipphone/index.json -SkipDuplicate
 
   test:
     runs-on: windows-latest
