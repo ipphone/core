@@ -12,9 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		ContactPoint.vsext = ContactPoint.vsext
 		LICENSE = LICENSE
+		.github\workflows\master.yml = .github\workflows\master.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -214,7 +216,7 @@ Global
 		{E867EDFC-3F38-48B0-8AB7-D894C743C1F7} = {60B299BB-F31C-43D6-944F-15A3B05F1369}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {03268C23-E6D9-4799-B76D-5BD32F32956F}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

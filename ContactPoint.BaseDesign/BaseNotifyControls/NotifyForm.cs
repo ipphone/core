@@ -61,6 +61,8 @@ namespace ContactPoint.BaseDesign.BaseNotifyControls
 
             InitializeComponent();
 
+            ClientSize = NotifyControl.Size;
+
             notifyControl.Dock = DockStyle.Fill;
             Controls.Add(notifyControl);
 

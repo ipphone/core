@@ -1,6 +1,5 @@
 using System;
 using ContactPoint.BaseDesign;
-using ContactPoint.BaseDesign.BaseNotifyControls;
 using ContactPoint.Common;
 
 namespace ContactPoint.Services
@@ -48,6 +47,11 @@ namespace ContactPoint.Services
             {
                 NotifyManager.NotifyUser(notifyControl);
             }
+        }
+
+        public static IncomingCallNotifyWindowService Create(ICore core)
+        {
+            return new IncomingCallNotifyWindowService(core.CallManager);
         }
     }
 }

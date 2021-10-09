@@ -8,7 +8,7 @@ namespace ContactPoint.Plugins.CallTools.CallNotifyWindow
     internal class CallNotifyWindowService
     {
         private readonly IPlugin _plugin;
-
+        
         public bool IsWindowPersistent => _plugin.PluginManager.Core.SettingsManager.Get<bool>(CallToolsOptions.NotHideCallWindowName);
 
         public CallNotifyWindowService(IPlugin plugin)

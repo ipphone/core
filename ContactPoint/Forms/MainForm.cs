@@ -165,6 +165,7 @@ namespace ContactPoint.Forms
             ReloadUIElementsFromPlugins();
 
             AutoAnswerService.Create(_core);
+            IncomingCallNotifyWindowService.Create(_core);
 
             // Check if first run - run settings
             if (string.IsNullOrEmpty(_core.Sip.Account.UserName))

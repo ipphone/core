@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ContactPoint.BaseDesign;
-using ContactPoint.BaseDesign.BaseNotifyControls;
-using ContactPoint.Common;
 using ContactPoint.Common.PluginManager;
 using ContactPoint.Core.PluginManager;
 using ContactPoint.Plugins.CallTools.AutoAnswer;
@@ -12,6 +9,33 @@ using ContactPoint.Plugins.CallTools.Ui;
 
 namespace ContactPoint.Plugins.CallTools
 {
+    [Plugin("{718a93ed-2355-436c-979d-e2ca8b40f977}", "Incoming call notifications plugin", HaveSettingsForm = false)]
+    public class IncomingCallNotificationPlugin : Plugin
+    {
+        private readonly CallNotifyWindowService _callNotifyWindowService;
+        private bool _isStarted;
+
+        public override bool IsStarted => _isStarted;
+
+        public IncomingCallNotificationPlugin(IPluginManager pluginManager)
+            : base(pluginManager)
+        { 
+            _callNotifyWindowService = new CallNotifyWindowService(this);
+        }
+
+        public override void Start()
+        {
+            _isStarted = true;
+            _callNotifyWindowService.Start();
+        }
+
+        public override void Stop()
+        {
+            _isStarted = false;
+            _callNotifyWindowService.Stop();
+        }
+    }
+
     [Plugin("{73237940-7A20-46EB-8528-0072CBD1F34A}", "Call tools plugin", HaveSettingsForm = true)]
     public class CallToolsPlugin : Plugin
     {
@@ -21,7 +45,6 @@ namespace ContactPoint.Plugins.CallTools
 
         private readonly List<IPluginUIElement> _uiElements = new List<IPluginUIElement>();
         private bool _isStarted;
-        private CallNotifyWindowService _callNotifyWindowService;
         private OneLineService _oneLine;
         private AutoAnswerService _autoAnswerService;
         private SettingsForm _settingsForm;
@@ -36,7 +59,6 @@ namespace ContactPoint.Plugins.CallTools
         {
             CallToolsOptions = new CallToolsOptions(pluginManager.Core.SettingsManager);
             _autoAnswerService = new AutoAnswerService(this);
-            _callNotifyWindowService = new CallNotifyWindowService(this);
         }
 
         public override void ShowSettingsDialog()
@@ -68,8 +90,6 @@ namespace ContactPoint.Plugins.CallTools
                 {
                     _autoAnswerService.Start();
                 }
-
-                _callNotifyWindowService.Start();
             }
 
             if (CallToolsOptions.Pause)
@@ -86,7 +106,6 @@ namespace ContactPoint.Plugins.CallTools
 
             _oneLine?.Stop();
             _autoAnswerService.Stop();
-            _callNotifyWindowService.Stop();
 
             foreach (var pluginUiElement in _uiElements)
             {
