@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ContactPoint.BaseDesign;
-using ContactPoint.BaseDesign.BaseNotifyControls;
-using ContactPoint.Common;
 using ContactPoint.Common.PluginManager;
 using ContactPoint.Core.PluginManager;
 using ContactPoint.Plugins.CallTools.AutoAnswer;
-using ContactPoint.Plugins.CallTools.CallNotifyWindow;
 using ContactPoint.Plugins.CallTools.OneLine;
 using ContactPoint.Plugins.CallTools.Ui;
 
@@ -21,7 +17,6 @@ namespace ContactPoint.Plugins.CallTools
 
         private readonly List<IPluginUIElement> _uiElements = new List<IPluginUIElement>();
         private bool _isStarted;
-        private CallNotifyWindowService _callNotifyWindowService;
         private OneLineService _oneLine;
         private AutoAnswerService _autoAnswerService;
         private SettingsForm _settingsForm;
@@ -36,7 +31,6 @@ namespace ContactPoint.Plugins.CallTools
         {
             CallToolsOptions = new CallToolsOptions(pluginManager.Core.SettingsManager);
             _autoAnswerService = new AutoAnswerService(this);
-            _callNotifyWindowService = new CallNotifyWindowService(this);
         }
 
         public override void ShowSettingsDialog()
@@ -68,8 +62,6 @@ namespace ContactPoint.Plugins.CallTools
                 {
                     _autoAnswerService.Start();
                 }
-
-                _callNotifyWindowService.Start();
             }
 
             if (CallToolsOptions.Pause)
@@ -86,7 +78,6 @@ namespace ContactPoint.Plugins.CallTools
 
             _oneLine?.Stop();
             _autoAnswerService.Stop();
-            _callNotifyWindowService.Stop();
 
             foreach (var pluginUiElement in _uiElements)
             {

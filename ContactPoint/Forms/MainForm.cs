@@ -165,6 +165,7 @@ namespace ContactPoint.Forms
             ReloadUIElementsFromPlugins();
 
             AutoAnswerService.Create(_core);
+            IncomingCallNotifyWindowService.Create(_core);
 
             // Check if first run - run settings
             if (string.IsNullOrEmpty(_core.Sip.Account.UserName))
@@ -641,33 +642,37 @@ namespace ContactPoint.Forms
                     (lineWrapper.Call.State == CallState.HOLDING ||
                      lineWrapper.Call.State == CallState.ACTIVE))
                 {
-                    // Transfer Call
-                    string number = txtNumber.Text;
-                    Logger.LogNotice($"Transfer call '{lineWrapper.Call}' to '{number}'");
-
-                    Task.Factory.StartNew(() =>
-                    {
-                        lineWrapper.Call.UnHold();
-                        lineWrapper.Call.Transfer(number);
-
-                        lineWrapper.Call.Drop();
-                    });
-
-                    TransferMode = false;
-
-                    TimeredBaloon.Show(txtNumber, string.Format(CaptionStrings.CaptionStrings.ActionTransferTitle, number), CaptionStrings.CaptionStrings.ActionTransferDescription, ToolTipIcon.Info);
+                    TransferCall(lineWrapper.Call, txtNumber.Text);
                 }
                 else if (
                     lineWrapper.Call.State != CallState.ACTIVE &&
                     lineWrapper.Call.Number != txtNumber.Text &&
                     !TransferMode)
+                {
                     CallInternal(txtNumber.Text, true);
+                }
             }
             else
             {
                 if (!string.IsNullOrEmpty(txtNumber.Text))
                     CallInternal(txtNumber.Text);
             }
+        }
+
+        private void TransferCall(ICall call, string number)
+        {
+            Logger.LogNotice($"Transfer call '{call}' to '{number}'");
+            Task.Factory.StartNew(() =>
+            {
+                call.UnHold();
+                call.Transfer(number);
+
+                call.Drop();
+            });
+
+            TransferMode = false;
+
+            TimeredBaloon.Show(txtNumber, string.Format(CaptionStrings.CaptionStrings.ActionTransferTitle, number), CaptionStrings.CaptionStrings.ActionTransferDescription, ToolTipIcon.Info);
         }
 
         private void OnRemoteMessageReceived(object message)
@@ -747,7 +752,15 @@ namespace ContactPoint.Forms
                         _lastMainFormPhoneLineControl.Call.UnHold();
                     }
 
-                    targetLineControl.Call.TransferAttended(_lastMainFormPhoneLineControl.Call);
+                    if (_core.SettingsManager.GetValueOrSetDefault("DisableAttendedTransfer", false))
+                    {
+                        TransferCall(targetLineControl.Call, _lastMainFormPhoneLineControl.Call.Number);
+                        _lastMainFormPhoneLineControl.Call.Drop();
+                    }
+                    else
+                    {
+                        targetLineControl.Call.TransferAttended(_lastMainFormPhoneLineControl.Call);
+                    }
                 }
 
                 TransferMode = false;

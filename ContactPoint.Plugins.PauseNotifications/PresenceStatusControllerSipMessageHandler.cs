@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -45,7 +45,7 @@ namespace ContactPoint.Plugins.PauseNotifications
 
         public PresenceStatusControllerSipMessageHandler(IPluginManager pluginManager) : base(pluginManager)
         {
-            _targetActionCode = Guid.Parse(pluginManager.Core.SettingsManager.Get<string>("TargetActionCode"));
+            Guid.TryParse(pluginManager.Core.SettingsManager.Get<string>("TargetActionCode"), out _targetActionCode);
 
             var activityName = pluginManager.Core.SettingsManager.Get<string>("ActivityName");
             if (!string.IsNullOrEmpty(activityName))
