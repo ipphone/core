@@ -11,20 +11,20 @@
         <repository type="git" url="https://github.com/ipphone/core" />
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>ContactPoint IP Phone Core Assemblies</description>
-        <summary>ContactPoint IP Phone is an implementation of SIP softphone for Windows</summary>
+        <summary>ContactPoint IP Phone Core Assemblies</summary>
         <copyright>Copyright © ContactPoint 2021</copyright>
         <tags>voip voip-application softphone windows-forms sip pjsip pjsua asterisk phone telephony telephone plugin plugins</tags>
         <dependencies>
             <dependency id="IPPhone.Common" />
             <dependency id="IPPhone.Contacts" />
-            <dependency id="IPPhone.pjsipDll" />
-            <dependency id="Newtonsoft.Json" />
+            <!-- <dependency id="IPPhone.pjsipDll" /> -->
+            <!-- <dependency id="Newtonsoft.Json" /> -->
         </dependencies>
     </metadata>
     <files>
         <file src="ContactPoint.Core.dll" target="lib\net472" />
         <file src="ContactPoint.Core.pdb" target="lib\net472" />
-        <file src="AudioLibrary.dll" target="lib\net472" />
+        <!-- <file src="AudioLibrary.dll" target="lib\net472" />
         <file src="AudioLibrary.pdb" target="lib\net472" />
         <file src="AudioLibrary.PjSIP.dll" target="lib\net472" />
         <file src="AudioLibrary.PjSIP.pdb" target="lib\net472" />
@@ -35,6 +35,6 @@
         <file src="SipekSdk.dll" target="lib\net472" />
         <file src="SipekSdk.pdb" target="lib\net472" />
         <file src="Win32Mapi.dll" target="lib\net472" />
-        <file src="Win32Mapi.pdb" target="lib\net472" />
+        <file src="Win32Mapi.pdb" target="lib\net472" /> -->
     </files>
 </package>
