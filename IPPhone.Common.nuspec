@@ -12,10 +12,11 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>ContactPoint IP Phone Common Assemblies</description>
         <summary>ContactPoint IP Phone is an implementation of SIP softphone for Windows</summary>
-        <copyright>Copyright © ContactPoint 2017</copyright>
+        <copyright>Copyright © ContactPoint 2021</copyright>
         <tags>voip voip-application softphone windows-forms sip pjsip pjsua asterisk phone telephony telephone plugin plugins</tags>
     </metadata>
     <files>
         <file src="ContactPoint.Common.dll" target="lib\net472" />
+        <file src="ContactPoint.Common.pdb" target="lib\net472" />
     </files>
 </package>

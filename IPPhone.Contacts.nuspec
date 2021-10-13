@@ -12,14 +12,17 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>ContactPoint IP Phone Contacts Assemblies</description>
         <summary>ContactPoint IP Phone is an implementation of SIP softphone for Windows</summary>
-        <copyright>Copyright © ContactPoint 2017</copyright>
+        <copyright>Copyright © ContactPoint 2021</copyright>
         <tags>voip voip-application softphone windows-forms sip pjsip pjsua asterisk phone telephony telephone plugin plugins</tags>
         <dependencies>
             <dependency id="IPPhone.Common" />
             <dependency id="IPPhone.BaseDesign" />
+            <dependency id="System.Data.SQLite.Linq" version="1.0.113" />
+            <dependency id="System.Data.SQLite.Core" version="1.0.113.1" />
         </dependencies>
     </metadata>
     <files>
         <file src="ContactPoint.Contacts.dll" target="lib\net472" />
+        <file src="ContactPoint.Contacts.pdb" target="lib\net472" />
     </files>
 </package>
