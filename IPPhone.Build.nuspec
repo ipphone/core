@@ -16,6 +16,6 @@
         <tags>voip voip-application softphone windows-forms sip pjsip pjsua asterisk phone telephony telephone plugin plugins</tags>
     </metadata>
     <files>
-        <file src="**\*.*" flatten="true" />
+        <file src="**\*.*" />
     </files>
 </package>
