@@ -11,11 +11,18 @@
         <repository type="git" url="https://github.com/ipphone/core" />
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>ContactPoint IP Phone Base Windows Forms Controls</description>
-        <summary>ContactPoint IP Phone is an implementation of SIP softphone for Windows</summary>
-        <copyright>Copyright © ContactPoint 2017</copyright>
+        <summary>ContactPoint IP Phone Base Windows Forms Controls</summary>
+        <copyright>Copyright © ContactPoint 2021</copyright>
         <tags>voip voip-application softphone windows-forms sip pjsip pjsua asterisk phone telephony telephone plugin plugins</tags>
     </metadata>
     <files>
         <file src="ContactPoint.BaseDesign.dll" target="lib\net472" />
+        <file src="ContactPoint.BaseDesign.pdb" target="lib\net472" />
+        <!-- <file src="ComponentFactory.Krypton.Design.dll" target="lib\net472" />
+        <file src="ComponentFactory.Krypton.Docking.dll" target="lib\net472" />
+        <file src="ComponentFactory.Krypton.Navigator.dll" target="lib\net472" />
+        <file src="ComponentFactory.Krypton.Ribbon.dll" target="lib\net472" />
+        <file src="ComponentFactory.Krypton.Toolkit.dll" target="lib\net472" />
+        <file src="ComponentFactory.Krypton.Workspace.dll" target="lib\net472" /> -->
     </files>
 </package>

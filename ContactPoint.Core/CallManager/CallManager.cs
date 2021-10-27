@@ -611,13 +611,15 @@ namespace ContactPoint.Core.CallManager
             }
             else
             {
-                if (Monitor.TryEnter(call, OPERATION_WAIT_MAXTIMEOUT))
-                {
-                    try { RefreshCallState(call, sessionId); }
-                    finally { Monitor.Exit(call); }
+                if (!Monitor.TryEnter(call, OPERATION_WAIT_MAXTIMEOUT)) return;
+                try 
+                { 
+                    RefreshCallState(call, sessionId); 
                 }
-                else
-                    return;
+                finally 
+                { 
+                    Monitor.Exit(call); 
+                }
 
                 // Call found - raising event about state changed
                 RaiseCallStateChanged(call);

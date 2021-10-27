@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -39,7 +39,7 @@ namespace ContactPoint.Plugins.CallTools.CallNotifyWindow
                         ForeColor = ParseColor(tag.Color), 
                         AutoSize = true, 
                         Font = new Font(FontFamily.GenericSansSerif, 10), 
-                            Margin = new Padding(3, 0, 0, 0)
+                        Margin = new Padding(3, 0, 0, 0)
                     });
 
             panelContainer.ResumeLayout(true);

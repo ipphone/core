@@ -7,6 +7,7 @@ using ContactPoint.BaseDesign.BaseNotifyControls;
 
 namespace ContactPoint.BaseDesign
 {
+
     public class NotifyManager
     {
         private static NotifyManager _instance;

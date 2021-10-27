@@ -252,7 +252,7 @@ namespace ContactPoint.Plugins.CallTools.CallNotifyWindow
             this.Controls.Add(this.lblNumber);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "CallNotifyControl";
-            this.Size = new System.Drawing.Size(307, 140);
+            this.Size = new System.Drawing.Size(308, 166);
             this.ResumeLayout(false);
             this.PerformLayout();
 
