@@ -617,13 +617,6 @@ namespace ContactPoint.Core.CallManager
                     Monitor.Exit(call); 
                 }
 
-#if DEBUG
-                foreach (var hdr in call.Headers.Where(x => x.Name.StartsWith("x-")))
-                {
-                    Logger.LogNotice($"-- Call #{call.Id} has a custom header: '{hdr.Name}'='{hdr.Value}'");
-                }
-#endif
-
                 // Call found - raising event about state changed
                 RaiseCallStateChanged(call);
 

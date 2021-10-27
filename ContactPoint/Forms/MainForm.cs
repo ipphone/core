@@ -754,12 +754,16 @@ namespace ContactPoint.Forms
 
                     if (_core.SettingsManager.GetValueOrSetDefault("DisableAttendedTransfer", false))
                     {
-                        TransferCall(targetLineControl.Call, _lastMainFormPhoneLineControl.Call.Number);
+                        var targetNumber = targetLineControl.Call.Number;
+                        targetLineControl.Call.Drop();
+                        
+                        TransferCall(_lastMainFormPhoneLineControl.Call, targetNumber);
+                        
                         _lastMainFormPhoneLineControl.Call.Drop();
                     }
                     else
                     {
-                        targetLineControl.Call.TransferAttended(_lastMainFormPhoneLineControl.Call);
+                        _lastMainFormPhoneLineControl.Call.TransferAttended(targetLineControl.Call);
                     }
                 }
 

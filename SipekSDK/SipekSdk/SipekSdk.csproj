@@ -6,9 +6,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutDir>..\..\Binaries\</OutDir>
     <NoWarn>3005</NoWarn>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>

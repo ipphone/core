@@ -16,8 +16,14 @@
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/ipphone/</RepositoryUrl>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="IPPhone.pjsipDll" Version="1.12.129682117-ci17" />
+    <PackageReference Include="IPPhone.pjsipDll" Version="1.13.1389618401-ci43" />
     <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
