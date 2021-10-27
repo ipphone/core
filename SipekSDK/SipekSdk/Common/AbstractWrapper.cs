@@ -276,7 +276,7 @@ namespace Sipek.Common
         /// </summary>
         /// <param name="partnersession">Session to transfer call to</param>
         /// <returns></returns>
-        public abstract bool xferCallSession(int partnersession);
+        public abstract bool xferCallSession(int partnersession, SipHeader[] headers = null);
 
         /// <summary>
         /// Request three party conference
@@ -378,7 +378,7 @@ namespace Sipek.Common
             return false;
         }
 
-        public override bool xferCallSession(int session)
+        public override bool xferCallSession(int session, SipHeader[] headers)
         {
             return false;
         }

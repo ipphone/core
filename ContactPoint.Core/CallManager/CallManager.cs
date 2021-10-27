@@ -393,11 +393,15 @@ namespace ContactPoint.Core.CallManager
             {
                 try
                 {
-                    Logger.LogNotice($"Attendant transfering call {call.Number} on to {destCall.Number}.");
-
+                    Logger.LogNotice($"Attendant transfer of call '{call.Number}' @line#{call.Line} to call '{destCall.Number}' @line#{destCall.Line}.");
                     currentCall.LastUserAction = CallAction.Transfer;
 
-                    _sip.SipekResources.CallManager.OnUserTransferAttendant(call.SessionId, destCall.SessionId);
+                    var headers = currentCall.Headers
+                        .Where(x => x.Name.StartsWith("x-", StringComparison.OrdinalIgnoreCase))
+                        .Select(x => new SipHeader { name = x.Name, value = x.Value })
+                        .ToArray();
+
+                    _sip.SipekResources.CallManager.OnUserTransferAttendant(call.SessionId, destCall.SessionId, headers);
                 }
                 finally
                 {

@@ -81,6 +81,9 @@ namespace Sipek.Sip
         [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_xferCallWithReplaces", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_xferCallWithReplaces(int callId, int dstSession);
 
+        [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_xferCallWithReplacesAndHeaders", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int dll_xferCallWithReplacesAndHeaders(int callId, int dstSession, [MarshalAs(UnmanagedType.LPArray)] SipHeader[] headers, int headersCount);
+
         [DllImport(Native.PJSIP_DLL, EntryPoint = "dll_serviceReq", CallingConvention = CallingConvention.Cdecl)]
         private static extern int dll_serviceReq(int callId, int serviceCode, string destUri);
 
@@ -286,7 +289,7 @@ namespace Sipek.Sip
             string uri = "sip:" + number + "@" + Config.Account.HostName;
             if (headers == null) headers = new SipHeader[0];
 
-            SafeBeginInvoke(() => { dll_xferCallWithHeaders(SessionId, uri, headers, headers.Length); });
+            SafeBeginInvoke(() => { dll_xferCallWithHeaders(SessionId, uri, headers, headers?.Length ?? 0); });
 
             return true;
         }
@@ -297,9 +300,9 @@ namespace Sipek.Sip
         /// <param name="sessionId"></param>
         /// <param name="session"></param>
         /// <returns></returns>
-        public override bool xferCallSession(int session)
+        public override bool xferCallSession(int session, SipHeader[] headers)
         {
-            SafeBeginInvoke(() => { dll_xferCallWithReplaces(SessionId, session); });
+            SafeBeginInvoke(() => { dll_xferCallWithReplacesAndHeaders(SessionId, session, headers, headers?.Length ?? 0); });
 
             return true;
         }

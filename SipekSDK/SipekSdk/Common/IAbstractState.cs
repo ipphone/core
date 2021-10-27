@@ -189,7 +189,7 @@ namespace Sipek.Common
         {
             return true;
         }
-        public override bool xferCallSession(int partnersession)
+        public override bool xferCallSession(int partnersession, Sip.SipHeader[] headers)
         {
             return true;
         }
