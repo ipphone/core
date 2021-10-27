@@ -23,7 +23,7 @@
     <Optimize>False</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="IPPhone.pjsipDll" Version="1.13.2" />
+    <PackageReference Include="IPPhone.pjsipDll" Version="1.13.3" />
     <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
