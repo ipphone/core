@@ -202,6 +202,8 @@ namespace Sipek.Sip
             // Don't forget to convert accontId here!!!
             // Store session identification for further requests
 
+            headers = headers ?? new SipHeader[0];
+
             SessionId = SafeInvoke(() => { return dll_makeCall(Config.Account.Index, sipuri, headers, headers.Length); });
 
             return SessionId;

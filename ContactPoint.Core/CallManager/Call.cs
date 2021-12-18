@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace ContactPoint.Core.CallManager
         private readonly HeaderCollection _headers;
         private readonly ConcurrentDictionary<string, object> _tags = new ConcurrentDictionary<string, object>();
         private readonly LinkedList<ICallStateInfo> _stateHistory = new LinkedList<ICallStateInfo>();
-        private string _name = String.Empty;
+        private string _name = string.Empty;
         private TimeSpan _activeStartDuration = TimeSpan.Zero;
         private CallState _currentState;
         private IContact _contact;
@@ -25,8 +25,8 @@ namespace ContactPoint.Core.CallManager
 
         public Guid Id { get; }
         public int SessionId { get; protected set; }
-        public string Number { get; protected internal set; }
-        public string Info { get; internal set; }
+        public string Number { get; protected internal set; } = string.Empty;
+        public string Info { get; internal set; } = string.Empty;
         public bool IsIncoming { get; }
         public CallAction LastUserAction { get; internal set; } = CallAction.NULL;
         public bool IsDisposed { get; internal set; }
@@ -185,6 +185,7 @@ namespace ContactPoint.Core.CallManager
 
             CallManager = callManager;
             SessionId = sessionId;
+            Number = number;
 
             if (SessionId >= 0)
             {
@@ -199,7 +200,7 @@ namespace ContactPoint.Core.CallManager
                     }
                     else
                     {
-                        Number = "";
+                        Number = number;
                         IsIncoming = false;
                     }
                 }

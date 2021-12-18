@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using ContactPoint.Common.CallManager;
+using Sipek.Sip;
 
 namespace ContactPoint.Core.CallManager
 {
@@ -14,6 +12,14 @@ namespace ContactPoint.Core.CallManager
         {
             Name = name;
             Value = value;
+        }
+    }
+
+    public static class HeaderExtensions
+    {
+        public static SipHeader ToSipHeader(this IHeader header)
+        {
+            return new SipHeader { name = header.Name.Substring(0, 64), value = header.Value.Substring(0, 255) };
         }
     }
 }
