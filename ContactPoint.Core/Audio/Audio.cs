@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using ContactPoint.Common;
 using ContactPoint.Common.Audio;
@@ -134,15 +134,16 @@ namespace ContactPoint.Core.Audio
 
         void OnAudioDevicesAdded(IEnumerable<AudioLibrary.Interfaces.IAudioDevice> addedDevices)
         {
-            var tempList = new List<AudioDevice>();
+            var newDevices = addedDevices.Where(x => x != null).Select(x => new AudioDevice(this, x));
 
-            foreach (var device in addedDevices)
-                if (device != null)
-                    tempList.Add(new AudioDevice(this, device));
+            _audioDevices.AddRange(newDevices);
 
-            _audioDevices.AddRange(tempList);
+            var deviceGroups = _audioDevices.Select(x => new { Device = x, Devices = _audioDevices.Where(y => y.Name.StartsWith(x.Name)) }).ToArray();
+            var uniqueDevices = deviceGroups.Select(x => x.Devices.OrderByDescending(y => y.Name.Length).FirstOrDefault()).Where(x => x != null).ToArray();
 
-            RaiseAudioDevicesAdded(ConvertAudioDeviceCollection(tempList));
+            _audioDevices.RemoveAll(x => !uniqueDevices.Contains(x));
+
+            RaiseAudioDevicesAdded(ConvertAudioDeviceCollection(newDevices));
 
             _initWaitHandle.Set();
         }

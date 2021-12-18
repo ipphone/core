@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using ContactPoint.Common;
 
 namespace ContactPoint.Core.CallManager
@@ -8,18 +9,16 @@ namespace ContactPoint.Core.CallManager
     {
         private readonly ConcurrentQueue<Action> _actions = new ConcurrentQueue<Action>();
 
-        public CallWrapper(CallManager callManager, string number)
-            : base(callManager, -1)
-        {
-            Number = number;
-        }
+        public CallWrapper(CallManager callManager, string number, IEnumerable<KeyValuePair<string, string>> headers = null)
+            : base(callManager, -1, number, null, headers)
+        { }
 
         public void SetSession(int sessionId)
         {
             try
             {
-                Number = ((SIP.SIP)CallManager.Core.Sip).SipekResources.CallManager[sessionId] != null ? ((SIP.SIP)CallManager.Core.Sip).SipekResources.CallManager[sessionId].CallingNumber : "";
                 SessionId = sessionId;
+                Number = ((SIP.SIP)CallManager.Core.Sip).SipekResources.CallManager[sessionId]?.CallingNumber ?? Number;
             }
             catch (Exception e)
             {
@@ -126,6 +125,18 @@ namespace ContactPoint.Core.CallManager
             }
 
             base.UnHold();
+        }
+    }
+
+    internal static class CallWrapperExtensions
+    {
+        public static CallWrapper CreateNewOutboundCallWrapper(this CallManager callManager, string number, IEnumerable<KeyValuePair<string, string>> headers)
+        {
+            return new CallWrapper(callManager, number, headers)
+            {
+                LastUserAction = CallAction.Make,
+                State = CallState.CONNECTING,
+            };
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -350,7 +350,7 @@ namespace ContactPoint.Forms
                 if (device.Type == AudioDeviceType.Playback)
                     this.comboBoxPlaybackDevices.Items.Add(device);
 
-            if (_core.Audio.PlaybackDevice != null) this.comboBoxPlaybackDevices.SelectedItem = devices.FirstOrDefault(x => x.Name == this._core.Audio.PlaybackDevice.Name && x.Type == AudioDeviceType.Playback);
+            if (_core.Audio.PlaybackDevice != null) this.comboBoxPlaybackDevices.SelectedItem = devices.FirstOrDefault(x => x.Name.StartsWith(_core.Audio.PlaybackDevice.Name) && x.Type == AudioDeviceType.Playback);
             else comboBoxPlaybackDevices.SelectedItem = comboBoxPlaybackDevices.Items[0];
 
             // Load recording devices
@@ -364,7 +364,7 @@ namespace ContactPoint.Forms
                 if (device.Type == AudioDeviceType.Recording)
                     this.comboBoxRecordingDevices.Items.Add(device);
 
-            if (_core.Audio.RecordingDevice != null) this.comboBoxRecordingDevices.SelectedItem = devices.FirstOrDefault(x => x.Name == this._core.Audio.RecordingDevice.Name && x.Type == AudioDeviceType.Recording);
+            if (_core.Audio.RecordingDevice != null) this.comboBoxRecordingDevices.SelectedItem = devices.FirstOrDefault(x => x.Name.StartsWith(_core.Audio.RecordingDevice.Name) && x.Type == AudioDeviceType.Recording);
             else comboBoxRecordingDevices.SelectedItem = comboBoxRecordingDevices.Items[0];
         }
 

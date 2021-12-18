@@ -8,6 +8,7 @@ using Sipek.Common;
 using System.Threading;
 using Sipek.Sip;
 using System.Collections.Concurrent;
+using System.Text.RegularExpressions;
 
 namespace ContactPoint.Core.CallManager
 {
@@ -276,24 +277,15 @@ namespace ContactPoint.Core.CallManager
         public ICall MakeCall(string number, IEnumerable<KeyValuePair<string, string>> headers)
         {
             if (string.IsNullOrWhiteSpace(number))
+            {
                 throw new ArgumentException("Phone number is empty or null. Skipping call request.", "number");
+            }
 
-            // Remove all non-numeric symbols from number
             number = number.ToLower();
+            number = Regex.Replace(number, "[ ()\\-_]+", "");
+            number = Regex.Replace(number, "^(sip|lync|skype|tel|ipphone):", "");
 
-            number = number.Replace("sip:", ""); // it can be added while calling from browser
-
-            while (number.IndexOf(" ", StringComparison.Ordinal) >= 0) number = number.Replace(" ", "");
-            while (number.IndexOf("(", StringComparison.Ordinal) >= 0) number = number.Replace("(", "");
-            while (number.IndexOf(")", StringComparison.Ordinal) >= 0) number = number.Replace(")", "");
-            while (number.IndexOf("-", StringComparison.Ordinal) >= 0) number = number.Replace("-", "");
-            while (number.IndexOf("_", StringComparison.Ordinal) >= 0) number = number.Replace("_", "");
-
-            Logger.LogNotice("CallManager: Trying to call " + number);
-
-            // Check if current status is NA then make user Available
-            //if (this._sip.Account.PresenceStatus.Code == CallService.Common.SIP.Account.PresenceStatusCode.NotAvailable)
-            //    this._sip.Account.PresenceStatus = new CallService.Common.SIP.Account.PresenceStatus(CallService.Common.SIP.Account.PresenceStatusCode.Available);
+            Logger.LogNotice($"Make a call: number={number}");
 
             // Lock calls collection to ensure that while we check all, we don't receive any new calls
             lock (_calls)
@@ -301,34 +293,30 @@ namespace ContactPoint.Core.CallManager
                 // We only support 5 parallel lines
                 if (_calls.Count < LINES_MAXCOUNT)
                 {
-                    // Put active calls on hold
-                    foreach (var call in _calls)
-                    {
-                        if (call.State == CallState.ACTIVE)
-                            call.Hold();
-                    }
-
-                    var newCall = new CallWrapper(this, number)
-                    {
-                        LastUserAction = CallAction.Make,
-                        State = CallState.CONNECTING
-                    };
-
-                    var headersCollection = new List<SipHeader>();
-                    if (headers != null)
-                        headersCollection.AddRange(headers.Select(header => new SipHeader() { name = header.Key, value = header.Value }));
-
+                    var newCall = this.CreateNewOutboundCallWrapper(number, headers);
                     if (!AssignLineForCall(newCall))
                     {
                         Logger.LogNotice($"Can't assign line for new call {newCall.Number}. Lines count exceeds.");
                         throw new InvalidOperationException("Lines count exceeds.");
                     }
 
+                    // Put active calls on hold
+                    foreach (var call in _calls.Where(x => x.State == CallState.ACTIVE))
+                    {
+                        call.Hold();
+                    }
+
                     _calls.Add(newCall);
 
                     RaiseCallStateChanged(newCall);
 
-                    _dispatcher.BeginInvoke(new Action(() => DoMakeCallAsync(newCall, number, headersCollection.ToArray())));
+                    if (!ThreadPool.QueueUserWorkItem(o => DoMakeCallAsync((CallWrapper)o), newCall))
+                    {
+                        Logger.LogError($"Can't allocate a new thread to make a call: targetNumber={newCall.Number} -- possible ThreadPool overflow!");
+                        DropCall(newCall);
+
+                        return null;
+                    }
 
                     return newCall;
                 }
@@ -398,7 +386,7 @@ namespace ContactPoint.Core.CallManager
 
                     var headers = currentCall.Headers
                         .Where(x => x.Name.StartsWith("x-", StringComparison.OrdinalIgnoreCase))
-                        .Select(x => new SipHeader { name = x.Name, value = x.Value })
+                        .Select(x => x.ToSipHeader())
                         .ToArray();
 
                     _sip.SipekResources.CallManager.OnUserTransferAttendant(call.SessionId, destCall.SessionId, headers);
@@ -496,24 +484,24 @@ namespace ContactPoint.Core.CallManager
 
         #endregion
 
-        private void DoMakeCallAsync(CallWrapper call, string number, SipHeader[] headers)
+        private void DoMakeCallAsync(CallWrapper call)
         {
             try
             {
-                int sessionId = _sip.SipekResources.CallManager.CreateSimpleOutboundCall(number, headers);
-
+                int sessionId = _sip.SipekResources.CallManager.CreateSimpleOutboundCall(call.Number, call.Headers?.Select(x => x.ToSipHeader()).ToArray());
                 if (sessionId < 0)
-                    DropCall(call);
-                else
                 {
-                    call.SetSession(sessionId);
-
-                    RefreshCallState(call, sessionId);
+                    DropCall(call);
+                    return;
                 }
+                
+                call.SetSession(sessionId);
+
+                RefreshCallState(call, sessionId);
             }
             catch (Exception e)
             {
-                Logger.LogWarn(e, "Can't acquire new session for call. Number: {0}. Call: {1}.", number, call);
+                Logger.LogWarn(e, $"Failed to create PjSIP call: number={call.Number}; id={call.Id}");
             }
         }
 

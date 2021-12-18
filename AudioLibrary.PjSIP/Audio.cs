@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
@@ -159,32 +160,33 @@ namespace AudioLibrary.PjSIP
             var audioDevices = new List<AudioDevice>();
             var cnt = (uint)Imports.dll_enumerateSoundDevicesCount();
 
-            IntPtr ptr = IntPtr.Zero;
+            var sz = Marshal.SizeOf<Imports.PjAudioDeviceInfo>();
+            var memPtr = Marshal.AllocCoTaskMem((int)(sz * cnt));
             try
             {
-                var sz = Marshal.SizeOf(new Imports.PjAudioDeviceInfo());
-                ptr = Marshal.AllocCoTaskMem((int) (sz*cnt));
-
+                var ptr = memPtr;
                 cnt = (uint)Imports.dll_enumerateSoundDevices(ptr, cnt);
-
-                var devices = new Imports.PjAudioDeviceInfo[cnt];
-                var longPtr = ptr.ToInt64();
+                var devices = new List<AudioDevice>();
                 for (int i = 0; i < cnt; i++)
                 {
-                    var currentPtr = new IntPtr(longPtr);
-                    devices[i] = (Imports.PjAudioDeviceInfo)Marshal.PtrToStructure(currentPtr, typeof (Imports.PjAudioDeviceInfo));
-
-                    longPtr += sz;
-
-                    if (devices[i].IsNull == 0 && i > 0) // 0-item is default mapper. Let's hide it from users eyes.
+                    var device = Marshal.PtrToStructure<Imports.PjAudioDeviceInfo>(ptr);
+                    if (device.IsNull == 0 && !string.IsNullOrEmpty(device.Name) && i > 0) // 0-item is default mapper. Let's hide it from users eyes.
                     {
-                        lock (_audioDevicesWatcher.Devices)
-                        {
-                            audioDevices.Add(new AudioDevice(this, devices[i], i)
-                            {
-                                AudioDeviceDescriptor = _audioDevicesWatcher.Devices.FirstOrDefault(x => x.Name.StartsWith(devices[i].Name))
-                            });
-                        }
+                        devices.Add(new AudioDevice(this, device, i));
+                    }
+
+                    ptr = IntPtr.Add(ptr, sz);
+                }
+
+                var deviceGroups = devices.Select(x => new { Device = x, Devices = devices.Where(y => y.Name.StartsWith(x.Name)) }).ToArray();
+                var uniqueDevices = deviceGroups.Select(x => x.Devices.OrderByDescending(y => y.Name.Length).FirstOrDefault()).Where(x => x != null).ToArray();
+                
+                lock (_audioDevicesWatcher.Devices)
+                {
+                    foreach (var device in uniqueDevices)
+                    {
+                        device.AudioDeviceDescriptor = _audioDevicesWatcher.Devices.FirstOrDefault(x => x.Name.StartsWith(device.Name));
+                        audioDevices.Add(device);
                     }
                 }
 
@@ -192,7 +194,7 @@ namespace AudioLibrary.PjSIP
             }
             finally
             {
-                if (ptr != IntPtr.Zero) Marshal.FreeCoTaskMem(ptr);
+                Marshal.FreeCoTaskMem(memPtr);
             }
         }
 
