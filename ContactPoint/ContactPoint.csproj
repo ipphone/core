@@ -25,7 +25,7 @@
   <ItemGroup>
     <PackageReference Include="IPPhone.pjsip" Version="1.13.4" />
     <PackageReference Include="KryptonWinFormControls" Version="4.4.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
