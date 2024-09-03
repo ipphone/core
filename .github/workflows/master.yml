@@ -129,7 +129,7 @@ jobs:
       run: npm install -g appium
 
     - name: Download build artifacts
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v4.1.7
       with:
         name: Binaries
 
@@ -161,7 +161,7 @@ jobs:
 
     steps:
     - name: Download build artifacts
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v4.1.7
       with:
         name: Binaries
 
